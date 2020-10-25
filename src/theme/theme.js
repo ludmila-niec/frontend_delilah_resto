@@ -47,8 +47,6 @@ export const theme = createMuiTheme({
             fontFamily: ["Pacifico", "cursive"],
             // letterSpacing:'0.2rem'
         },
-        subtitle1: {
-            fontFamily: ["Pacifico", "cursive"],  
-        },
+        
     },
 });
