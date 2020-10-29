@@ -47,6 +47,8 @@ export const theme = createMuiTheme({
             fontFamily: ["Pacifico", "cursive"],
             // letterSpacing:'0.2rem'
         },
-        
+    },
+    shape: {
+        borderRadius: 10,
     },
 });

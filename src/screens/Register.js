@@ -1,26 +1,26 @@
-import React, { useState} from "react";
-import Header from './Header'
-import FormPersonal from "./register/FormPersonal";
-import FormUser from "./register/FormUser";
-import {Grid} from '@material-ui/core'
+import React, { useState } from "react";
+import Header from "../components/Auth/Header";
+import FormPersonal from "../components/Auth/register/FormPersonal";
+import FormUser from "../components/Auth/register/FormUser";
+import { Grid } from "@material-ui/core";
 
 const Register = () => {
     const [stepForm, setStepForm] = useState(1);
-     const [values, setValues] = useState({
-         firstName: "",
-         lastName: "",
-         phone: "",
-         adress: "",
-         username: "",
-         email: "",
-         password: "",
-         password2: "",
-     });
+    const [values, setValues] = useState({
+        firstName: "",
+        lastName: "",
+        phone: "",
+        adress: "",
+        username: "",
+        email: "",
+        password: "",
+        password2: "",
+    });
 
-     const handleChange = (e) => {
-         const { name, value } = e.target;
-         setValues({ ...values, [name]: value });
-     };
+    const handleChange = (e) => {
+        const { name, value } = e.target;
+        setValues({ ...values, [name]: value });
+    };
 
     //siguiente paso FormPersonal a => FormUser
     function handleNextStep() {
@@ -42,7 +42,7 @@ const Register = () => {
                         <FormPersonal
                             handleNextStep={handleNextStep}
                             handleChange={handleChange}
-                            formValues={values}
+                            values={values}
                             setValues={setValues}
                         />
                     )}
@@ -51,7 +51,7 @@ const Register = () => {
                             handleNextStep={handleNextStep}
                             handlePrevStep={handlePrevStep}
                             handleChange={handleChange}
-                            formValues={values}
+                            values={values}
                             setValues={setValues}
                         />
                     )}
@@ -61,9 +61,6 @@ const Register = () => {
             </Grid>
         </>
     );
-   
-
 };
-
 
 export default Register;

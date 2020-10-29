@@ -1,13 +1,7 @@
 import React from "react";
-import useForm from "../../Hooks/useForm";
+import useForm from "../../../Hooks/useForm";
 import { validateRegister1 } from "../validate";
-import {
-    TextField,
-    Box,
-    Typography,
-    Button,
-    Link,
-} from "@material-ui/core";
+import { TextField, Box, Typography, Button, Link } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 
 const useStyles = makeStyles((theme) => ({
@@ -30,12 +24,12 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-const FormPersonal = ({ handleNextStep, formValues, handleChange }) => {
+const FormPersonal = ({ handleNextStep, values, handleChange }) => {
     const classes = useStyles();
-    const { handleSubmit, values, errors } = useForm(
+    const { handleSubmit, errors } = useForm(
         validateRegister1,
         submitNextStep,
-        formValues
+        values
     );
 
     function submitNextStep() {
