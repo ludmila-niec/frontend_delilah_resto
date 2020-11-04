@@ -1,7 +1,8 @@
 import React from "react";
-import Welcome from "./screens/Welcome";
-import Register from "./screens/Register";
-import Home from "./screens/Home";
+import Welcome from "./pages/Welcome";
+import Register from "./pages/Register";
+import Home from "./pages/Home";
+import { CssBaseline } from "@material-ui/core";
 import { ThemeProvider } from "@material-ui/core/styles";
 import { theme } from "./theme/theme";
 
@@ -9,6 +10,7 @@ function App() {
     return (
         <div>
             <ThemeProvider theme={theme}>
+                <CssBaseline />
                 {/* <Welcome /> */}
                 {/* <Register /> */}
                 <Home />

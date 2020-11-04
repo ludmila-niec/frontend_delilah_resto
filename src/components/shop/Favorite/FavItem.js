@@ -3,19 +3,20 @@ import {
     Card,
     CardHeader,
     CardContent,
+    CardActions,
+    CardMedia,
     Typography,
     IconButton,
-    CardActions,
     Button,
 } from "@material-ui/core";
 import { Favorite } from "@material-ui/icons";
 import { makeStyles } from "@material-ui/core/styles";
+import saladImg from "../../../assets/ensalada.png";
 
 const useStyles = makeStyles((theme) => ({
     root: {
         minHeight: 350,
         maxWidth: 250,
-        boxShadow: theme.shadows[13],
         padding: "1rem",
         margin: "1.5rem",
     },
@@ -47,7 +48,11 @@ const FavItem = () => {
     const classes = useStyles();
     return (
         <div>
-            <Card className={classes.root}>
+            <Card
+                className={classes.root}
+                elevation={0}
+                style={{ boxShadow: "0px 4px 11px 4px rgba(0, 0, 0, 0.1)" }}
+            >
                 <CardHeader
                     action={
                         <IconButton className={classes.roundButton}>
@@ -60,13 +65,9 @@ const FavItem = () => {
                     style={{ padding: "0.5rem" }}
                 />
                 <div className={classes.pictureBackground}>
-                    {/* <CardMedia
-                        image="assets/ensalada.png"
+                    <CardMedia
+                        image={saladImg}
                         title="chicken salad"
-                    /> */}
-                    <img
-                        src="assets/ensalada.png"
-                        alt="ensalada"
                         className={classes.productImg}
                     />
                 </div>

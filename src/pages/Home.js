@@ -1,10 +1,12 @@
 import React from "react";
 import NavBar from "../components/Navbar";
 import SearchBox from "../components/shop/SearchBox";
-import FavSection from "../components/shop/FavSection";
+import FavSection from "../components/shop/Favorite/FavSection";
+import CategoriesSection from "../components/shop/Category/CategoriesSection";
+import Footer from "../components/Footer";
 import { Grid } from "@material-ui/core";
 
-const Store = () => {
+const Home = () => {
     return (
         <div>
             <NavBar />
@@ -14,11 +16,13 @@ const Store = () => {
                 <Grid item container direction="column" xs={10}>
                     <SearchBox />
                     <FavSection />
+                    <CategoriesSection />
                 </Grid>
                 <Grid item xs={1} />
+                <Footer />
             </Grid>
         </div>
     );
 };
 
-export default Store;
+export default Home;

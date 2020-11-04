@@ -1,0 +1,33 @@
+.cardContainer {
+    height: 150px;
+    padding: 1rem;
+    margin-bottom: 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    box-shadow: 0px 4px 11px 4px rgba(0, 0, 0, 0.1);
+}
+
+.cardContainer:nth-child(3n + 1) {
+    background-color: #fde2df;
+}
+.cardContainer:nth-child(3n + 2) {
+    background-color: #f9f6f0;
+}
+.cardContainer:nth-child(3n + 3) {
+    background-color: #c6cbe7;
+}
+
+.foodImg {
+    height: 70px;
+    width: 70px;
+    transform: rotateZ(-6.5deg);
+    margin-left: 1rem;
+    filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
+}
+
+.contentAction {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}

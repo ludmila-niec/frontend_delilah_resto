@@ -1,12 +1,12 @@
 import React from "react";
 import { TextField, Button } from "@material-ui/core";
-import { Search } from "@material-ui/icons";
 import { makeStyles } from "@material-ui/core/styles";
 
 const useStyles = makeStyles((theme) => ({
     form: {
         marginBottom: theme.spacing(2),
         display: "flex",
+        justifyContent: "space-between",
         alignItems: "center",
     },
     button: {
@@ -22,12 +22,11 @@ const SearchBox = () => {
                 variant="outlined"
                 color="primary"
                 margin="dense"
-                placeholder="Buscar..."
+                placeholder="Hoy tengo ganas de..."
             />
             <Button
                 color="primary"
                 variant="outlined"
-                // startIcon={<Search />}
                 className={classes.button}
             >
                 Buscar

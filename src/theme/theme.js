@@ -47,8 +47,19 @@ export const theme = createMuiTheme({
             fontFamily: ["Pacifico", "cursive"],
             // letterSpacing:'0.2rem'
         },
+        h3: {
+            fontFamily: ["Pacifico", "cursive"],
+            fontSize: "1.2rem",
+        },
+        h4: {
+            fontFamily: ["Pacifico", "cursive"],
+            fontSize: "1.5rem",
+        },
     },
     shape: {
         borderRadius: 10,
+    },
+    myShadow: {
+        cardShadow: "0px 4px 11px 4px rgba(0, 0, 0, 0.1)",
     },
 });
