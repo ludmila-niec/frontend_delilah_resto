@@ -7,6 +7,10 @@ import { ArrowBackIos, ArrowForwardIos } from "@material-ui/icons";
 import { makeStyles } from "@material-ui/core/styles";
 
 const useStyles = makeStyles((theme) => ({
+    root: {
+        display: "flex",
+        justifyContent: "center",
+    },
     slide: {
         [theme.breakpoints.up("sm")]: {
             width: "300px",
@@ -57,7 +61,7 @@ const BaseCarousel = (props) => {
     const classes = useStyles();
 
     return (
-        <div className="carousel-outer">
+        <div className={`carousel-outer ${classes.root}`}>
             <Carousel
                 width="300px"
                 {...getConfigurableProps()}
@@ -71,7 +75,7 @@ const BaseCarousel = (props) => {
                             onClick={onClickHandler}
                             title={label}
                             className={classes.arrowStyles}
-                            style={{ left: 15 }}
+                            style={{ left: -20 }}
                         >
                             <ArrowBackIos color="primary" />
                         </IconButton>
@@ -84,7 +88,7 @@ const BaseCarousel = (props) => {
                             onClick={onClickHandler}
                             title={label}
                             className={classes.arrowStyles}
-                            style={{ right: 15 }}
+                            style={{ right: -20 }}
                         >
                             <ArrowForwardIos color="primary" />
                         </IconButton>

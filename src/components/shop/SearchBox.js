@@ -19,12 +19,15 @@ const SearchBox = () => {
     return (
         <form className={classes.form}>
             <TextField
+                label="Busca tu comida favorita"
+                aria-label="search products"
                 variant="outlined"
                 color="primary"
                 margin="dense"
                 placeholder="Hoy tengo ganas de..."
             />
             <Button
+                aria-label="button search"
                 color="primary"
                 variant="outlined"
                 className={classes.button}
