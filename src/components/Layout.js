@@ -5,13 +5,19 @@ import { Grid } from "@material-ui/core";
 
 const Layout = ({ children }) => {
     return (
-        <div style={{ minHeight: "100vh" }}>
+        <div>
             <NavBar />
-            <div style={{ marginTop: "7rem" }} />
-            <main>
+
+            <main style={{ minHeight: "calc(100vh - 200px)" }}>
                 <Grid container>
                     <Grid item xs={1} />
-                    <Grid item container direction="column" xs={10}>
+                    <Grid
+                        item
+                        container
+                        direction="column"
+                        xs={10}
+                        style={{ paddingTop: "7rem" }}
+                    >
                         {children}
                     </Grid>
                     <Grid item xs={1} />
