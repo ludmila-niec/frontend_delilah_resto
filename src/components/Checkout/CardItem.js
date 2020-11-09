@@ -43,7 +43,7 @@ const useStyles = makeStyles((theme) => ({
         display: "flex",
         flexDirection: "column",
         justifyContent: "space-between",
-        padding: "1.5rem 1.5rem 0 0",
+        padding: "1.2rem",
     },
     btn: {
         padding: "5px",

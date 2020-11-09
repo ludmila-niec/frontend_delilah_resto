@@ -3,7 +3,7 @@ import Layout from "../components/Layout";
 import CardItem from "../components/Checkout/CardItem";
 import CheckoutForm from "../components/Checkout/CheckoutForm";
 import { Typography } from "@material-ui/core";
-import ModalConfirmOrder from "../components/Checkout/ModalConfirmOrder";
+import ModalConfirmOrder from "../components/Modal/ModalConfirmOrder";
 
 const Checkout = () => {
     const [isOpen, setIsOpen] = useState(false);

@@ -18,10 +18,10 @@ function App() {
                 {/* <Welcome /> */}
                 {/* <Register /> */}
                 {/* <Home /> */}
-                <Favs />
+                {/* <Favs /> */}
                 {/* <Category /> */}
                 {/* <Product /> */}
-                {/* <Checkout /> */}
+                <Checkout />
             </ThemeProvider>
         </div>
     );
