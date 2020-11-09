@@ -40,7 +40,7 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-const ProductDetail = () => {
+const ProductDetail = ({ onOpenModal }) => {
     const classes = useStyles();
     return (
         <div className={classes.container}>
@@ -71,6 +71,7 @@ const ProductDetail = () => {
                         variant="contained"
                         color="primary"
                         className={classes.btnAdd}
+                        onClick={onOpenModal}
                     >
                         Agregar $390
                     </Button>

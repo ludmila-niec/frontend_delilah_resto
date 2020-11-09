@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import Modal from "./Modal";
+import Modal from "../Modal/Modal";
 import ModalLoading from "../Modal/ModalLoading";
 import ModalSuccess from "../Modal/ModalSuccess";
 import ModalError from "../Modal/ModalError";

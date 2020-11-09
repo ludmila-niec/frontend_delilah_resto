@@ -20,8 +20,8 @@ function App() {
                 {/* <Home /> */}
                 {/* <Favs /> */}
                 {/* <Category /> */}
-                {/* <Product /> */}
-                <Checkout />
+                <Product />
+                {/* <Checkout /> */}
             </ThemeProvider>
         </div>
     );

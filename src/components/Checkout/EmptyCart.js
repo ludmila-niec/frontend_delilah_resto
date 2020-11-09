@@ -1,6 +1,7 @@
 import React from "react";
 import { Button, Typography } from "@material-ui/core";
-import favStatusImg from "../../assets/status/no-likes.png";
+import emptyCartImg from "../../assets/status/empty-cart.png";
+
 import { makeStyles } from "@material-ui/core/styles";
 
 const useStyles = makeStyles((theme) => ({
@@ -21,14 +22,13 @@ const useStyles = makeStyles((theme) => ({
         fontSize: "1rem",
     },
 }));
-
-const FavsEmpty = () => {
+const EmptyCart = () => {
     const classes = useStyles();
     return (
         <div className={classes.container}>
-            <img src={favStatusImg} alt="no favourites" />
+            <img src={emptyCartImg} alt="no products" />
             <Typography color="secondary" className={classes.textInfo}>
-                Todavia no agregaste productos favoritos
+                Aún no agregaste productos a tu pedido
             </Typography>
             <Button variant="contained" color="primary" className={classes.btn}>
                 agregar productos
@@ -37,4 +37,4 @@ const FavsEmpty = () => {
     );
 };
 
-export default FavsEmpty;
+export default EmptyCart;
