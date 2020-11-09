@@ -7,6 +7,7 @@ import Product from "./pages/Product";
 import { CssBaseline } from "@material-ui/core";
 import { ThemeProvider } from "@material-ui/core/styles";
 import { theme } from "./theme/theme";
+import Checkout from "./pages/Checkout";
 
 function App() {
     return (
@@ -17,7 +18,8 @@ function App() {
                 {/* <Register /> */}
                 {/* <Home /> */}
                 {/* <Category /> */}
-                <Product />
+                {/* <Product /> */}
+                <Checkout />
             </ThemeProvider>
         </div>
     );

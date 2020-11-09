@@ -38,6 +38,9 @@ export const theme = createMuiTheme({
         secondaryLighter: {
             main: "#FDE2DF",
         },
+        error: {
+            main: "#E2607F",
+        },
     },
 
     typography: {
