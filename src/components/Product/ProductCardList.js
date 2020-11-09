@@ -1,17 +1,16 @@
 import React from "react";
-import ProductItem from "./ProductItem";
+import ProductItem from "./ProductCard";
 import { makeStyles } from "@material-ui/core/styles";
 
 const useStyles = makeStyles((theme) => ({
     container: {
-        margin: "2rem 0",
+        margin: "3rem 0",
     },
 }));
-const ProductList = () => {
+const ProductCardList = () => {
     const classes = useStyles();
     return (
         <div className={classes.container}>
-            <hr style={{ opacity: "0.2" }} />
             <ProductItem />
             <ProductItem />
             <ProductItem />
@@ -19,4 +18,4 @@ const ProductList = () => {
     );
 };
 
-export default ProductList;
+export default ProductCardList;

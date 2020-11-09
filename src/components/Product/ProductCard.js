@@ -5,6 +5,7 @@ import {
     CardMedia,
     CardActionArea,
     Typography,
+    IconButton,
 } from "@material-ui/core";
 import { Favorite } from "@material-ui/icons";
 import saladImg from "../../assets/ensalada.png";
@@ -51,9 +52,10 @@ const useStyles = makeStyles((theme) => ({
         position: "absolute",
         right: "10px",
         bottom: "10px",
+        padding: 0,
     },
 }));
-const ProductItem = () => {
+const ProductCard = () => {
     const classes = useStyles();
     return (
         <Card
@@ -93,9 +95,11 @@ const ProductItem = () => {
                     </Typography>
                 </CardContent>
             </CardActionArea>
-            <Favorite color="secondary" className={classes.icon} />
+            <IconButton className={classes.icon}>
+                <Favorite color="secondary" />
+            </IconButton>
         </Card>
     );
 };
 
-export default ProductItem;
+export default ProductCard;

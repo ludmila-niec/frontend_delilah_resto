@@ -46,27 +46,30 @@ const useStyles = makeStyles((theme) => ({
 const CategoryCard = () => {
     const classes = useStyles();
     return (
-        <Card elevation={0} className={classes.cardContainer}>
-            <IconButton className={classes.icon}>
-                <ArrowBackIos color="primary" />
-            </IconButton>
-            <div className={classes.cardItems}>
-                <CardMedia
-                    image={saladCategory}
-                    title="ensalada"
-                    className={classes.foodCategory}
-                />
-                <CardContent>
-                    <Typography
-                        variant="h4"
-                        color="primary"
-                        className={classes.root}
-                    >
-                        Ensaladas
-                    </Typography>
-                </CardContent>
-            </div>
-        </Card>
+        <>
+            <Card elevation={0} className={classes.cardContainer}>
+                <IconButton className={classes.icon}>
+                    <ArrowBackIos color="primary" />
+                </IconButton>
+                <div className={classes.cardItems}>
+                    <CardMedia
+                        image={saladCategory}
+                        title="ensalada"
+                        className={classes.foodCategory}
+                    />
+                    <CardContent>
+                        <Typography
+                            variant="h4"
+                            color="primary"
+                            className={classes.root}
+                        >
+                            Ensaladas
+                        </Typography>
+                    </CardContent>
+                </div>
+            </Card>
+            <hr style={{ opacity: "0.2" }} />
+        </>
     );
 };
 

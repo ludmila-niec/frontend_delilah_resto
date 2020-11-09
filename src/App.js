@@ -4,10 +4,11 @@ import Register from "./pages/Register";
 import Home from "./pages/Home";
 import Category from "./pages/Category";
 import Product from "./pages/Product";
+import Checkout from "./pages/Checkout";
+import Favs from "./pages/Favs";
 import { CssBaseline } from "@material-ui/core";
 import { ThemeProvider } from "@material-ui/core/styles";
 import { theme } from "./theme/theme";
-import Checkout from "./pages/Checkout";
 
 function App() {
     return (
@@ -17,9 +18,10 @@ function App() {
                 {/* <Welcome /> */}
                 {/* <Register /> */}
                 {/* <Home /> */}
+                <Favs />
                 {/* <Category /> */}
                 {/* <Product /> */}
-                <Checkout />
+                {/* <Checkout /> */}
             </ThemeProvider>
         </div>
     );
