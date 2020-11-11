@@ -36,6 +36,7 @@ const useStyles = makeStyles((theme) => ({
     productImg: {
         height: "90%",
         width: "90%",
+        filter: "drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25))",
     },
     productData: {
         alignSelf: "flex-start",

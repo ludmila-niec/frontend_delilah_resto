@@ -6,6 +6,7 @@ import Category from "./pages/Category";
 import Product from "./pages/Product";
 import Checkout from "./pages/Checkout";
 import Favs from "./pages/Favs";
+import Order from "./pages/Order";
 import { CssBaseline } from "@material-ui/core";
 import { ThemeProvider } from "@material-ui/core/styles";
 import { theme } from "./theme/theme";
@@ -20,8 +21,9 @@ function App() {
                 {/* <Home /> */}
                 {/* <Favs /> */}
                 {/* <Category /> */}
-                <Product />
+                {/* <Product /> */}
                 {/* <Checkout /> */}
+                <Order />
             </ThemeProvider>
         </div>
     );
