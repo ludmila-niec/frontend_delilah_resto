@@ -1,7 +1,7 @@
-import React from 'react'
-import {Grid, Typography, Button, Box} from '@material-ui/core'
+import React from "react";
+import { Grid, Typography, Button, Box } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
-
+import { Link as RouterLink } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
     container: {
@@ -31,25 +31,28 @@ const useStyles = makeStyles((theme) => ({
         [theme.breakpoints.up("sm")]: {
             width: "50%",
         },
-        [theme.breakpoints.up('md')]:{
-            fontSize:'1.2rem'
-        }
+        [theme.breakpoints.up("md")]: {
+            fontSize: "1.2rem",
+        },
     },
 }));
 
-
 const Intro = () => {
-     const classes = useStyles();
+    const classes = useStyles();
     return (
-        <Grid
-            item
-            container
-            xs={10}
-            md={8}
-            justify='center'
-           >
-            <Box display='flex' flexDirection='column' height='50%' justifyContent='flex-end' alignContent='center'>
-                <Typography color="primary" align="center" className={classes.subtitle}>
+        <Grid item container xs={10} md={8} justify="center">
+            <Box
+                display="flex"
+                flexDirection="column"
+                height="50%"
+                justifyContent="flex-end"
+                alignContent="center"
+            >
+                <Typography
+                    color="primary"
+                    align="center"
+                    className={classes.subtitle}
+                >
                     Te damos la bienvenida a
                 </Typography>
                 <Typography
@@ -61,20 +64,33 @@ const Intro = () => {
                     Delilah Resto
                 </Typography>
             </Box>
-            <Box display="flex" flexDirection="column" width='90%'  alignItems='center'>
+            <Box
+                display="flex"
+                flexDirection="column"
+                width="90%"
+                alignItems="center"
+            >
                 <Button
                     variant="contained"
                     color="primary"
                     className={classes.button}
+                    component={RouterLink}
+                    to="/register"
                 >
                     CREAR CUENTA
                 </Button>
-                <Button variant="outlined" color="primary" className={classes.button}>
+                <Button
+                    variant="outlined"
+                    color="primary"
+                    className={classes.button}
+                    component={RouterLink}
+                    to="/login"
+                >
                     INICIAR SESION
                 </Button>
             </Box>
         </Grid>
     );
-}
+};
 
-export default Intro
+export default Intro;

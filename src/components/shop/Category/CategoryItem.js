@@ -7,6 +7,7 @@ import {
     Button,
     Typography,
 } from "@material-ui/core";
+import { Link as RouterLink } from "react-router-dom";
 import cssClasses from "./categoryItem.module.css";
 import burger from "../../../assets/foodIllustration/Burger.svg";
 
@@ -29,7 +30,13 @@ const CategoryItem = () => {
                     </Typography>
                 </CardContent>
                 <CardActions>
-                    <Button variant="contained" color="primary">
+                    <Button
+                        variant="contained"
+                        color="primary"
+                        component={RouterLink}
+                        to={"/category"}
+                        // to={'/category/' + caregory.id}
+                    >
                         ver mas
                     </Button>
                 </CardActions>

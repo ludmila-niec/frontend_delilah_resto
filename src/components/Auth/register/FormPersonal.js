@@ -3,6 +3,7 @@ import useForm from "../../../Hooks/useForm";
 import { validateRegister1 } from "../validate";
 import { TextField, Box, Typography, Button, Link } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
+import { Link as RouterLink } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
     container: {
@@ -127,6 +128,8 @@ const FormPersonal = ({ handleNextStep, values, handleChange }) => {
                         variant="outlined"
                         color="primary"
                         className={classes.button}
+                        component={RouterLink}
+                        to="/"
                     >
                         CANCELAR
                     </Button>
@@ -135,7 +138,9 @@ const FormPersonal = ({ handleNextStep, values, handleChange }) => {
             <div style={{ textAlign: "center" }}>
                 <Typography>Ya tenes cuenta?</Typography>
                 <Typography>
-                    <Link href="#">Hace click acá</Link>
+                    <Link component={RouterLink} to="/login">
+                        Hace click acá
+                    </Link>
                 </Typography>
             </div>
         </div>

@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
-import { Grid } from "@material-ui/core";
-import { makeStyles } from "@material-ui/core/styles";
 import LoadingIntro from "../components/intro/LoadingIntro";
 import Intro from "../components/intro/Intro";
+import { Grid } from "@material-ui/core";
+import { makeStyles } from "@material-ui/core/styles";
 
 const useStyles = makeStyles({
     root: {

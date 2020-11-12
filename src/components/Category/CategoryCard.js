@@ -7,6 +7,7 @@ import {
     Typography,
 } from "@material-ui/core";
 import { ArrowBackIos } from "@material-ui/icons";
+import { Link as RouterLink } from "react-router-dom";
 
 import { makeStyles } from "@material-ui/core/styles";
 import saladCategory from "../../assets/foodIllustration/Salad.svg";
@@ -48,7 +49,11 @@ const CategoryCard = () => {
     return (
         <>
             <Card elevation={0} className={classes.cardContainer}>
-                <IconButton className={classes.icon}>
+                <IconButton
+                    className={classes.icon}
+                    component={RouterLink}
+                    to="/home"
+                >
                     <ArrowBackIos color="primary" />
                 </IconButton>
                 <div className={classes.cardItems}>

@@ -1,8 +1,9 @@
 import React from "react";
 import useForm from "../../../Hooks/useForm";
 import { validateRegister2 } from "../validate";
-import { TextField, Box, Typography, Button, Link } from "@material-ui/core";
+import { TextField, Box, Typography, Button } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
+import { Link } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
     container: {
@@ -131,14 +132,14 @@ const FormUser = ({ handlePrevStep, handleNextStep, values, handleChange }) => {
                         className={classes.button}
                         onClick={handlePrevStep}
                     >
-                        VOLVER ATRAS
+                        <Link to="/">volver atras</Link>
                     </Button>
                 </Box>
             </form>
             <div style={{ textAlign: "center" }}>
                 <Typography>Ya tenes cuenta?</Typography>
                 <Typography>
-                    <Link href="#">Hace click acá</Link>
+                    <Link to="/login">Hace click acá</Link>
                 </Typography>
             </div>
         </div>

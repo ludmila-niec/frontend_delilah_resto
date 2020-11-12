@@ -1,6 +1,5 @@
 import React from "react";
 import { Typography } from "@material-ui/core";
-import CategoryItem from "./CategoryItem";
 import Categories from "./Categories";
 
 const CategoriesSection = () => {

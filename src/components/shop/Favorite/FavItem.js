@@ -10,6 +10,7 @@ import {
     Button,
 } from "@material-ui/core";
 import { Favorite } from "@material-ui/icons";
+import { Link as RouterLink } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
 import saladImg from "../../../assets/ensalada.png";
 
@@ -81,6 +82,9 @@ const FavItem = () => {
                         variant="contained"
                         color="primary"
                         style={{ margin: "0.2rem auto" }}
+                        component={RouterLink}
+                        to="/product"
+                        // component={RouterLink} to={'/product/' + product.id }
                     >
                         VER PRODUCTO
                     </Button>

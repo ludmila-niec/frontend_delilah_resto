@@ -1,7 +1,6 @@
 import React from "react";
 import CategoryItem from "./CategoryItem";
 import { makeStyles } from "@material-ui/core/styles";
-import cssClasses from "./categoryItem.module.css";
 
 const useStyles = makeStyles({
     container: {
