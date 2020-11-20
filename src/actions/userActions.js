@@ -55,3 +55,37 @@ export const register = ({
         console.log(error.response);
     }
 };
+
+export const login = ({ email, password }) => async (dispatch) => {
+    try {
+        dispatch({
+            type: USER_LOGIN_REQUEST,
+        });
+        const config = {
+            headers: {
+                "Content-Type": "application/json",
+            },
+        };
+        const body = {
+            email,
+            password,
+        };
+        const { data } = await axios.post(
+            "https://delilahrestoapp.herokuapp.com/api/auth/login",
+            body,
+            config
+        );
+
+        dispatch({
+            type: USER_LOGIN_SUCCESS,
+            payload: data,
+        });
+        console.log(data);
+    } catch (error) {
+        dispatch({
+            type: USER_LOGIN_FAIL,
+            payload: error.response.data.message,
+        });
+        console.log(error.response);
+    }
+};

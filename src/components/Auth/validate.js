@@ -1,5 +1,5 @@
 export function validateRegister1(values) {
-    const requiredField = "Este campo es requrido";
+    const requiredField = "Este campo es requerido";
     let errors = {};
     if (!values.firstName) {
         errors.firstName = requiredField;
@@ -26,7 +26,7 @@ export function validateRegister1(values) {
 }
 
 export function validateRegister2(values) {
-    const requiredField = "Este campo es requrido";
+    const requiredField = "Este campo es requerido";
     let errors = {};
     if (!values.username) {
         errors.username = requiredField;
@@ -51,5 +51,19 @@ export function validateRegister2(values) {
         errors.password2 = "Las contraseñas no coinciden";
     }
 
+    return errors;
+}
+
+export function validateLogin(values) {
+    const requiredField = "Este campo es requerido";
+    let errors = {};
+    if (!values.email) {
+        errors.email = requiredField;
+    } else if (!/\S+@\S+\.\S+/.test(values.email)) {
+        errors.email = "Correo electronico invalido";
+    }
+    if (!values.password) {
+        errors.password = requiredField;
+    }
     return errors;
 }
