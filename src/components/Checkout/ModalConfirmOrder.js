@@ -6,15 +6,14 @@ import ModalError from "../Modal/ModalError";
 
 const loadingMsg = {
     title: " Estamos procesando tu pedido...",
-    btnCancel: "cancelar",
 };
 
 const successMsg = {
     title: "Recibimos tu Pedido!",
     textInfo:
         "Gracias por hacer tu pedido en Delilah. Podes seguir tu pedido para saber donde está",
-    btnFollowOrder: "seguir pedido",
-    btnBackHome: "ir al inicio",
+    btnPrimary: "seguir pedido",
+    btnSecondary: "ir al inicio",
 };
 
 const errorMsg = {

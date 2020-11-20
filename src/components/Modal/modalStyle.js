@@ -6,6 +6,7 @@ const useStyles = makeStyles((theme) => ({
         display: "flex",
         flexDirection: "column",
         alignItems: "center",
+        backgroundColor: "#ffffff",
 
         "& > *": {
             margin: "1rem",
@@ -20,7 +21,7 @@ const useStyles = makeStyles((theme) => ({
         textAlign: "center",
     },
     btnContainer: {
-        width: "60%",
+        width: "90%",
     },
     btn: {
         fontSize: "1rem",

@@ -1,9 +1,10 @@
 import React from "react";
 import { Typography, Button } from "@material-ui/core";
+import { Link as RouterLink } from "react-router-dom";
 import statusDoneImg from "../../assets/status/Done-blue.png";
 import useStyles from "./modalStyle";
 
-const ModalSuccess = ({ message }) => {
+const ModalSuccess = ({ message, linkPrimary, linkSecondary }) => {
     const classes = useStyles();
     return (
         <div className={classes.container}>
@@ -23,15 +24,19 @@ const ModalSuccess = ({ message }) => {
                     variant="contained"
                     color="primary"
                     className={classes.btn}
+                    component={RouterLink}
+                    to={linkPrimary}
                 >
-                    {message.btnFollowOrder}
+                    {message.btnPrimary}
                 </Button>
                 <Button
                     variant="outlined"
                     color="primary"
                     className={classes.btn}
+                    component={RouterLink}
+                    to={linkSecondary}
                 >
-                    {message.btnBackHome}
+                    {message.btnSecondary}
                 </Button>
             </div>
         </div>

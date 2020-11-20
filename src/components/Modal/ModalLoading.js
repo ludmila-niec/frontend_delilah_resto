@@ -10,15 +10,9 @@ const ModalLoading = ({ message }) => {
                 {message.title}
             </Typography>
             <CircularProgress color="primary" />
-            <div className={classes.btnContainer}>
-                <Button
-                    variant="contained"
-                    color="primary"
-                    className={classes.btn}
-                >
-                    {message.btnCancel}
-                </Button>
-            </div>
+            <Typography className={classes.textInfo}>
+                Un momento por favor...
+            </Typography>
         </div>
     );
 };

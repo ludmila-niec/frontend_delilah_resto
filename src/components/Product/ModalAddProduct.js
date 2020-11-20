@@ -5,13 +5,12 @@ import ModalSuccess from "../Modal/ModalSuccess";
 import ModalError from "../Modal/ModalError";
 const loadingMsg = {
     title: " Agregando a tu pedido",
-    btnCancel: "cancelar",
 };
 
 const successMsg = {
     title: "Producto agregado!",
-    btnFollowOrder: "realizar pedido",
-    btnBackHome: "agregar mas productos",
+    btnPrimary: "realizar pedido",
+    btnSecondary: "agregar mas productos",
 };
 
 const errorMsg = {
