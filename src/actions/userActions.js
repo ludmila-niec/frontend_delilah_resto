@@ -48,6 +48,10 @@ export const register = ({
         });
         console.log(data);
     } catch (error) {
+        dispatch({
+            type: USER_REGISTER_FAIL,
+            payload: error.response.data.message,
+        });
         console.log(error.response);
     }
 };

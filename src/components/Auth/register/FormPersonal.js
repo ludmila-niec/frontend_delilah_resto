@@ -16,6 +16,7 @@ const useStyles = makeStyles((theme) => ({
     button: {
         marginBottom: "1.5rem",
         width: "100%",
+        fontSize: "1rem",
         [theme.breakpoints.up("sm")]: {
             width: "50%",
         },
