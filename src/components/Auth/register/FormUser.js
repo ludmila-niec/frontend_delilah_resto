@@ -1,9 +1,11 @@
-import React from "react";
+import React, { useEffect } from "react";
 import useForm from "../../../Hooks/useForm";
+import { Link as RouterLink } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { register } from "../../../actions/userActions";
 import { validateRegister2 } from "../validate";
-import { TextField, Box, Typography, Button } from "@material-ui/core";
+import { TextField, Box, Typography, Button, Link } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
-import { Link } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
     container: {
@@ -25,16 +27,51 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-const FormUser = ({ handlePrevStep, handleNextStep, values, handleChange }) => {
+const FormUser = ({
+    handlePrevStep,
+    values,
+    handleChange,
+    location,
+    history,
+}) => {
     const classes = useStyles();
     const { handleSubmit, errors } = useForm(
         validateRegister2,
         submitNextStep,
         values
     );
+    const dispatch = useDispatch();
+    const userRegister = useSelector((state) => state.userRegister);
+    const { loading, userInfo, error } = userRegister;
+    const redirect = location.search ? location.search.split("=")[1] : "/login";
+    useEffect(() => {
+        if (userInfo) {
+            history.push(redirect);
+        }
+    }, [history, userInfo, redirect]);
 
     function submitNextStep() {
-        handleNextStep();
+        const {
+            firstName,
+            lastName,
+            phone,
+            adress,
+            username,
+            email,
+            password,
+        } = values;
+        dispatch(
+            register({
+                firstName,
+                lastName,
+                phone,
+                adress,
+                username,
+                email,
+                password,
+            })
+        );
+        console.log(values);
     }
 
     return (
@@ -132,14 +169,18 @@ const FormUser = ({ handlePrevStep, handleNextStep, values, handleChange }) => {
                         className={classes.button}
                         onClick={handlePrevStep}
                     >
-                        <Link to="/">volver atras</Link>
+                        <Link component={RouterLink} to="/">
+                            volver atras
+                        </Link>
                     </Button>
                 </Box>
             </form>
             <div style={{ textAlign: "center" }}>
                 <Typography>Ya tenes cuenta?</Typography>
                 <Typography>
-                    <Link to="/login">Hace click acá</Link>
+                    <Link component={RouterLink} to="/login">
+                        Hace click acá
+                    </Link>
                 </Typography>
             </div>
         </div>

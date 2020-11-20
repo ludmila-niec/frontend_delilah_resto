@@ -4,7 +4,7 @@ import FormPersonal from "../components/Auth/register/FormPersonal";
 import FormUser from "../components/Auth/register/FormUser";
 import { Grid } from "@material-ui/core";
 
-const Register = () => {
+const Register = ({ location, history }) => {
     const [stepForm, setStepForm] = useState(1);
     const [values, setValues] = useState({
         firstName: "",
@@ -48,14 +48,15 @@ const Register = () => {
                     )}
                     {stepForm === 2 && (
                         <FormUser
-                            handleNextStep={handleNextStep}
                             handlePrevStep={handlePrevStep}
                             handleChange={handleChange}
                             values={values}
                             setValues={setValues}
+                            location={location}
+                            history={history}
                         />
                     )}
-                    {stepForm === 3 && <h1>Registro Ok!</h1>}
+                    {/* {stepForm === 3 && <h1>Registro Ok!</h1>} */}
                 </Grid>
                 <Grid item xs={1} />
             </Grid>
