@@ -20,8 +20,6 @@ const Routes = () => {
                 <Route path="/login" component={Login} />
                 <Route path="/home" component={Home} />
                 <Route path="/favs" component={Favs} />
-                <Route exact path="/category" component={Category} />
-                {/* testing "/category" */}
                 <Route exact path="/category/:id" component={Category} />
                 <Route exact path="/product" component={Product} />
                 {/* test path /product */}

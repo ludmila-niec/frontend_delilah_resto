@@ -1,16 +1,8 @@
 import React from "react";
-import {
-    Card,
-    CardContent,
-    CardMedia,
-    IconButton,
-    Typography,
-} from "@material-ui/core";
+import { Card, CardContent, IconButton, Typography } from "@material-ui/core";
 import { ArrowBackIos } from "@material-ui/icons";
-import { Link as RouterLink } from "react-router-dom";
-
+import { withRouter } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
-import saladCategory from "../../assets/foodIllustration/Salad.svg";
 
 const useStyles = makeStyles((theme) => ({
     cardContainer: {
@@ -26,49 +18,46 @@ const useStyles = makeStyles((theme) => ({
         left: 0,
         top: 0,
     },
-    foodCategory: {
+    foodImg: {
         height: "115px",
         width: "115px",
         margin: "0 0 0.5rem 1rem",
         filter: "drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25))",
         transform: "translateY(-10px) rotateZ(-6.5deg)",
     },
-    cardItems: {
+    cardItem: {
         height: "100%",
         display: "flex",
         alignItems: "flex-end",
         justifyContent: "space-between",
     },
-    root: {
+    title: {
         padding: 0,
+        textTransform: "capitalize",
     },
 }));
 
-const CategoryCard = () => {
+const CategoryCard = ({ name, img, history }) => {
     const classes = useStyles();
+
+    const goBackRouter = () => {
+        history.goBack();
+    };
     return (
         <>
             <Card elevation={0} className={classes.cardContainer}>
-                <IconButton
-                    className={classes.icon}
-                    component={RouterLink}
-                    to="/home"
-                >
+                <IconButton className={classes.icon} onClick={goBackRouter}>
                     <ArrowBackIos color="primary" />
                 </IconButton>
-                <div className={classes.cardItems}>
-                    <CardMedia
-                        image={saladCategory}
-                        title="ensalada"
-                        className={classes.foodCategory}
-                    />
+                <div className={classes.cardItem}>
+                    <img src={img} alt={name} className={classes.foodImg} />
                     <CardContent>
                         <Typography
                             variant="h4"
                             color="primary"
-                            className={classes.root}
+                            className={classes.title}
                         >
-                            Ensaladas
+                            {name}
                         </Typography>
                     </CardContent>
                 </div>
@@ -78,4 +67,4 @@ const CategoryCard = () => {
     );
 };
 
-export default CategoryCard;
+export default withRouter(CategoryCard);

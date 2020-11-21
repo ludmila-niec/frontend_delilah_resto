@@ -108,7 +108,6 @@ const FormUser = ({
                 password,
             })
         );
-        console.log(values);
     }
 
     return (

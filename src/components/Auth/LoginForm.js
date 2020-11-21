@@ -76,7 +76,6 @@ const LoginForm = ({ history, values, handleChange }) => {
         const { email, password } = values;
         //dispatch action login
         dispatch(login({ email, password }));
-        console.log(values);
     }
     return (
         <>

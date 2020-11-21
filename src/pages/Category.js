@@ -1,15 +1,65 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Layout from "../components/Layout";
 import SearchBox from "../components/shop/SearchBox";
 import CategoryCard from "../components/Category/CategoryCard";
-import ProductList from "../components/Product/ProductCardList";
+import ProductCardList from "../components/Product/ProductCardList";
+import ProductCardLoading from "../components/Product/ProductCardLoading";
+import ErrorNoData from "../components/ErrorNoData";
+import { Typography } from "@material-ui/core";
+import { makeStyles } from "@material-ui/core/styles";
+import { useDispatch, useSelector } from "react-redux";
+import { getCategoryById } from "../actions/categoryActions";
 
-const Category = () => {
+const useStyles = makeStyles((theme) => ({
+    containerLoading: {
+        padding: "2rem 0",
+    },
+    titleLoading: {
+        marginBottom: "2rem",
+    },
+}));
+
+const Category = ({ match }) => {
+    const classes = useStyles();
+    //id value from path
+    const categoryId = match.params.id;
+    console.log(categoryId);
+    const dispatch = useDispatch();
+    const categoryData = useSelector((state) => state.categoryDetail);
+    const { loading, categoryInfo, error } = categoryData;
+
+    useEffect(() => {
+        dispatch(getCategoryById(categoryId));
+    }, [dispatch, categoryId]);
+    console.log(categoryInfo);
+
     return (
         <Layout>
             <SearchBox />
-            <CategoryCard />
-            <ProductList />
+
+            {loading && (
+                <div className={classes.containerLoading}>
+                    <Typography
+                        variant="h5"
+                        color="secondary"
+                        className={classes.titleLoading}
+                    >
+                        Cargando los productos...
+                    </Typography>
+                    <ProductCardLoading />
+                    <ProductCardLoading />
+                </div>
+            )}
+            {categoryInfo && (
+                <>
+                    <CategoryCard
+                        name={categoryInfo.data.name}
+                        img={categoryInfo.data.img}
+                    />
+                    <ProductCardList productList={categoryInfo.data.Products} />
+                </>
+            )}
+            {error && <ErrorNoData errorText="Error al cargar los productos" />}
         </Layout>
     );
 };

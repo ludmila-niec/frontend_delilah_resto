@@ -2,46 +2,52 @@ import React from "react";
 import {
     Card,
     CardContent,
-    CardMedia,
     CardActions,
     Button,
     Typography,
 } from "@material-ui/core";
+import { Skeleton } from "@material-ui/lab";
 import { Link as RouterLink } from "react-router-dom";
-import cssClasses from "./categoryItem.module.css";
-import burger from "../../../assets/foodIllustration/Burger.svg";
+import useStyles from "./categoryItemStyle";
 
-const CategoryItem = () => {
+const CategoryItem = ({ category, loading }) => {
+    const classes = useStyles();
+    const { category_id, name, img } = category;
     return (
-        <Card
-            className={cssClasses.cardContainer}
-            elevation={0}
-            style={{ boxShadow: "0px 4px 11px 4px rgba(0, 0, 0, 0.1)" }}
-        >
-            <CardMedia
-                image={burger}
-                className={cssClasses.foodImg}
-                title="category-burger"
-            />
-            <div className={cssClasses.contentAction}>
-                <CardContent>
-                    <Typography variant="h3" color="primary">
-                        Hamburguesas
-                    </Typography>
-                </CardContent>
-                <CardActions>
-                    <Button
-                        variant="contained"
-                        color="primary"
-                        component={RouterLink}
-                        to={"/category"}
-                        // to={'/category/' + caregory.id}
-                    >
-                        ver mas
-                    </Button>
-                </CardActions>
-            </div>
-        </Card>
+        <>
+            {loading ? (
+                <Skeleton animation="wave" className={classes.skeleton} />
+            ) : (
+                <Card
+                    className={classes.cardContainer}
+                    elevation={0}
+                    style={{ boxShadow: "0px 4px 11px 4px rgba(0, 0, 0, 0.1)" }}
+                >
+                    <img src={img} alt={name} className={classes.foodImg} />
+                    <div className={classes.contentAction}>
+                        <CardContent>
+                            <Typography
+                                variant="h3"
+                                color="primary"
+                                style={{ textTransform: "capitalize" }}
+                            >
+                                {name}
+                            </Typography>
+                        </CardContent>
+                        <CardActions>
+                            <Button
+                                variant="contained"
+                                color="primary"
+                                component={RouterLink}
+                                to={`/category/${category_id}`}
+                            >
+                                ver mas
+                            </Button>
+                        </CardActions>
+                    </div>
+                </Card>
+            )}
+        </>
     );
 };
 
