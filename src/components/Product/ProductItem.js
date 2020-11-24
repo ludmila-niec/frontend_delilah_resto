@@ -3,7 +3,7 @@ import ProductPicture from "./ProductPicture";
 import ProductDetail from "./ProductDetail";
 import ModalAddProduct from "./ModalAddProduct";
 
-const ProductItem = () => {
+const ProductItem = ({ product, loading }) => {
     const [isOpen, setIsOpen] = useState(false);
 
     function handleOpenModal() {
@@ -14,8 +14,8 @@ const ProductItem = () => {
     }
     return (
         <>
-            <ProductPicture />
-            <ProductDetail onOpenModal={handleOpenModal} />
+            <ProductPicture product={product} loading={loading} />
+            <ProductDetail product={product} onOpenModal={handleOpenModal} />
             {isOpen && (
                 <ModalAddProduct
                     onCloseModal={handleCloseModal}

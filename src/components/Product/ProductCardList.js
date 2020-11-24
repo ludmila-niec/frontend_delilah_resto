@@ -11,7 +11,6 @@ const ProductCardList = ({ productList, loading }) => {
     const classes = useStyles();
     return (
         <div className={classes.container}>
-            {loading && <p>Cargando los productos...</p>}
             {productList.map((product) => (
                 <ProductCard
                     key={product.product_id}

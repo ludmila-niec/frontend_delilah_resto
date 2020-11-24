@@ -1,8 +1,8 @@
 import React from "react";
-import { IconButton } from "@material-ui/core";
-import { Favorite } from "@material-ui/icons";
+import { withRouter } from "react-router-dom";
+import { IconButton, FormControlLabel, Checkbox } from "@material-ui/core";
+import { Favorite, FavoriteBorder, ArrowBackIos } from "@material-ui/icons";
 import { makeStyles } from "@material-ui/core/styles";
-import saladImg from "../../assets/ensalada.png";
 
 const useStyles = makeStyles((theme) => ({
     background: {
@@ -15,30 +15,65 @@ const useStyles = makeStyles((theme) => ({
         position: "relative",
     },
     img: {
-        height: "80%",
-        width: "80%",
+        height: "65%",
+        width: "65%",
         filter: "drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25))",
+        margin: "2rem",
     },
-    iconBtn: {
+    favBtn: {
         position: "absolute",
         right: "20px",
+        top: "100px",
+    },
+    backBtn: {
+        position: "absolute",
+        left: "20px",
         top: "100px",
     },
     icon: {
         fontSize: "2.5rem",
     },
+    skeleton: {
+        height: "50vh",
+        width: "100%",
+    },
 }));
 
-const ProductPicture = () => {
+const ProductPicture = ({ history, product, loading }) => {
     const classes = useStyles();
+    const { name, img } = product.data;
+
+    const goBackRouter = () => {
+        history.goBack();
+    };
     return (
         <div className={classes.background}>
-            <img src={saladImg} alt="ensalada" className={classes.img} />
-            <IconButton className={classes.iconBtn}>
-                <Favorite color="secondary" className={classes.icon} />
+            <IconButton className={classes.backBtn} onClick={goBackRouter}>
+                <ArrowBackIos color="primary" className={classes.icon} />
             </IconButton>
+            <FormControlLabel
+                control={
+                    <Checkbox
+                        className={classes.favBtn}
+                        icon={
+                            <FavoriteBorder
+                                color="secondary"
+                                className={classes.icon}
+                            />
+                        }
+                        checkedIcon={
+                            <Favorite
+                                color="secondary"
+                                className={classes.icon}
+                            />
+                        }
+                        name="favorite"
+                    />
+                }
+            />
+            <img src={img} alt={name} className={classes.img} />
         </div>
     );
 };
 
-export default ProductPicture;
+export default withRouter(ProductPicture);

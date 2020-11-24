@@ -14,6 +14,7 @@ const useStyles = makeStyles((theme) => ({
     title: {
         fontSize: "2rem",
         fontWeight: 600,
+        textTransform: "capilize",
     },
     price: {
         fontSize: "1.5rem",
@@ -21,8 +22,6 @@ const useStyles = makeStyles((theme) => ({
         margin: "0.5rem 0",
     },
     description: {
-        maxHeight: "120px",
-        overflow: "hidden",
         fontSize: "1.2rem",
         margin: "1rem 0",
     },
@@ -40,19 +39,20 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-const ProductDetail = ({ onOpenModal }) => {
+const ProductDetail = ({ onOpenModal, product }) => {
     const classes = useStyles();
+    const { product_id, name, img, description, price } = product.data;
     return (
         <div className={classes.container}>
             <div>
                 <Typography color="primary" className={classes.title}>
-                    Chicken Salad
+                    {name}
                 </Typography>
                 <Typography color="secondary" className={classes.price}>
-                    $390
+                    ${price}
                 </Typography>
                 <Typography className={classes.description}>
-                    Ensalada con mix de verde, tomate, huevo, queso gruyere.
+                    {description}
                 </Typography>
                 <div className={classes.btnContainer}>
                     <ButtonGroup
