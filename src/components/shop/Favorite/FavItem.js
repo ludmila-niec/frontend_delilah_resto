@@ -21,6 +21,10 @@ const useStyles = makeStyles((theme) => ({
         padding: "1rem",
         margin: "1.5rem",
     },
+    title: {
+        textAlign: "center",
+        textTransform: "capitalize",
+    },
     iconFav: {
         fontSize: "1.3rem",
     },
@@ -45,8 +49,9 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-const FavItem = () => {
+const FavItem = ({ product }) => {
     const classes = useStyles();
+    const { product_id, name, img } = product;
     return (
         <div>
             <Card
@@ -67,14 +72,14 @@ const FavItem = () => {
                 />
                 <div className={classes.pictureBackground}>
                     <CardMedia
-                        image={saladImg}
-                        title="chicken salad"
+                        image={img}
+                        title={name}
                         className={classes.productImg}
                     />
                 </div>
                 <CardContent>
-                    <Typography variant="body1" align="center">
-                        Chicken Salad
+                    <Typography variant="body1" className={classes.title}>
+                        {name}
                     </Typography>
                 </CardContent>
                 <CardActions>
@@ -83,7 +88,7 @@ const FavItem = () => {
                         color="primary"
                         style={{ margin: "0.2rem auto" }}
                         component={RouterLink}
-                        to="/product"
+                        to={`/product/${product_id}`}
                         // component={RouterLink} to={'/product/' + product.id }
                     >
                         VER PRODUCTO

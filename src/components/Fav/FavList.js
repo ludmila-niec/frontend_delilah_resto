@@ -1,11 +1,11 @@
 import React from "react";
 import ProductCardList from "../Product/ProductCardList";
 
-const FavList = () => {
+const FavList = ({ productList, loading }) => {
     return (
-        <div>
-            <ProductCardList />
-        </div>
+        <>
+            <ProductCardList productList={productList} loading={loading} />
+        </>
     );
 };
 
