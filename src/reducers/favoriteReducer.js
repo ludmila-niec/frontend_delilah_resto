@@ -11,12 +11,19 @@ import {
     FAV_CLEAR_ACTION,
 } from "../constants/favoriteConstants";
 
-export const getFavoritesReducer = (state = {}, action) => {
+const initialState = {
+    loading: false,
+    favorites: [],
+    success: null,
+    error: null,
+};
+
+export const getFavoritesReducer = (state = initialState, action) => {
     switch (action.type) {
         case FAV_LIST_REQUEST:
-            return { loading: true };
+            return { ...state, loading: true };
         case FAV_LIST_SUCCESS:
-            return { loading: false, favorites: action.payload };
+            return { ...state, loading: false, favorites: action.payload };
         case FAV_LIST_FAIL:
             return { loading: false, error: action.payload };
         default:
@@ -44,7 +51,10 @@ export const deleteFavoriteReducer = (state = {}, action) => {
         case FAV_DELETE_REQUEST:
             return { loading: true };
         case FAV_DELETE_SUCCESS:
-            return { loading: false, success: true };
+            return {
+                loading: false,
+                success: true,
+            };
         case FAV_DELETE_FAIL:
             return { loading: false, error: action.payload };
         case FAV_CLEAR_ACTION:

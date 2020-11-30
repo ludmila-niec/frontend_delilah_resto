@@ -1,5 +1,5 @@
 import React from "react";
-import { Typography, Button, ButtonGroup, IconButton } from "@material-ui/core";
+import { Typography, Button, ButtonGroup } from "@material-ui/core";
 import { Add, Remove } from "@material-ui/icons";
 import { makeStyles } from "@material-ui/core/styles";
 
@@ -41,7 +41,7 @@ const useStyles = makeStyles((theme) => ({
 
 const ProductDetail = ({ onOpenModal, product }) => {
     const classes = useStyles();
-    const { product_id, name, img, description, price } = product.data;
+    const { product_id, name, description, price } = product.data;
     return (
         <div className={classes.container}>
             <div>

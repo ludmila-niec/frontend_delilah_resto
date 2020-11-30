@@ -32,6 +32,8 @@ const ProductCard = ({ product, loading }) => {
     const { favorites } = favoriteData;
     const addedFavorite = useSelector((state) => state.favoriteAdd);
     const deletedFavorite = useSelector((state) => state.favoriteDelete);
+
+    //checkbox value
     const [isFavorite, setIsFavorite] = useState(false);
 
     //snackbar success/error
@@ -59,12 +61,13 @@ const ProductCard = ({ product, loading }) => {
 
     //check si el productos por id se encuentra entre la lista de favoritos
     //para indicar el estado del checkbox
+
     useEffect(() => {
         const isFav = favorites.find((fav) => fav.product_id === product_id);
         if (isFav) {
             setIsFavorite(true);
         }
-    }, []);
+    }, [favorites, product_id]);
 
     useEffect(() => {
         if (addedFavorite.success) {

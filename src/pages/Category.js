@@ -9,6 +9,7 @@ import { Typography } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import { useDispatch, useSelector } from "react-redux";
 import { getCategoryById } from "../actions/categoryActions";
+import { getFavorites } from "../actions/favoriteActions";
 
 const useStyles = makeStyles((theme) => ({
     containerLoading: {
@@ -32,6 +33,13 @@ const Category = ({ match }) => {
         dispatch(getCategoryById(categoryId));
     }, [dispatch, categoryId]);
     console.log(categoryInfo);
+
+    const addedFavorite = useSelector((state) => state.favoriteAdd);
+    const deletedFavorite = useSelector((state) => state.favoriteDelete);
+    //get lista de favoritos
+    useEffect(() => {
+        dispatch(getFavorites());
+    }, [addedFavorite, deletedFavorite]);
 
     return (
         <Layout>

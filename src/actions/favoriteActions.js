@@ -30,7 +30,6 @@ export const getFavorites = () => async (dispatch, getState) => {
             type: FAV_LIST_SUCCESS,
             payload: data.data.products,
         });
-        console.log(data);
     } catch (error) {
         console.log(error.response);
         dispatch({
@@ -60,7 +59,6 @@ export const addFavorite = (id) => async (dispatch, getState) => {
             type: FAV_ADD_SUCCESS,
             payload: data,
         });
-        console.log(data);
     } catch (error) {
         console.log(error.response);
         dispatch({
@@ -86,7 +84,6 @@ export const deleteFavorite = (id) => async (dispatch, getState) => {
 
         dispatch({
             type: FAV_DELETE_SUCCESS,
-            payload: data,
         });
     } catch (error) {
         console.log(error.response);

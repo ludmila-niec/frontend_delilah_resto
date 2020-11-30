@@ -1,6 +1,19 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { withRouter } from "react-router-dom";
-import { IconButton, FormControlLabel, Checkbox } from "@material-ui/core";
+import { useSelector, useDispatch } from "react-redux";
+import {
+    addFavorite,
+    deleteFavorite,
+    clearFavAction,
+} from "../../actions/favoriteActions";
+import {
+    IconButton,
+    FormControlLabel,
+    Checkbox,
+    Snackbar,
+} from "@material-ui/core";
+import { Alert } from "@material-ui/lab";
+
 import { Favorite, FavoriteBorder, ArrowBackIos } from "@material-ui/icons";
 import { makeStyles } from "@material-ui/core/styles";
 
@@ -39,40 +52,117 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-const ProductPicture = ({ history, product, loading }) => {
+const ProductPicture = ({ history, product }) => {
     const classes = useStyles();
-    const { name, img } = product.data;
+    const { product_id, name, img } = product.data;
 
     const goBackRouter = () => {
         history.goBack();
     };
+
+    const dispatch = useDispatch();
+    const favoriteData = useSelector((state) => state.favoriteList);
+    const { favorites } = favoriteData;
+    const addedFavorite = useSelector((state) => state.favoriteAdd);
+    const deletedFavorite = useSelector((state) => state.favoriteDelete);
+    const [isFavorite, setIsFavorite] = useState(false);
+
+    //check si el productos por id se encuentra entre la lista de favoritos
+    //para indicar el estado del checkbox
+    useEffect(() => {
+        const isFav = favorites.find((fav) => fav.product_id === product_id);
+        if (isFav) {
+            setIsFavorite(true);
+        }
+    }, [favorites, product_id]);
+    //snackbar success/error
+    const [openSnackbar, setOpenSnackbar] = useState(false);
+    const handleSnackbarClose = () => {
+        setOpenSnackbar(false);
+        dispatch(clearFavAction());
+    };
+    // onChange de checkbox corazon add/delete fav
+    const handleChangeFav = () => {
+        if (isFavorite) {
+            console.log("cambio a false");
+            //cambiar estado del checkboxIcon
+            setIsFavorite(false);
+            //eliminar favorito
+            dispatch(deleteFavorite(product_id));
+        } else {
+            console.log("cambio a true");
+            //cambiar estado del checkboxIcon
+            setIsFavorite(true);
+            //agregar favorito
+            dispatch(addFavorite(product_id));
+        }
+    };
+
+    useEffect(() => {
+        if (addedFavorite.success) {
+            setOpenSnackbar(true);
+
+            console.log("success add + clear");
+        }
+
+        if (deletedFavorite.success) {
+            setOpenSnackbar(true);
+            console.log("success error + clear");
+        }
+    }, [addedFavorite, deletedFavorite]);
     return (
-        <div className={classes.background}>
-            <IconButton className={classes.backBtn} onClick={goBackRouter}>
-                <ArrowBackIos color="primary" className={classes.icon} />
-            </IconButton>
-            <FormControlLabel
-                control={
-                    <Checkbox
-                        className={classes.favBtn}
-                        icon={
-                            <FavoriteBorder
-                                color="secondary"
-                                className={classes.icon}
-                            />
-                        }
-                        checkedIcon={
-                            <Favorite
-                                color="secondary"
-                                className={classes.icon}
-                            />
-                        }
-                        name="favorite"
-                    />
-                }
-            />
-            <img src={img} alt={name} className={classes.img} />
-        </div>
+        <>
+            <div className={classes.background}>
+                <IconButton className={classes.backBtn} onClick={goBackRouter}>
+                    <ArrowBackIos color="primary" className={classes.icon} />
+                </IconButton>
+                <FormControlLabel
+                    control={
+                        <Checkbox
+                            className={classes.favBtn}
+                            icon={
+                                <FavoriteBorder
+                                    color="secondary"
+                                    className={classes.icon}
+                                />
+                            }
+                            checkedIcon={
+                                <Favorite
+                                    color="secondary"
+                                    className={classes.icon}
+                                />
+                            }
+                            name="favorite"
+                            checked={isFavorite}
+                            onChange={handleChangeFav}
+                        />
+                    }
+                />
+                <img src={img} alt={name} className={classes.img} />
+            </div>
+            {addedFavorite.success && (
+                <Snackbar
+                    open={openSnackbar}
+                    autoHideDuration={3000}
+                    onClose={handleSnackbarClose}
+                >
+                    <Alert variant="filled" severity="success">
+                        Favorito Agregado!
+                    </Alert>
+                </Snackbar>
+            )}
+            {deletedFavorite.success && (
+                <Snackbar
+                    open={openSnackbar}
+                    autoHideDuration={3000}
+                    onClose={handleSnackbarClose}
+                >
+                    <Alert variant="filled" severity="error">
+                        Favorito Eliminado
+                    </Alert>
+                </Snackbar>
+            )}
+        </>
     );
 };
 

@@ -14,7 +14,7 @@ const Favs = () => {
     const deletedFavorite = useSelector((state) => state.favoriteDelete);
     useEffect(() => {
         dispatch(getFavorites());
-    }, [deletedFavorite]);
+    }, [deletedFavorite.success]);
 
     return (
         <Layout>

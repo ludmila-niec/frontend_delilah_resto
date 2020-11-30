@@ -1,18 +1,14 @@
 import React from "react";
 import {
     Card,
-    CardHeader,
     CardContent,
     CardActions,
     CardMedia,
     Typography,
-    IconButton,
     Button,
 } from "@material-ui/core";
-import { Favorite } from "@material-ui/icons";
 import { Link as RouterLink } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
-import saladImg from "../../../assets/ensalada.png";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -59,17 +55,6 @@ const FavItem = ({ product }) => {
                 elevation={0}
                 style={{ boxShadow: "0px 4px 11px 4px rgba(0, 0, 0, 0.1)" }}
             >
-                <CardHeader
-                    action={
-                        <IconButton className={classes.roundButton}>
-                            <Favorite
-                                color="secondary"
-                                className={classes.iconFav}
-                            />
-                        </IconButton>
-                    }
-                    style={{ padding: "0.5rem" }}
-                />
                 <div className={classes.pictureBackground}>
                     <CardMedia
                         image={img}

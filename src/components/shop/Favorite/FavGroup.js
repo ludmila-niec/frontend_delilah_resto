@@ -1,9 +1,8 @@
-import React, { useEffect } from "react";
+import React from "react";
 import FavItem from "./FavItem";
 import Carousel from "./Carousel";
 import { makeStyles } from "@material-ui/core/styles";
 import { useDispatch, useSelector } from "react-redux";
-import { getFavorites } from "../../../actions/favoriteActions";
 
 const useStyles = makeStyles((theme) => ({
     container: {
@@ -17,7 +16,6 @@ const useStyles = makeStyles((theme) => ({
 
 const FavGroup = () => {
     const classes = useStyles();
-    const dispatch = useDispatch();
     const favoriteData = useSelector((state) => state.favoriteList);
     const { favorites } = favoriteData;
 
