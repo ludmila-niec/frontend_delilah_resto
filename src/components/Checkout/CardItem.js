@@ -8,9 +8,14 @@ import {
     Button,
     IconButton,
 } from "@material-ui/core";
-import { Remove, Add, Clear } from "@material-ui/icons";
+import { Remove, Add, Delete } from "@material-ui/icons";
 import { makeStyles } from "@material-ui/core/styles";
-import saladImg from "../../assets/ensalada.png";
+import { useDispatch } from "react-redux";
+import {
+    increaseItem,
+    decreaseItem,
+    removeItem,
+} from "../../actions/cartActions";
 
 const useStyles = makeStyles((theme) => ({
     container: {
@@ -39,11 +44,13 @@ const useStyles = makeStyles((theme) => ({
     },
     cardContent: {
         height: "150px",
-        width: "160px",
+        width: "200px",
         display: "flex",
         flexDirection: "column",
         justifyContent: "space-between",
-        padding: "1.2rem",
+    },
+    price: {
+        margin: ".5rem 0",
     },
     btn: {
         padding: "5px",
@@ -51,15 +58,45 @@ const useStyles = makeStyles((theme) => ({
     icon: {
         fontSize: "0.8rem",
     },
+    iconDelete: {
+        fontSize: "1.5rem",
+    },
     btnDelete: {
-        position: "absolute",
-        top: 0,
-        right: 0,
+        padding: 0,
+    },
+    btnActions: {
+        display: "flex",
+        justifyContent: "space-between",
+        alignItems: "center",
     },
 }));
 
-const CardItem = () => {
+const CardItem = ({ productData }) => {
     const classes = useStyles();
+    const { product_id, name, img, price } = productData.product;
+    const { quantity } = productData;
+    const dispatch = useDispatch();
+
+    const handleRemoveItem = () => {
+        console.log("remove");
+        console.log(product_id);
+        dispatch(removeItem(product_id));
+    };
+
+    const handleIncrease = () => {
+        console.log("increase");
+        console.log(product_id);
+        dispatch(increaseItem(product_id));
+    };
+    const handleDecrease = () => {
+        console.log("decrease");
+        console.log(product_id);
+        if (quantity === 1) {
+            return dispatch(removeItem(product_id));
+        } else {
+            return dispatch(decreaseItem(product_id));
+        }
+    };
     return (
         <div>
             <Card
@@ -69,32 +106,51 @@ const CardItem = () => {
             >
                 <div className={classes.background}>
                     <CardMedia
-                        image={saladImg}
-                        title="salad"
+                        image={img}
+                        title={name}
                         className={classes.productImg}
                     />
                 </div>
-                <CardContent className={classes.cardContent}>
+                <CardContent
+                    className={classes.cardContent}
+                    style={{ paddingBottom: 0 }}
+                >
                     <div>
-                        <Typography>Chicken Salad</Typography>
-                        <Typography>$390</Typography>
+                        <Typography>{name}</Typography>
+                        <Typography className={classes.price}>
+                            ${price * quantity}
+                        </Typography>
                     </div>
-                    <ButtonGroup
-                        color="primary"
-                        aria-label="button select quantity"
-                    >
-                        <Button className={classes.btn}>
-                            <Remove className={classes.icon} />
-                        </Button>
-                        <Button className={classes.btn}>1</Button>
-                        <Button className={classes.btn}>
-                            <Add className={classes.icon} />
-                        </Button>
-                    </ButtonGroup>
+                    <div className={classes.btnActions}>
+                        <ButtonGroup
+                            color="primary"
+                            aria-label="button select quantity"
+                        >
+                            <Button
+                                className={classes.btn}
+                                onClick={handleDecrease}
+                            >
+                                <Remove className={classes.icon} />
+                            </Button>
+                            <Button className={classes.btn}>{quantity}</Button>
+                            <Button
+                                className={classes.btn}
+                                onClick={handleIncrease}
+                            >
+                                <Add className={classes.icon} />
+                            </Button>
+                        </ButtonGroup>
+                        <IconButton
+                            onClick={handleRemoveItem}
+                            className={classes.btnDelete}
+                        >
+                            <Delete
+                                color="error"
+                                className={classes.iconDelete}
+                            />
+                        </IconButton>
+                    </div>
                 </CardContent>
-                <IconButton className={classes.btnDelete}>
-                    <Clear color="error" />
-                </IconButton>
             </Card>
         </div>
     );

@@ -8,6 +8,7 @@ import {
     FormHelperText,
     Button,
 } from "@material-ui/core";
+import { useSelector } from "react-redux";
 
 import { makeStyles } from "@material-ui/core/styles";
 
@@ -41,6 +42,8 @@ const useStyles = makeStyles((theme) => ({
 
 const CheckoutForm = ({ onOpenModal }) => {
     const classes = useStyles();
+    const cartData = useSelector((state) => state.cart);
+    const { total } = cartData;
     const [payment, setPayment] = useState(3);
 
     const handleSelectedPayment = (e) => {
@@ -50,7 +53,7 @@ const CheckoutForm = ({ onOpenModal }) => {
         <div className={classes.container}>
             <div className={classes.orderDetail}>
                 <Typography color="primary" className={classes.totalPrice}>
-                    Total: $390
+                    Total: ${total}
                 </Typography>
                 <FormControl className={classes.formControl}>
                     <InputLabel id="payment-method">Metodo de Pago</InputLabel>

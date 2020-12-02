@@ -1,6 +1,7 @@
 import React from "react";
 import { Button, Typography } from "@material-ui/core";
 import emptyCartImg from "../../assets/status/empty-cart.png";
+import { Link as RouterLink } from "react-router-dom";
 
 import { makeStyles } from "@material-ui/core/styles";
 
@@ -30,7 +31,13 @@ const EmptyCart = () => {
             <Typography color="secondary" className={classes.textInfo}>
                 Aún no agregaste productos a tu pedido
             </Typography>
-            <Button variant="contained" color="primary" className={classes.btn}>
+            <Button
+                variant="contained"
+                color="primary"
+                className={classes.btn}
+                component={RouterLink}
+                to="/home"
+            >
                 agregar productos
             </Button>
         </div>

@@ -17,7 +17,6 @@ const Product = ({ match }) => {
     useEffect(() => {
         dispatch(getProductDetail(productId));
     }, [dispatch, productId]);
-    console.log(product);
     return (
         <div>
             <Navbar />

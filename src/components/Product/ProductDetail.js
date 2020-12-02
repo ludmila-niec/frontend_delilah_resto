@@ -1,7 +1,9 @@
-import React from "react";
+import React, { useState } from "react";
 import { Typography, Button, ButtonGroup } from "@material-ui/core";
 import { Add, Remove } from "@material-ui/icons";
 import { makeStyles } from "@material-ui/core/styles";
+import { useDispatch } from "react-redux";
+import { addToCart } from "../../actions/cartActions";
 
 const useStyles = makeStyles((theme) => ({
     container: {
@@ -41,7 +43,24 @@ const useStyles = makeStyles((theme) => ({
 
 const ProductDetail = ({ onOpenModal, product }) => {
     const classes = useStyles();
+    const dispatch = useDispatch();
     const { product_id, name, description, price } = product.data;
+    const [quantity, setQuantity] = useState(1);
+
+    const handleIncreaseQuantity = () => {
+        setQuantity(quantity + 1);
+    };
+
+    const handleDecreaseQuantity = () => {
+        if (quantity > 1) {
+            setQuantity(quantity - 1);
+        }
+    };
+
+    const handleAddToCart = () => {
+        dispatch(addToCart(product.data, quantity));
+        onOpenModal();
+    };
     return (
         <div className={classes.container}>
             <div>
@@ -59,11 +78,14 @@ const ProductDetail = ({ onOpenModal, product }) => {
                         color="primary"
                         aria-label="button select quantity"
                     >
-                        <Button>
+                        <Button
+                            onClick={handleDecreaseQuantity}
+                            disabled={quantity <= 1 ? true : false}
+                        >
                             <Remove className={classes.icon} />
                         </Button>
-                        <Button>1</Button>
-                        <Button>
+                        <Button>{quantity}</Button>
+                        <Button onClick={handleIncreaseQuantity}>
                             <Add className={classes.icon} />
                         </Button>
                     </ButtonGroup>
@@ -71,9 +93,9 @@ const ProductDetail = ({ onOpenModal, product }) => {
                         variant="contained"
                         color="primary"
                         className={classes.btnAdd}
-                        onClick={onOpenModal}
+                        onClick={handleAddToCart}
                     >
-                        Agregar $390
+                        agregar ${price * quantity}
                     </Button>
                 </div>
             </div>

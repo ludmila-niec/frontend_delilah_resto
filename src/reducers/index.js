@@ -7,6 +7,7 @@ import {
     addFavoriteReducer,
     deleteFavoriteReducer,
 } from "./favoriteReducer";
+import { cartReducer } from "./cartsReducer";
 export default combineReducers({
     userRegister: userRegisterReducer,
     userLogin: userLoginReducer,
@@ -16,4 +17,5 @@ export default combineReducers({
     favoriteList: getFavoritesReducer,
     favoriteAdd: addFavoriteReducer,
     favoriteDelete: deleteFavoriteReducer,
+    cart: cartReducer,
 });
