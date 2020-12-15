@@ -48,10 +48,9 @@ export const addFavorite = (product_id) => async (dispatch, getState) => {
         });
         //obtener token del login
         const token = await tokenConfig(getState);
+
         //request body
-        console.log("fav action product");
-        console.log(product_id);
-        //axios directamente hace el parse a stringify
+        //axios directamente lo pasa a stringify
         const body = { product_id: product_id };
         const request = await axios.post(
             "https://delilahrestoapp.herokuapp.com/api/favourites",

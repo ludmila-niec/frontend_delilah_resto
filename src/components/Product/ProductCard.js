@@ -1,12 +1,7 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import ProductCardLoading from "./ProductCardLoading";
-import { useSelector, useDispatch } from "react-redux";
 import { Link as RouterLink } from "react-router-dom";
-import {
-    addFavorite,
-    deleteFavorite,
-    clearFavAction,
-} from "../../actions/favoriteActions";
+
 import {
     Card,
     CardContent,
@@ -23,67 +18,19 @@ import { Favorite, FavoriteBorder } from "@material-ui/icons";
 import { Alert } from "@material-ui/lab";
 
 import useStyles from "./productCardStyle";
+import useFavorite from "../../Hooks/useFavorite";
 
 const ProductCard = ({ product, loading }) => {
     const classes = useStyles();
     const { product_id, name, img, description, price } = product;
-    const dispatch = useDispatch();
-    const favoriteData = useSelector((state) => state.favoriteList);
-    const { favorites } = favoriteData;
-    const addedFavorite = useSelector((state) => state.favoriteAdd);
-    const deletedFavorite = useSelector((state) => state.favoriteDelete);
-
-    //checkbox value
-    const [isFavorite, setIsFavorite] = useState(false);
-
-    //snackbar success/error
-    const [openSnackbar, setOpenSnackbar] = useState(false);
-    const handleSnackbarClose = () => {
-        setOpenSnackbar(false);
-        dispatch(clearFavAction());
-    };
-    // onChange de checkbox corazon add/delete fav
-    const handleChangeFav = () => {
-        console.log(product);
-        console.log("producto antes del dispatch");
-        if (isFavorite) {
-            console.log("cambio a false");
-            //cambiar estado del checkboxIcon
-            setIsFavorite(false);
-            //eliminar favorito
-            dispatch(deleteFavorite(product_id));
-        } else {
-            console.log("cambio a true");
-            //cambiar estado del checkboxIcon
-            setIsFavorite(true);
-            //agregar favorito
-
-            dispatch(addFavorite(product_id));
-        }
-    };
-
-    //check si el productos por id se encuentra entre la lista de favoritos
-    //para indicar el estado del checkbox
-
-    useEffect(() => {
-        const isFav = favorites.find((fav) => fav.product_id === product_id);
-        if (isFav) {
-            setIsFavorite(true);
-        }
-    }, [favorites, product_id]);
-
-    useEffect(() => {
-        if (addedFavorite.success) {
-            setOpenSnackbar(true);
-
-            console.log("success add + clear");
-        }
-
-        if (deletedFavorite.success) {
-            setOpenSnackbar(true);
-            console.log("success delete + clear");
-        }
-    }, [addedFavorite, deletedFavorite]);
+    const {
+        isFavorite,
+        handleChangeFav,
+        addedFavorite,
+        deletedFavorite,
+        openSnackbar,
+        handleSnackbarClose,
+    } = useFavorite(product_id);
 
     return (
         <>

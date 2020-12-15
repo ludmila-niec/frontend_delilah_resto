@@ -11,7 +11,6 @@ const useStyles = makeStyles((theme) => ({
         alignItems: "center",
         borderRadius: "10px 10px 0 0",
         padding: "2rem",
-        marginTop: "2rem",
     },
     title: {
         fontSize: "1.5rem",

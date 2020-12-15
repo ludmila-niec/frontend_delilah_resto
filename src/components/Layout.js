@@ -2,13 +2,21 @@ import React from "react";
 import NavBar from "./Navbar";
 import Footer from "./Footer";
 import { Grid } from "@material-ui/core";
+import { makeStyles } from "@material-ui/core/styles";
+
+const useStyles = makeStyles((theme) => ({
+    container: {
+        minHeight: "75vh",
+    },
+}));
 
 const Layout = ({ children }) => {
+    const classes = useStyles();
     return (
         <div>
             <NavBar />
 
-            <main style={{ minHeight: "calc(100vh - 200px)" }}>
+            <main>
                 <Grid container>
                     <Grid item xs={1} />
                     <Grid
@@ -16,8 +24,9 @@ const Layout = ({ children }) => {
                         container
                         direction="column"
                         xs={10}
-                        style={{ paddingTop: "7rem" }}
+                        className={classes.container}
                     >
+                        <div style={{ padding: "3rem" }}></div>
                         {children}
                     </Grid>
                     <Grid item xs={1} />

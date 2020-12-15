@@ -14,19 +14,19 @@ const Product = ({ match }) => {
     const productData = useSelector((state) => state.productDetail);
     const { loading, product, error } = productData;
 
+    console.log(error, "error");
+
     useEffect(() => {
         dispatch(getProductDetail(productId));
     }, [dispatch, productId]);
+
+    if (error) return <ErrorNoData errorText="Error al cargar el producto" />;
     return (
         <div>
             <Navbar />
             {loading && <ProductItemLoading />}
             {product && <ProductItem product={product} loading={loading} />}
-            {error && (
-                <div style={{ minHeight: "70vh", paddingTop: "10rem" }}>
-                    <ErrorNoData errorText="Error al cargar el producto" />
-                </div>
-            )}
+
             <Footer />
         </div>
     );

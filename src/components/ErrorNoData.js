@@ -1,4 +1,5 @@
 import React from "react";
+import Layout from "./Layout";
 import errorImg from "../assets/status/no-data.png";
 import { Typography } from "@material-ui/core";
 
@@ -9,13 +10,14 @@ const useStyles = makeStyles((theme) => ({
         display: "flex",
         flexDirection: "column",
         alignItems: "center",
+        margin: "3rem 0",
     },
     title: {
         fontWeight: theme.typography.fontWeightMedium,
         fontSize: "1.2rem",
     },
     img: {
-        height: "200px",
+        height: "165px",
         margin: "2rem",
     },
     backBtn: {
@@ -30,12 +32,18 @@ const useStyles = makeStyles((theme) => ({
 const ErrorNoData = ({ errorText }) => {
     const classes = useStyles();
     return (
-        <div className={classes.container}>
-            <img src={errorImg} alt="not found img" className={classes.img} />
-            <Typography color="secondary" className={classes.title}>
-                {errorText}
-            </Typography>
-        </div>
+        <Layout>
+            <div className={classes.container}>
+                <img
+                    src={errorImg}
+                    alt="not found img"
+                    className={classes.img}
+                />
+                <Typography color="secondary" className={classes.title}>
+                    {errorText}
+                </Typography>
+            </div>
+        </Layout>
     );
 };
 

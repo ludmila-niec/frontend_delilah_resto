@@ -16,20 +16,30 @@ const Favs = () => {
         dispatch(getFavorites());
     }, []);
 
+    const userHaveFavorites = favorites.length > 0;
+    console.log(userHaveFavorites);
+
+    if (loading) {
+        return (
+            <Layout>
+                <Typography variant="h5">Mis favoritos</Typography>
+                <p>Cargando tus favoritos...</p>
+            </Layout>
+        );
+    }
+
+    if (error) {
+        return <ErrorNoData errorText="Error al cargar los favoritos" />;
+    }
+
     return (
         <Layout>
             <Typography variant="h5">Mis favoritos</Typography>
-            {loading && <p>Cargando tus favoritos...</p>}
-            {favorites && (
-                <>
-                    {favorites.length > 0 ? (
-                        <FavList productList={favorites} loading={loading} />
-                    ) : (
-                        <FavsEmpty />
-                    )}
-                </>
+            {userHaveFavorites ? (
+                <FavList productList={favorites} loading={loading} />
+            ) : (
+                <FavsEmpty />
             )}
-            {error && <ErrorNoData errorText="Error al cargar los favoritos" />}
         </Layout>
     );
 };
