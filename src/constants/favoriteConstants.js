@@ -2,6 +2,9 @@ export const FAV_LIST_REQUEST = "FAV_LIST_REQUEST";
 export const FAV_LIST_SUCCESS = "FAV_LIST_SUCCESS";
 export const FAV_LIST_FAIL = "FAV_LIST_FAIL";
 
+export const FAV_LIST_ADDED = "FAV_ADDED";
+export const FAV_LIST_REMOVED = "FAV_REMOVED";
+
 export const FAV_ADD_REQUEST = "FAV_ADD_REQUEST";
 export const FAV_ADD_SUCCESS = "FAV_ADD_SUCCESS";
 export const FAV_ADD_FAIL = "FAV_ADD_FAIL";

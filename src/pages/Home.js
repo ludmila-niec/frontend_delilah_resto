@@ -10,6 +10,8 @@ const Home = () => {
     const dispatch = useDispatch();
     const favoriteData = useSelector((state) => state.favoriteList);
     const { favorites, error } = favoriteData;
+    //favorites request
+    //if empty, don't show favorite section
     useEffect(() => {
         dispatch(getFavorites());
     }, []);

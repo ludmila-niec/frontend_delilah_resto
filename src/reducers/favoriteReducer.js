@@ -2,6 +2,8 @@ import {
     FAV_LIST_REQUEST,
     FAV_LIST_SUCCESS,
     FAV_LIST_FAIL,
+    FAV_LIST_ADDED,
+    FAV_LIST_REMOVED,
     FAV_ADD_REQUEST,
     FAV_ADD_SUCCESS,
     FAV_ADD_FAIL,
@@ -21,11 +23,25 @@ const initialState = {
 export const getFavoritesReducer = (state = initialState, action) => {
     switch (action.type) {
         case FAV_LIST_REQUEST:
-            return { ...state, loading: true };
+            return { ...state, loading: true, error: null };
         case FAV_LIST_SUCCESS:
             return { ...state, loading: false, favorites: action.payload };
         case FAV_LIST_FAIL:
-            return { loading: false, error: action.payload };
+            return { ...state, loading: false, error: action.payload };
+        case FAV_LIST_ADDED:
+            return {
+                ...state,
+                favorites: [...state.favorites, action.payload],
+            };
+        case FAV_LIST_REMOVED:
+            return {
+                ...state,
+                favorites: [
+                    ...state.favorites.filter(
+                        (item) => item.product_id !== action.payload
+                    ),
+                ],
+            };
         default:
             return state;
     }
@@ -36,11 +52,14 @@ export const addFavoriteReducer = (state = {}, action) => {
         case FAV_ADD_REQUEST:
             return { loading: true };
         case FAV_ADD_SUCCESS:
-            return { loading: false, favorite: action.payload, success: true };
+            return {
+                loading: false,
+                success: true,
+            };
         case FAV_ADD_FAIL:
             return { loading: false, error: action.payload };
         case FAV_CLEAR_ACTION:
-            return {};
+            return { success: null };
         default:
             return state;
     }
@@ -58,7 +77,7 @@ export const deleteFavoriteReducer = (state = {}, action) => {
         case FAV_DELETE_FAIL:
             return { loading: false, error: action.payload };
         case FAV_CLEAR_ACTION:
-            return {};
+            return { success: null };
         default:
             return state;
     }

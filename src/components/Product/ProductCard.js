@@ -44,6 +44,8 @@ const ProductCard = ({ product, loading }) => {
     };
     // onChange de checkbox corazon add/delete fav
     const handleChangeFav = () => {
+        console.log(product);
+        console.log("producto antes del dispatch");
         if (isFavorite) {
             console.log("cambio a false");
             //cambiar estado del checkboxIcon
@@ -55,6 +57,7 @@ const ProductCard = ({ product, loading }) => {
             //cambiar estado del checkboxIcon
             setIsFavorite(true);
             //agregar favorito
+
             dispatch(addFavorite(product_id));
         }
     };
@@ -78,7 +81,7 @@ const ProductCard = ({ product, loading }) => {
 
         if (deletedFavorite.success) {
             setOpenSnackbar(true);
-            console.log("success error + clear");
+            console.log("success delete + clear");
         }
     }, [addedFavorite, deletedFavorite]);
 

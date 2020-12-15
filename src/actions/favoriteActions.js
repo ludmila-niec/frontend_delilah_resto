@@ -3,6 +3,8 @@ import {
     FAV_LIST_REQUEST,
     FAV_LIST_SUCCESS,
     FAV_LIST_FAIL,
+    FAV_LIST_ADDED,
+    FAV_LIST_REMOVED,
     FAV_ADD_REQUEST,
     FAV_ADD_SUCCESS,
     FAV_ADD_FAIL,
@@ -39,7 +41,7 @@ export const getFavorites = () => async (dispatch, getState) => {
     }
 };
 
-export const addFavorite = (id) => async (dispatch, getState) => {
+export const addFavorite = (product_id) => async (dispatch, getState) => {
     try {
         dispatch({
             type: FAV_ADD_REQUEST,
@@ -47,9 +49,11 @@ export const addFavorite = (id) => async (dispatch, getState) => {
         //obtener token del login
         const token = await tokenConfig(getState);
         //request body
+        console.log("fav action product");
+        console.log(product_id);
         //axios directamente hace el parse a stringify
-        const body = { product_id: id };
-        const { data } = await axios.post(
+        const body = { product_id: product_id };
+        const request = await axios.post(
             "https://delilahrestoapp.herokuapp.com/api/favourites",
             body,
             token
@@ -57,7 +61,6 @@ export const addFavorite = (id) => async (dispatch, getState) => {
 
         dispatch({
             type: FAV_ADD_SUCCESS,
-            payload: data,
         });
     } catch (error) {
         console.log(error.response);
@@ -68,22 +71,25 @@ export const addFavorite = (id) => async (dispatch, getState) => {
     }
 };
 
-export const deleteFavorite = (id) => async (dispatch, getState) => {
+export const deleteFavorite = (product_id) => async (dispatch, getState) => {
     try {
         dispatch({
             type: FAV_DELETE_REQUEST,
         });
         //obtener token del login
         const token = await tokenConfig(getState);
-        //request body
-        //axios directamente hace el parse a stringify
-        const { data } = await axios.delete(
-            `https://delilahrestoapp.herokuapp.com/api/favourites/${id}`,
+
+        const request = await axios.delete(
+            `https://delilahrestoapp.herokuapp.com/api/favourites/${product_id}`,
             token
         );
 
         dispatch({
             type: FAV_DELETE_SUCCESS,
+        });
+        dispatch({
+            type: FAV_LIST_REMOVED,
+            payload: product_id,
         });
     } catch (error) {
         console.log(error.response);

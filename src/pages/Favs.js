@@ -11,10 +11,10 @@ const Favs = () => {
     const dispatch = useDispatch();
     const favoriteData = useSelector((state) => state.favoriteList);
     const { loading, favorites, error } = favoriteData;
-    const deletedFavorite = useSelector((state) => state.favoriteDelete);
+
     useEffect(() => {
         dispatch(getFavorites());
-    }, [deletedFavorite.success]);
+    }, []);
 
     return (
         <Layout>
