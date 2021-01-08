@@ -1,6 +1,7 @@
-import { handleError, handleResponse } from "./apiUtils";
 import axios from "axios";
-const baseUrl = process.env.API_URL + "/auth";
+import { handleError, handleResponse } from "./apiUtils";
+const baseUrl = process.env.REACT_APP_API_URL + "/auth";
+// const apiUrl = "https://delilahrestoapp.herokuapp.com/api/auth";
 const config = {
     headers: {
         "Content-Type": "application/json",

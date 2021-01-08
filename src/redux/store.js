@@ -12,17 +12,23 @@ const cartItemsFromStorage = JSON.parse(localStorage.getItem("cart")) ?? [];
 const preLoadState = {
     cart: {
         cartItems: cartItemsFromStorage,
-        quantity: null,
-        total: null,
+        quantity: 0,
+        total: 0,
     },
 };
 
 const middleware = [thunk];
 
-const store = createStore(
-    rootReducer,
-    preLoadState,
-    composeWithDevTools(applyMiddleware(...middleware))
-);
+// const store = createStore(
+//     rootReducer,
+//     preLoadState,
+//     composeWithDevTools(applyMiddleware(...middleware))
+// );
 
-export default store;
+export default function configureStore() {
+    return createStore(
+        rootReducer,
+        preLoadState,
+        composeWithDevTools(applyMiddleware(...middleware))
+    );
+}

@@ -1,9 +1,9 @@
 import React from "react";
-import useForm from "../../../Hooks/useForm";
-import { validateRegister1 } from "../validate";
 import { TextField, Box, Typography, Button, Link } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import { Link as RouterLink } from "react-router-dom";
+import useForm from "../../../Hooks/useForm";
+import { validateRegisterStep1 } from "../../../tools/validation/validate";
 
 const useStyles = makeStyles((theme) => ({
     container: {
@@ -26,17 +26,21 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-const FormPersonal = ({ handleNextStep, values, handleChange }) => {
+const FormPersonal = ({ values, handleChange, handleNextStep }) => {
     const classes = useStyles();
+
     const { handleSubmit, errors } = useForm(
-        validateRegister1,
-        submitNextStep,
+        validateRegisterStep1,
+        handleNextStep,
         values
     );
 
-    function submitNextStep() {
-        handleNextStep();
-    }
+    const disableButton = !(
+        values.firstName &&
+        values.lastName &&
+        values.phone &&
+        values.adress
+    );
 
     return (
         <div className={classes.container}>
@@ -49,9 +53,9 @@ const FormPersonal = ({ handleNextStep, values, handleChange }) => {
                 <Typography variant="caption">Paso 1 de 2</Typography>
             </Box>
             <form
+                onSubmit={handleSubmit}
                 style={{ margin: "2rem auto" }}
                 noValidate
-                onSubmit={handleSubmit}
             >
                 <TextField
                     id="outlined-firstName"
@@ -78,7 +82,7 @@ const FormPersonal = ({ handleNextStep, values, handleChange }) => {
                     value={values.lastName}
                     onChange={handleChange}
                     error={errors.lastName ? true : false}
-                    helperText={errors.lastName ? errors.lastName : ""}
+                    helperText={errors.lastName}
                     required
                 />
                 <TextField
@@ -93,7 +97,7 @@ const FormPersonal = ({ handleNextStep, values, handleChange }) => {
                     value={values.phone}
                     onChange={handleChange}
                     error={errors.phone ? true : false}
-                    helperText={errors.phone ? errors.phone : ""}
+                    helperText={errors.phone}
                     required
                 />
                 <TextField
@@ -107,7 +111,7 @@ const FormPersonal = ({ handleNextStep, values, handleChange }) => {
                     value={values.adress}
                     onChange={handleChange}
                     error={errors.adress ? true : false}
-                    helperText={errors.adress ? errors.adress : ""}
+                    helperText={errors.adress}
                     required
                 />
                 <Box
@@ -121,6 +125,7 @@ const FormPersonal = ({ handleNextStep, values, handleChange }) => {
                         variant="contained"
                         color="primary"
                         className={classes.button}
+                        disabled={disableButton}
                         type="submit"
                     >
                         SIGUIENTE

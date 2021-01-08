@@ -1,7 +1,7 @@
 export const tokenConfig = async (getState) => {
     try {
         //get token
-        const token = getState().userLogin.userInfo.token;
+        const token = getState().userLogin.token;
 
         //set headers
         const config = {

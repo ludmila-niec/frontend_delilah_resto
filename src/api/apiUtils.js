@@ -1,5 +1,5 @@
 export async function handleResponse(response) {
-    if (response.ok) return response;
+    if (response.status === 200 || response.status === 201) return response;
     if (response.status === 400) {
         const error = await response.text();
         throw new Error(error);

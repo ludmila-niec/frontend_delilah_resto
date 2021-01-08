@@ -1,4 +1,4 @@
-import * as types from "../actions/apiStatusActions";
+import * as types from "../constants/apiStatusConstants";
 import initialState from "./initialState";
 
 //helper function
@@ -7,7 +7,7 @@ function actionTypeEndInSuccess(type) {
     return type.substring(type.length - 8) === "_SUCCESS";
 }
 
-export default function apiCallStatusReducer(
+export default function apiStatusReducer(
     state = initialState.apiCallsInProgress,
     action
 ) {
