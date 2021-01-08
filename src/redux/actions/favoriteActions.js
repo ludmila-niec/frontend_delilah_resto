@@ -18,9 +18,9 @@ export function deleteFavoriteOptimistic(favorite_id) {
 export const loadFavorites = () => async (dispatch, getState) => {
     try {
         dispatch(beginApiCall());
-        const favorites = await favoriteApi.getFavorites(getState);
-        console.log(favorites);
-        return dispatch(loadFavoritesSuccess(favorites.data.products));
+        const response = await favoriteApi.getFavorites(getState);
+        const favorites = response.data.data.products;
+        return dispatch(loadFavoritesSuccess(favorites));
     } catch (error) {
         console.log(error.response);
         dispatch(apiCallError(error));
@@ -44,7 +44,7 @@ export const addFavorite = (product_id) => async (dispatch, getState) => {
 
 export const deleteFavorite = (product_id) => async (dispatch, getState) => {
     try {
-        dispatch(deleteFavoriteSuccess(product_id));
+        dispatch(deleteFavoriteOptimistic(product_id));
         return favoriteApi.removeFavorite(getState, product_id);
     } catch (error) {
         console.log(error.response);

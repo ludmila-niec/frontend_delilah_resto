@@ -1,7 +1,8 @@
-import { handleError, handleResponse } from "./apiUtils";
 import axios from "axios";
-const baseUrl = process.env.API_URL + "/api/categories";
+import { handleError, handleResponse } from "./apiUtils";
 import { tokenConfig } from "./tokenApi";
+
+const baseUrl = process.env.REACT_APP_API_URL + "/categories";
 
 export async function getCategories(getState) {
     try {

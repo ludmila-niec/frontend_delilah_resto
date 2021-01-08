@@ -12,7 +12,9 @@ export function loadCategoriesSuccess(categories) {
 export const loadCategories = () => async (dispatch, getState) => {
     try {
         dispatch(beginApiCall());
-        const categories = await categoryApi.getCategories(getState);
+        const response = await categoryApi.getCategories(getState);
+        console.log(response);
+        const categories = response.data.data;
         return dispatch(loadCategoriesSuccess(categories));
     } catch (error) {
         dispatch(apiCallError(error));

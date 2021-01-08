@@ -1,12 +1,11 @@
 import * as types from "../constants/favoriteConstants";
 import initialState from "./initialState";
 
-export const favoriteReducer = (state = initialState.favorites, action) => {
+const favoriteReducer = (state = initialState.favorites, action) => {
     switch (action.type) {
         case types.LOAD_FAV_LIST_SUCCESS:
             return action.favorites;
-
-        case types.FAV_ADD_SUCCESS:
+        case types.ADD_FAV_SUCCESS:
             return [...state, { ...action.favorite }];
         case types.DELETE_FAV_OPTIMISTIC:
             return state.filter(
@@ -17,6 +16,8 @@ export const favoriteReducer = (state = initialState.favorites, action) => {
             return state;
     }
 };
+
+export default favoriteReducer;
 
 // export const addFavoriteReducer = (state = {}, action) => {
 //     switch (action.type) {

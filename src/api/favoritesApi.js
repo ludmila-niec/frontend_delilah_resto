@@ -1,7 +1,7 @@
-import { handleError, handleResponse } from "./apiUtils";
 import axios from "axios";
-const baseUrl = process.env.API_URL + "/api/favourites";
+import { handleError, handleResponse } from "./apiUtils";
 import { tokenConfig } from "./tokenApi";
+const baseUrl = process.env.REACT_APP_API_URL + "/favourites";
 
 export async function getFavorites(getState) {
     try {

@@ -1,14 +1,16 @@
 import * as types from "../constants/categoryConstants";
 import initialState from "./initialState";
 
-export const categoryReducer = (state = initialState.categories, action) => {
+const categoryReducer = (state = initialState.categories, action) => {
     switch (action.type) {
         case types.CATEGORY_LIST_SUCCESS:
-            return { ...state, categories: action.categories };
+            return action.categories;
         default:
             return state;
     }
 };
+
+export default categoryReducer;
 
 // export const categoryProductReducer = (state = {}, action) => {
 //     switch (action.type) {
