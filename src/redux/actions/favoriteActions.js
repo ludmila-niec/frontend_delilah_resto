@@ -1,14 +1,14 @@
 import * as types from "../constants/favoriteConstants";
 import * as favoriteApi from "../../api/favoritesApi";
-import * as productApi from "../../api/productsApi";
 import { beginApiCall, apiCallError } from "./apiStatusActions";
 
 export function loadFavoritesSuccess(favorites) {
     return { type: types.LOAD_FAV_LIST_SUCCESS, favorites };
 }
 
-export function addFavoriteSuccess(favorite) {
-    return { type: types.ADD_FAV_SUCCESS, favorite };
+export function addFavoriteOptimistic(product_id) {
+    debugger;
+    return { type: types.ADD_FAV_OPTIMISTIC, product_id };
 }
 
 export function deleteFavoriteOptimistic(product_id) {
@@ -19,26 +19,12 @@ export const loadFavorites = () => async (dispatch, getState) => {
     try {
         dispatch(beginApiCall());
         const response = await favoriteApi.getFavorites(getState);
-        const favorites = response.data.data.products;
-        return dispatch(loadFavoritesSuccess(favorites));
+        const favoritesArray = response.data.data.products;
+        const productsId = favoritesArray.map((p) => p.product_id);
+        return dispatch(loadFavoritesSuccess(productsId));
     } catch (error) {
         console.log(error.response);
         dispatch(apiCallError(error));
-    }
-};
-
-//future => add optimistic
-export const addFavorite = (product_id) => async (dispatch, getState) => {
-    try {
-        dispatch(beginApiCall());
-        await favoriteApi.saveFavorite(getState, product_id);
-        const fetchFavorite = await productApi.getProductById(product_id);
-        const productData = fetchFavorite.data;
-        console.log(productData);
-        return dispatch(addFavoriteSuccess(productData));
-    } catch (error) {
-        console.log(error.response);
-        // dispatch(apiCallError(error));
     }
 };
 
@@ -48,6 +34,14 @@ export const deleteFavorite = (product_id) => async (dispatch, getState) => {
         return favoriteApi.removeFavorite(getState, product_id);
     } catch (error) {
         console.log(error.response);
-        // dispatch(apiCallError(error));
+    }
+};
+
+export const addFavorite = (product_id) => async (dispatch, getState) => {
+    try {
+        dispatch(addFavoriteOptimistic(product_id));
+        return favoriteApi.saveFavorite(getState, product_id);
+    } catch (error) {
+        console.log(error.response);
     }
 };

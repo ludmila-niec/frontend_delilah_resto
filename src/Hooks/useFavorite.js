@@ -1,24 +1,16 @@
 import { useState, useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux";
-import {
-    addFavorite,
-    deleteFavorite,
-    clearFavAction,
-} from "../actions/favoriteActions";
 
-const useFavorite = (product_id) => {
-    const dispatch = useDispatch();
-    const favoriteData = useSelector((state) => state.favoriteList);
-    const { favorites } = favoriteData;
-    const addedFavorite = useSelector((state) => state.favoriteAdd);
-    const deletedFavorite = useSelector((state) => state.favoriteDelete);
-
+const useFavorite = (product_id, favorites, addFavorite, deleteFavorite) => {
     //checkbox value
     const [isFavorite, setIsFavorite] = useState(false);
-
+    // const [message, setMessage] = useState("");
+    //notify action with snackbar
+    const [isOpenSnackbar, setIsOpenSnackbar] = useState(false);
+    //notify with message addes/deleted
+    let message;
     //check favorites on load and display checked/unchecked
     useEffect(() => {
-        const isFav = favorites.find((fav) => fav.product_id === product_id);
+        const isFav = favorites.some((f) => f === product_id);
         if (isFav) {
             setIsFavorite(true);
         }
@@ -31,44 +23,30 @@ const useFavorite = (product_id) => {
             console.log("cambio a false");
             //cambiar estado del checkboxIcon
             setIsFavorite(false);
+            message = "Favorito Eliminado";
+            setIsOpenSnackbar(true);
             //eliminar favorito
-            dispatch(deleteFavorite(product_id));
+            deleteFavorite(product_id);
         } else {
             console.log("cambio a true");
             //cambiar estado del checkboxIcon
             setIsFavorite(true);
+            message = "Favorito agregado";
+            setIsOpenSnackbar(true);
             //agregar favorito
-
-            dispatch(addFavorite(product_id));
+            addFavorite(product_id);
         }
     };
 
-    //notify action with snackbar
-    const [openSnackbar, setOpenSnackbar] = useState(false);
     const handleSnackbarClose = () => {
-        setOpenSnackbar(false);
-        dispatch(clearFavAction());
+        setIsOpenSnackbar(false);
     };
-
-    useEffect(() => {
-        if (addedFavorite.success) {
-            setOpenSnackbar(true);
-
-            console.log("success add + clear");
-        }
-
-        if (deletedFavorite.success) {
-            setOpenSnackbar(true);
-            console.log("success delete + clear");
-        }
-    }, [addedFavorite, deletedFavorite]);
 
     return {
         isFavorite,
+        message,
+        isOpenSnackbar,
         handleChangeFav,
-        addedFavorite,
-        deletedFavorite,
-        openSnackbar,
         handleSnackbarClose,
     };
 };

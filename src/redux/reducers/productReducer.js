@@ -1,10 +1,13 @@
 import * as types from "../constants/productConstants";
 import initialState from "./initialState";
-export const productReducer = (state = initialState.products, action) => {
+const productReducer = (state = initialState.products, action) => {
     switch (action.type) {
-        case types.PRODUCT_DETAIL_SUCCESS:
+        case types.LOAD_PRODUCTS_LIST_SUCCESS:
+            debugger;
             return action.products;
         default:
             return state;
     }
 };
+
+export default productReducer;

@@ -6,32 +6,49 @@ import FavsEmpty from "../components/Fav/FavsEmpty";
 import FavList from "../components/Fav/FavList";
 import ProductList from "../components/Product/ProductCardList";
 import { connect } from "react-redux";
+import { loadProducts } from "../redux/actions/productActions";
 import { loadFavorites } from "../redux/actions/favoriteActions";
 import Loading from "../components/common/Loading";
 
-const Favs = ({ favorites, loading, loadFavorites }) => {
-    const prevFavorites = useRef([]);
+const Favs = ({
+    products,
+    favorites,
+    loading,
+    loadProducts,
+    loadFavorites,
+}) => {
+    useEffect(() => {
+        if (products.length === 0) {
+            loadProducts();
+        }
+    }, []);
+    // const prevFavorites = useRef([]);
+    // useEffect(() => {
+    //     if (favorites.length === 0) {
+    //         loadFavorites();
+    //         return (prevFavorites.current = favorites);
+    //     } else if (areEqual(prevFavorites.current, favorites)) {
+    //         return;
+    //     } else {
+    //         return (prevFavorites.current = favorites);
+    //     }
+    // }, [favorites]);
     useEffect(() => {
         if (favorites.length === 0) {
             loadFavorites();
-            return (prevFavorites.current = favorites);
-        } else if (areEqual(prevFavorites.current, favorites)) {
-            return;
-        } else {
-            return (prevFavorites.current = favorites);
         }
-    }, [favorites]);
+    }, []);
 
     const userHaveFavorites = favorites.length > 0;
 
-    // if (loading) {
-    //     return (
-    //         <Layout>
-    //             <Typography variant="h5">Mis favoritos</Typography>
-    //             <p>Cargando tus favoritos...</p>
-    //         </Layout>
-    //     );
-    // }
+    if (loading) {
+        return (
+            <Layout>
+                <Typography variant="h5">Mis favoritos</Typography>
+                <p>Cargando tus favoritos...</p>
+            </Layout>
+        );
+    }
 
     // if (error) {
     //     return <ErrorNoData errorText="Error al cargar los favoritos" />;
@@ -51,12 +68,20 @@ const Favs = ({ favorites, loading, loadFavorites }) => {
 
 function mapStateToProps(state) {
     return {
-        favorites: state.favorites,
+        products: state.products,
+        favorites:
+            state.products.length == 0
+                ? []
+                : state.favorites.map((f) =>
+                      state.products.find((p) => p.product_id === f)
+                  ),
+        categories: state.categories,
         loading: state.apiCallsInProgress > 0,
     };
 }
 
 const mapDispatchToProps = {
+    loadProducts,
     loadFavorites,
 };
 
