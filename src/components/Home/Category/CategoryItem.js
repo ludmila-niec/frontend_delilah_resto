@@ -34,7 +34,7 @@ const CategoryItem = ({ category }) => {
                         variant="contained"
                         color="primary"
                         component={RouterLink}
-                        to={`/category/${category_id}`}
+                        to={`/category/${name}/${category_id}`}
                     >
                         ver mas
                     </Button>

@@ -74,7 +74,6 @@ const FavItem = ({ product }) => {
                         style={{ margin: "0.2rem auto" }}
                         component={RouterLink}
                         to={`/product/${product_id}`}
-                        // component={RouterLink} to={'/product/' + product.id }
                     >
                         VER PRODUCTO
                     </Button>

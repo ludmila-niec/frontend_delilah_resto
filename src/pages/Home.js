@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect } from "react";
 import Layout from "../components/common/Layout";
 import SearchBox from "../components/Home/SearchBox";
 import FavSection from "../components/Home/Favorite/FavSection";
@@ -7,52 +7,28 @@ import Loading from "../components/common/Loading";
 import { connect } from "react-redux";
 import { loadFavorites } from "../redux/actions/favoriteActions";
 import { loadCategories } from "../redux/actions/categoryActions";
-import { withRouter } from "react-router-dom";
+import { loadProducts } from "../redux/actions/productActions";
 
 function Home({
     favorites,
     categories,
+    products,
     loading,
+    loadProducts,
     loadFavorites,
     loadCategories,
 }) {
-    const [error, setError] = useState({
-        favoritesError: "",
-        categoriesError: "",
-    });
-    const prevFavorites = useRef([]);
-
     useEffect(() => {
         if (favorites.length === 0) {
-            loadFavorites().catch((error) => {
-                setError((currentErrors) => {
-                    return {
-                        ...currentErrors,
-                        favoritesError: "Error al cargar los favoritos",
-                    };
-                });
-                console.log(error.response);
-            });
-            return (prevFavorites.current = favorites);
-        } else if (areEqual(prevFavorites.current, favorites)) {
-            return;
-        } else {
-            return (prevFavorites.current = favorites);
+            loadFavorites();
         }
-    }, [favorites]);
 
-    useEffect(() => {
-        console.log("effect categorias");
+        if (products.length === 0) {
+            loadProducts();
+        }
+
         if (categories.length === 0) {
-            loadCategories().catch((error) => {
-                setError((currentErrors) => {
-                    return {
-                        ...currentErrors,
-                        categoriesError: "Error al cargar los favoritos",
-                    };
-                });
-                console.log(error.response);
-            });
+            loadCategories();
         }
     }, []);
 
@@ -66,7 +42,6 @@ function Home({
                     {favorites.length > 0 && (
                         <FavSection favorites={favorites} />
                     )}
-                    {/* {error.favorites && <p>{error.favorites}</p>} */}
 
                     <CategoriesSection categories={categories} />
                 </>
@@ -77,22 +52,21 @@ function Home({
 
 function mapStateToProps(state) {
     return {
-        favorites: state.favorites,
+        products: state.products,
+        favorites:
+            state.products.length == 0
+                ? []
+                : state.favorites.map((f) =>
+                      state.products.find((p) => p.product_id === f)
+                  ),
         categories: state.categories,
         loading: state.apiCallsInProgress > 0,
     };
 }
 const mapDispatchToProps = {
+    loadProducts,
     loadFavorites,
     loadCategories,
 };
-
-//checks if the array of favorites have changed
-function areEqual(array1, array2) {
-    return (
-        array1.length === array2.length &&
-        array1.every((value, index) => value === array2[index])
-    );
-}
 
 export default connect(mapStateToProps, mapDispatchToProps)(Home);
