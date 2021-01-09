@@ -1,15 +1,14 @@
 import React, { useEffect } from "react";
-import Layout from "../components/Layout";
-import SearchBox from "../components/shop/SearchBox";
+import Layout from "../components/common/Layout";
+import SearchBox from "../components/Home/SearchBox";
 import CategoryCard from "../components/Category/CategoryCard";
 import ProductCardList from "../components/Product/ProductCardList";
 import ProductCardLoading from "../components/Product/ProductCardLoading";
-import ErrorNoData from "../components/ErrorNoData";
+// import ErrorNoData from "../components/ErrorNoData";
 import { Typography } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
-import { useDispatch, useSelector } from "react-redux";
-import { getCategoryById } from "../actions/categoryActions";
-import { getFavorites } from "../actions/favoriteActions";
+import { connect } from "react-redux";
+import { loadCategories } from "../redux/actions/categoryActions";
 
 const useStyles = makeStyles((theme) => ({
     containerLoading: {
@@ -20,26 +19,13 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-const Category = ({ match }) => {
+const Category = ({ categories, categoryInfo, loading, loadCategories }) => {
     const classes = useStyles();
-    //id value from path
-    const categoryId = match.params.id;
-    console.log(categoryId);
-    const dispatch = useDispatch();
-    const categoryData = useSelector((state) => state.categoryDetail);
-    const { loading, categoryInfo, error } = categoryData;
-
     useEffect(() => {
-        dispatch(getCategoryById(categoryId));
-    }, [dispatch, categoryId]);
-    console.log(categoryInfo);
-
-    const addedFavorite = useSelector((state) => state.favoriteAdd);
-    const deletedFavorite = useSelector((state) => state.favoriteDelete);
-    //get lista de favoritos
-    useEffect(() => {
-        dispatch(getFavorites());
-    }, [addedFavorite, deletedFavorite]);
+        if (categories.length === 0) {
+            loadCategories();
+        }
+    }, []);
 
     return (
         <Layout>
@@ -61,15 +47,31 @@ const Category = ({ match }) => {
             {categoryInfo && (
                 <>
                     <CategoryCard
-                        name={categoryInfo.data.name}
-                        img={categoryInfo.data.img}
+                        name={categoryInfo.name}
+                        img={categoryInfo.img}
                     />
-                    <ProductCardList productList={categoryInfo.data.Products} />
+                    <ProductCardList productList={categoryInfo.Products} />
                 </>
             )}
-            {error && <ErrorNoData errorText="Error al cargar los productos" />}
+            {/* {error && <ErrorNoData errorText="Error al cargar los productos" />} */}
         </Layout>
     );
 };
 
-export default Category;
+function mapStateToProps(state, ownProps) {
+    const categoryId = ownProps.match.params.id;
+    return {
+        categories: state.categories,
+        categoryInfo:
+            state.categories.length === 0
+                ? []
+                : state.categories.find((c) => c.category_id === categoryId),
+        loading: state.apiCallsInProgress > 0,
+    };
+}
+
+const mapDispatchToProps = {
+    loadCategories,
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Category);

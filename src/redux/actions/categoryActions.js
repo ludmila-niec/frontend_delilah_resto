@@ -24,7 +24,9 @@ export const loadCategories = () => async (dispatch, getState) => {
 // export const getCategoryById = (id) => async (dispatch, getState) => {
 //     try {
 //         dispatch(beginApiCall());
-//         const category = await categoryApi.getCategoryById(getState, id);
+//         const response = await categoryApi.getCategoryById(getState, id);
+//         const category = response.data.data;
+//         debugger;
 //         return dispatch(loadCategorySuccess(category));
 //     } catch (error) {
 //         dispatch(apiCallError(error));
