@@ -3,7 +3,6 @@ import { Typography, Button, ButtonGroup } from "@material-ui/core";
 import { Add, Remove } from "@material-ui/icons";
 import { makeStyles } from "@material-ui/core/styles";
 import { useDispatch } from "react-redux";
-import { addToCart } from "../../actions/cartActions";
 
 const useStyles = makeStyles((theme) => ({
     container: {
@@ -44,7 +43,7 @@ const useStyles = makeStyles((theme) => ({
 const ProductDetail = ({ onOpenModal, product }) => {
     const classes = useStyles();
     const dispatch = useDispatch();
-    const { product_id, name, description, price } = product.data;
+    const { product_id, name, description, price } = product;
     const [quantity, setQuantity] = useState(1);
 
     const handleIncreaseQuantity = () => {
@@ -57,10 +56,10 @@ const ProductDetail = ({ onOpenModal, product }) => {
         }
     };
 
-    const handleAddToCart = () => {
-        dispatch(addToCart(product.data, quantity));
-        onOpenModal();
-    };
+    // const handleAddToCart = () => {
+    //     dispatch(addToCart(product.data, quantity));
+    //     onOpenModal();
+    // };
     return (
         <div className={classes.container}>
             <div>
@@ -93,7 +92,7 @@ const ProductDetail = ({ onOpenModal, product }) => {
                         variant="contained"
                         color="primary"
                         className={classes.btnAdd}
-                        onClick={handleAddToCart}
+                        // onClick={handleAddToCart}
                     >
                         agregar ${price * quantity}
                     </Button>

@@ -8,17 +8,13 @@ const useStyles = makeStyles((theme) => ({
         margin: "3rem 0",
     },
 }));
-const ProductCardList = ({ productList, loading }) => {
+const ProductCardList = ({ productList }) => {
     const classes = useStyles();
-
+    console.log(productList);
     return (
         <div className={classes.container}>
             {productList.map((product) => (
-                <ProductCard
-                    key={product.product_id}
-                    product={product}
-                    loading={loading}
-                />
+                <ProductCard key={product.product_id} product={product} />
             ))}
         </div>
     );

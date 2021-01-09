@@ -1,35 +1,42 @@
 import React, { useEffect } from "react";
-import Navbar from "../components/Navbar";
-import Footer from "../components/Footer";
+import Navbar from "../components/common/Navbar";
+import Footer from "../components/common/Footer";
 import ProductItem from "../components/Product/ProductItem";
 import ProductItemLoading from "../components/Product/ProductItemLoading";
-import Error404 from "../components/Error404";
-import ErrorNoData from "../components/ErrorNoData";
-import { useDispatch, useSelector } from "react-redux";
-import { getProductDetail } from "../actions/productActions";
+import { connect } from "react-redux";
+import { loadProducts } from "../redux/actions/productActions";
 
-const Product = ({ match }) => {
-    const productId = match.params.id;
-    const dispatch = useDispatch();
-    const productData = useSelector((state) => state.productDetail);
-    const { loading, product, error } = productData;
-
-    console.log(error, "error");
-
+const Product = ({ products, product, loading, loadProducts }) => {
     useEffect(() => {
-        dispatch(getProductDetail(productId));
-    }, [dispatch, productId]);
-
-    if (error) return <ErrorNoData errorText="Error al cargar el producto" />;
+        if (products.length === 0) {
+            loadProducts();
+        }
+    }, []);
+    // if (error) return <ErrorNoData errorText="Error al cargar el producto" />;
     return (
         <div>
             <Navbar />
             {loading && <ProductItemLoading />}
-            {product && <ProductItem product={product} loading={loading} />}
-
+            {product && <ProductItem product={product} />}
             <Footer />
         </div>
     );
 };
 
-export default Product;
+function mapStateToProps(state, ownProps) {
+    const productId = ownProps.match.params.id;
+    return {
+        products: state.products,
+        product:
+            state.products.length === 0
+                ? []
+                : state.products.find((p) => p.product_id == productId),
+        loading: state.apiCallsInProgress > 0,
+    };
+}
+
+const mapDispatchToProps = {
+    loadProducts,
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Product);

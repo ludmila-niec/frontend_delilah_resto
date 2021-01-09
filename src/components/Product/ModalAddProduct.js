@@ -1,6 +1,6 @@
 import React from "react";
-import Modal from "../Modal/Modal";
-import ModalSuccess from "../Modal/ModalSuccess";
+import Modal from "../common/Modal/Modal";
+import ModalSuccess from "../common/Modal/ModalSuccess";
 
 const successMsg = {
     title: "Producto agregado!",

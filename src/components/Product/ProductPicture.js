@@ -47,9 +47,15 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-const ProductPicture = ({ history, product }) => {
+const ProductPicture = ({
+    history,
+    product,
+    favorites,
+    addFavorite,
+    deleteFavorite,
+}) => {
     const classes = useStyles();
-    const { product_id, name, img } = product.data;
+    const { product_id, name, img } = product;
 
     const goBackRouter = () => {
         history.goBack();
@@ -58,11 +64,11 @@ const ProductPicture = ({ history, product }) => {
     const {
         isFavorite,
         handleChangeFav,
-        addedFavorite,
-        deletedFavorite,
-        openSnackbar,
-        handleSnackbarClose,
-    } = useFavorite(product_id);
+        // addedFavorite,
+        // deletedFavorite,
+        // openSnackbar,
+        // handleSnackbarClose,
+    } = useFavorite(product_id, favorites, addFavorite, deleteFavorite);
 
     return (
         <>
@@ -94,7 +100,7 @@ const ProductPicture = ({ history, product }) => {
                 />
                 <img src={img} alt={name} className={classes.img} />
             </div>
-            {addedFavorite.success && (
+            {/* {addedFavorite.success && (
                 <Snackbar
                     open={openSnackbar}
                     autoHideDuration={3000}
@@ -104,8 +110,8 @@ const ProductPicture = ({ history, product }) => {
                         Favorito Agregado!
                     </Alert>
                 </Snackbar>
-            )}
-            {deletedFavorite.success && (
+            )} */}
+            {/* {deletedFavorite.success && (
                 <Snackbar
                     open={openSnackbar}
                     autoHideDuration={3000}
@@ -115,7 +121,7 @@ const ProductPicture = ({ history, product }) => {
                         Favorito Eliminado
                     </Alert>
                 </Snackbar>
-            )}
+            )} */}
         </>
     );
 };

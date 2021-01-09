@@ -16,21 +16,30 @@ import {
 } from "@material-ui/core";
 import { Favorite, FavoriteBorder } from "@material-ui/icons";
 import { Alert } from "@material-ui/lab";
-
+import { connect } from "react-redux";
+import {
+    addFavorite,
+    deleteFavorite,
+} from "../../redux/actions/favoriteActions";
 import useStyles from "./productCardStyle";
 import useFavorite from "../../Hooks/useFavorite";
 
-const ProductCard = ({ product, loading }) => {
+const ProductCard = ({
+    product,
+    favorites,
+    loading,
+    addFavorite,
+    deleteFavorite,
+}) => {
     const classes = useStyles();
     const { product_id, name, img, description, price } = product;
     const {
         isFavorite,
+        message,
+        isOpenSnackbar,
         handleChangeFav,
-        addedFavorite,
-        deletedFavorite,
-        openSnackbar,
         handleSnackbarClose,
-    } = useFavorite(product_id);
+    } = useFavorite(product_id, favorites, addFavorite, deleteFavorite);
 
     return (
         <>
@@ -97,18 +106,22 @@ const ProductCard = ({ product, loading }) => {
                     </Card>
                 </Fade>
             )}
-            {addedFavorite.success && (
-                <Snackbar
-                    open={openSnackbar}
-                    autoHideDuration={3000}
+
+            <Snackbar
+                open={isOpenSnackbar}
+                autoHideDuration={3000}
+                onClose={handleSnackbarClose}
+            >
+                <Alert
+                    variant="filled"
+                    severity="success"
                     onClose={handleSnackbarClose}
                 >
-                    <Alert variant="filled" severity="success">
-                        Favorito Agregado!
-                    </Alert>
-                </Snackbar>
-            )}
-            {deletedFavorite.success && (
+                    {message}
+                </Alert>
+            </Snackbar>
+
+            {/* {deletedFavorite.success && (
                 <Snackbar
                     open={openSnackbar}
                     autoHideDuration={3000}
@@ -118,9 +131,20 @@ const ProductCard = ({ product, loading }) => {
                         Favorito Eliminado
                     </Alert>
                 </Snackbar>
-            )}
+            )} */}
         </>
     );
 };
+function mapStateToProps(state) {
+    return {
+        favorites: state.favorites,
+        loading: state.apiCallsInProgress > 0,
+    };
+}
 
-export default ProductCard;
+const mapDispatchToProps = {
+    addFavorite,
+    deleteFavorite,
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(ProductCard);
