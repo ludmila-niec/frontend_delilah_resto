@@ -5,25 +5,15 @@ import rootReducer from "./reducers";
 
 const cartItemsFromStorage = JSON.parse(localStorage.getItem("cart")) ?? [];
 
-// const cartItemsFromStorage = localStorage.getItem("cartItems")
-//     ? JSON.parse(localStorage.getItem("cartItems"))
-//     : [];
-
 const preLoadState = {
     cart: {
         cartItems: cartItemsFromStorage,
-        quantity: 0,
-        total: 0,
+        quantity: cartItemsFromStorage.length,
+        total: null,
     },
 };
 
 const middleware = [thunk];
-
-// const store = createStore(
-//     rootReducer,
-//     preLoadState,
-//     composeWithDevTools(applyMiddleware(...middleware))
-// );
 
 export default function configureStore() {
     return createStore(
