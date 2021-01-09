@@ -11,8 +11,8 @@ export function addFavoriteSuccess(favorite) {
     return { type: types.ADD_FAV_SUCCESS, favorite };
 }
 
-export function deleteFavoriteOptimistic(favorite_id) {
-    return { type: types.DELETE_FAV_OPTIMISTIC, favorite_id };
+export function deleteFavoriteOptimistic(product_id) {
+    return { type: types.DELETE_FAV_OPTIMISTIC, product_id };
 }
 
 export const loadFavorites = () => async (dispatch, getState) => {
@@ -38,7 +38,7 @@ export const addFavorite = (product_id) => async (dispatch, getState) => {
         return dispatch(addFavoriteSuccess(productData));
     } catch (error) {
         console.log(error.response);
-        dispatch(apiCallError(error));
+        // dispatch(apiCallError(error));
     }
 };
 
@@ -48,12 +48,6 @@ export const deleteFavorite = (product_id) => async (dispatch, getState) => {
         return favoriteApi.removeFavorite(getState, product_id);
     } catch (error) {
         console.log(error.response);
-        dispatch(apiCallError(error));
+        // dispatch(apiCallError(error));
     }
 };
-
-// export const clearFavAction = () => {
-//     return {
-//         type: FAV_CLEAR_ACTION,
-//     };
-// };

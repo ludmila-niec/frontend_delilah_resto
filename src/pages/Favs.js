@@ -1,42 +1,47 @@
-import React, { useEffect } from "react";
-import Layout from "../components/Layout";
-import ErrorNoData from "../components/ErrorNoData";
+import React, { useEffect, useRef } from "react";
+import Layout from "../components/common/Layout";
+// import ErrorNoData from "../components/ErrorNoData";
 import { Typography } from "@material-ui/core";
 import FavsEmpty from "../components/Fav/FavsEmpty";
 import FavList from "../components/Fav/FavList";
-import { useDispatch, useSelector } from "react-redux";
-import { getFavorites } from "../actions/favoriteActions";
+import ProductList from "../components/Product/ProductCardList";
+import { connect } from "react-redux";
+import { loadFavorites } from "../redux/actions/favoriteActions";
+import Loading from "../components/common/Loading";
 
-const Favs = () => {
-    const dispatch = useDispatch();
-    const favoriteData = useSelector((state) => state.favoriteList);
-    const { loading, favorites, error } = favoriteData;
-
+const Favs = ({ favorites, loading, loadFavorites }) => {
+    const prevFavorites = useRef([]);
     useEffect(() => {
-        dispatch(getFavorites());
-    }, []);
+        if (favorites.length === 0) {
+            loadFavorites();
+            return (prevFavorites.current = favorites);
+        } else if (areEqual(prevFavorites.current, favorites)) {
+            return;
+        } else {
+            return (prevFavorites.current = favorites);
+        }
+    }, [favorites]);
 
     const userHaveFavorites = favorites.length > 0;
-    console.log(userHaveFavorites);
 
-    if (loading) {
-        return (
-            <Layout>
-                <Typography variant="h5">Mis favoritos</Typography>
-                <p>Cargando tus favoritos...</p>
-            </Layout>
-        );
-    }
+    // if (loading) {
+    //     return (
+    //         <Layout>
+    //             <Typography variant="h5">Mis favoritos</Typography>
+    //             <p>Cargando tus favoritos...</p>
+    //         </Layout>
+    //     );
+    // }
 
-    if (error) {
-        return <ErrorNoData errorText="Error al cargar los favoritos" />;
-    }
+    // if (error) {
+    //     return <ErrorNoData errorText="Error al cargar los favoritos" />;
+    // }
 
     return (
         <Layout>
             <Typography variant="h5">Mis favoritos</Typography>
             {userHaveFavorites ? (
-                <FavList productList={favorites} loading={loading} />
+                <ProductList productList={favorites} />
             ) : (
                 <FavsEmpty />
             )}
@@ -44,4 +49,23 @@ const Favs = () => {
     );
 };
 
-export default Favs;
+function mapStateToProps(state) {
+    return {
+        favorites: state.favorites,
+        loading: state.apiCallsInProgress > 0,
+    };
+}
+
+const mapDispatchToProps = {
+    loadFavorites,
+};
+
+//checks if the array of favorites have changed
+function areEqual(array1, array2) {
+    return (
+        array1.length === array2.length &&
+        array1.every((value, index) => value === array2[index])
+    );
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Favs);
