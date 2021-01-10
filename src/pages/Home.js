@@ -57,7 +57,7 @@ function mapStateToProps(state) {
             state.products.length == 0
                 ? []
                 : state.favorites.map((f) =>
-                      state.products.find((p) => p.product_id === f)
+                      state.products.find((p) => p.product_id === f.product_id)
                   ),
         categories: state.categories,
         loading: state.apiCallsInProgress > 0,

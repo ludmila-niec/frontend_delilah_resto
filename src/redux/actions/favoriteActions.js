@@ -7,7 +7,6 @@ export function loadFavoritesSuccess(favorites) {
 }
 
 export function addFavoriteOptimistic(product_id) {
-    debugger;
     return { type: types.ADD_FAV_OPTIMISTIC, product_id };
 }
 
@@ -19,9 +18,11 @@ export const loadFavorites = () => async (dispatch, getState) => {
     try {
         dispatch(beginApiCall());
         const response = await favoriteApi.getFavorites(getState);
-        const favoritesArray = response.data.data.products;
-        const productsId = favoritesArray.map((p) => p.product_id);
-        return dispatch(loadFavoritesSuccess(productsId));
+        // const favoritesArray = response.data.data.products;
+        // const productsId = favoritesArray.map((p) => p.product_id);
+        const favorites = response.data.data.products;
+        debugger;
+        return dispatch(loadFavoritesSuccess(favorites));
     } catch (error) {
         console.log(error.response);
         dispatch(apiCallError(error));

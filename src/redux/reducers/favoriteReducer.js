@@ -6,9 +6,11 @@ const favoriteReducer = (state = initialState.favorites, action) => {
         case types.LOAD_FAV_LIST_SUCCESS:
             return action.favorites;
         case types.ADD_FAV_OPTIMISTIC:
-            return [action.product_id, ...state];
+            return [{ product_id: action.product_id }, ...state];
         case types.DELETE_FAV_OPTIMISTIC:
-            return state.filter((item) => item !== action.product_id);
+            return state.filter(
+                (item) => item.product_id !== action.product_id
+            );
 
         default:
             return state;

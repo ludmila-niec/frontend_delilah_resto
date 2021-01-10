@@ -10,7 +10,7 @@ const useFavorite = (product_id, favorites, addFavorite, deleteFavorite) => {
     let message;
     //check favorites on load and display checked/unchecked
     useEffect(() => {
-        const isFav = favorites.some((f) => f === product_id);
+        const isFav = favorites.some((f) => f.product_id === product_id);
         if (isFav) {
             setIsFavorite(true);
         }
