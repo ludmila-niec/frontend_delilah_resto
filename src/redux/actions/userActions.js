@@ -10,8 +10,8 @@ export function registerNewUserFail(error) {
     return { type: types.USER_REGISTER_FAIL, error };
 }
 
-export function loginUserSuccess(user) {
-    return { type: types.USER_LOGIN_SUCCESS, user };
+export function loginUserSuccess(user, token) {
+    return { type: types.USER_LOGIN_SUCCESS, user, token };
 }
 
 export function loginUserFail(error) {
@@ -36,11 +36,11 @@ export const loginUser = (body) => async (dispatch) => {
     try {
         dispatch(beginApiCall());
         const response = await userApi.loginUser(body);
-        const userLogged = response.data.token;
-        dispatch(loginUserSuccess(userLogged));
+        const { user, token } = response.data;
+        dispatch(loginUserSuccess(user, token));
     } catch (error) {
         dispatch(apiCallError(error));
-        dispatch(loginUserFail(error.response));
+        dispatch(loginUserFail(error.response.data.message));
         console.log(error.response);
     }
 };

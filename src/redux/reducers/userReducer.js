@@ -18,11 +18,16 @@ export const userRegisterReducer = (
 export const userLoginReducer = (state = initialState.userLogin, action) => {
     switch (action.type) {
         case types.USER_LOGIN_SUCCESS:
-            return { ...state, token: action.user, error: "" };
+            return {
+                ...state,
+                user: action.user,
+                token: action.token,
+                error: "",
+            };
         case types.USER_LOGIN_FAIL:
-            return { ...state, token: null, error: action.error };
+            return { ...state, user: null, token: null, error: action.error };
         case types.USER_LOGOUT:
-            return { ...state, token: null, error: "" };
+            return { ...state, user: null, token: null, error: "" };
         default:
             return state;
     }
