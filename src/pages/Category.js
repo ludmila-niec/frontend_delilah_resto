@@ -65,7 +65,7 @@ function mapStateToProps(state, ownProps) {
         categoryInfo:
             state.categories.length === 0
                 ? []
-                : state.categories.find((c) => c.category_id === categoryId),
+                : state.categories.find((c) => c.category_id == categoryId),
         loading: state.apiCallsInProgress > 0,
     };
 }
