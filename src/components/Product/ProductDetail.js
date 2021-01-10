@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Typography, Button, ButtonGroup } from "@material-ui/core";
 import { Add, Remove } from "@material-ui/icons";
 import { makeStyles } from "@material-ui/core/styles";
-import { useDispatch } from "react-redux";
+// import { useDispatch } from "react-redux";
 
 const useStyles = makeStyles((theme) => ({
     container: {
@@ -40,9 +40,9 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-const ProductDetail = ({ onOpenModal, product }) => {
+const ProductDetail = ({ onOpenModal, product, addToCart }) => {
     const classes = useStyles();
-    const dispatch = useDispatch();
+    // const dispatch = useDispatch();
     const { product_id, name, description, price } = product;
     const [quantity, setQuantity] = useState(1);
 
@@ -56,10 +56,10 @@ const ProductDetail = ({ onOpenModal, product }) => {
         }
     };
 
-    // const handleAddToCart = () => {
-    //     dispatch(addToCart(product.data, quantity));
-    //     onOpenModal();
-    // };
+    const handleAddToCart = () => {
+        addToCart(product_id, price, quantity);
+        onOpenModal();
+    };
     return (
         <div className={classes.container}>
             <div>
@@ -79,7 +79,7 @@ const ProductDetail = ({ onOpenModal, product }) => {
                     >
                         <Button
                             onClick={handleDecreaseQuantity}
-                            disabled={quantity <= 1 ? true : false}
+                            disabled={quantity <= 1}
                         >
                             <Remove className={classes.icon} />
                         </Button>
@@ -92,7 +92,7 @@ const ProductDetail = ({ onOpenModal, product }) => {
                         variant="contained"
                         color="primary"
                         className={classes.btnAdd}
-                        // onClick={handleAddToCart}
+                        onClick={handleAddToCart}
                     >
                         agregar ${price * quantity}
                     </Button>

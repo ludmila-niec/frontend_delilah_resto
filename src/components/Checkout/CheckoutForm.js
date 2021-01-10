@@ -8,7 +8,6 @@ import {
     FormHelperText,
     Button,
 } from "@material-ui/core";
-import { useSelector } from "react-redux";
 
 import { makeStyles } from "@material-ui/core/styles";
 
@@ -24,7 +23,7 @@ const useStyles = makeStyles((theme) => ({
         padding: "1rem",
 
         "& > *": {
-            margin: ".6rem 0",
+            marginBottom: ".6rem",
         },
         borderRadius: theme.shape.borderRadius,
         marginBottom: "1.5rem",
@@ -40,11 +39,10 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-const CheckoutForm = ({ onOpenModal }) => {
+const CheckoutForm = ({ onOpenModal, total, user }) => {
     const classes = useStyles();
-    const cartData = useSelector((state) => state.cart);
-    const { total } = cartData;
     const [payment, setPayment] = useState(3);
+    const { user_id, firstName, lastName, adress, phone } = user;
 
     const handleSelectedPayment = (e) => {
         setPayment(e.target.value);
@@ -75,9 +73,11 @@ const CheckoutForm = ({ onOpenModal }) => {
                     </FormHelperText>
                 </FormControl>
                 <Typography color="primary">Domicilio:</Typography>
-                <Typography>pedro goyena 3030</Typography>
+                <Typography>{adress}</Typography>
                 <Typography color="primary">Telefono:</Typography>
-                <Typography>1159633114</Typography>
+                <Typography>{phone}</Typography>
+                <Typography color="primary">Recibe:</Typography>
+                <Typography>{`${firstName} ${lastName}`}</Typography>
             </div>
             <Button
                 variant="contained"

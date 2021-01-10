@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
-import Modal from "../Modal/Modal";
-import ModalLoading from "../Modal/ModalLoading";
-import ModalSuccess from "../Modal/ModalSuccess";
-import ModalError from "../Modal/ModalError";
+import Modal from "../common/Modal/Modal";
+import ModalLoading from "../common/Modal/ModalLoading";
+import ModalSuccess from "../common/Modal/ModalSuccess";
+import ModalError from "../common/Modal/ModalError";
 
 const loadingMsg = {
     title: " Estamos procesando tu pedido...",

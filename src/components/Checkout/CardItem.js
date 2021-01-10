@@ -10,12 +10,6 @@ import {
 } from "@material-ui/core";
 import { Remove, Add, Delete } from "@material-ui/icons";
 import { makeStyles } from "@material-ui/core/styles";
-import { useDispatch } from "react-redux";
-import {
-    increaseItem,
-    decreaseItem,
-    removeItem,
-} from "../../actions/cartActions";
 
 const useStyles = makeStyles((theme) => ({
     container: {
@@ -24,14 +18,17 @@ const useStyles = makeStyles((theme) => ({
         margin: "1rem 0",
         boxShadow: '"0px 4px 11px 4px rgba(0, 0, 0, 0.1)',
         position: "relative",
-        display: "flex",
+        // display: "flex",
         alignItems: "center",
         justifyContent: "space-between",
     },
-
+    productData: {
+        display: "flex",
+        justifyContent: "space-between",
+    },
     background: {
-        height: "150px",
-        width: "150px",
+        height: "100px",
+        width: "100px",
         borderRadius: theme.shape.borderRadius,
         display: "flex",
         alignItems: "center",
@@ -39,8 +36,8 @@ const useStyles = makeStyles((theme) => ({
         backgroundColor: theme.palette.secondaryLighter.main,
     },
     productImg: {
-        height: "95%",
-        width: "95%",
+        height: "80%",
+        width: "80%",
     },
     cardContent: {
         height: "150px",
@@ -71,39 +68,37 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-const CardItem = ({ productData }) => {
+const CardItem = ({
+    productData,
+    quantity,
+    increaseItem,
+    decreaseItem,
+    removeItem,
+}) => {
     const classes = useStyles();
-    const { product_id, name, img, price } = productData.product;
-    const { quantity } = productData;
-    const dispatch = useDispatch();
+    const { product_id, name, img, price } = productData;
 
     const handleRemoveItem = () => {
-        console.log("remove");
-        console.log(product_id);
-        dispatch(removeItem(product_id));
+        removeItem(product_id);
     };
 
     const handleIncrease = () => {
-        console.log("increase");
-        console.log(product_id);
-        dispatch(increaseItem(product_id));
+        increaseItem(product_id);
     };
     const handleDecrease = () => {
-        console.log("decrease");
-        console.log(product_id);
         if (quantity === 1) {
-            return dispatch(removeItem(product_id));
+            return removeItem(product_id);
         } else {
-            return dispatch(decreaseItem(product_id));
+            return decreaseItem(product_id);
         }
     };
     return (
-        <div>
-            <Card
-                className={classes.container}
-                elevation={0}
-                style={{ boxShadow: "0px 4px 11px 4px rgba(0, 0, 0, 0.1)" }}
-            >
+        <Card
+            className={classes.container}
+            elevation={0}
+            style={{ boxShadow: "0px 4px 11px 4px rgba(0, 0, 0, 0.1)" }}
+        >
+            <div className={classes.productData}>
                 <div className={classes.background}>
                     <CardMedia
                         image={img}
@@ -121,38 +116,29 @@ const CardItem = ({ productData }) => {
                             ${price * quantity}
                         </Typography>
                     </div>
-                    <div className={classes.btnActions}>
-                        <ButtonGroup
-                            color="primary"
-                            aria-label="button select quantity"
-                        >
-                            <Button
-                                className={classes.btn}
-                                onClick={handleDecrease}
-                            >
-                                <Remove className={classes.icon} />
-                            </Button>
-                            <Button className={classes.btn}>{quantity}</Button>
-                            <Button
-                                className={classes.btn}
-                                onClick={handleIncrease}
-                            >
-                                <Add className={classes.icon} />
-                            </Button>
-                        </ButtonGroup>
-                        <IconButton
-                            onClick={handleRemoveItem}
-                            className={classes.btnDelete}
-                        >
-                            <Delete
-                                color="error"
-                                className={classes.iconDelete}
-                            />
-                        </IconButton>
-                    </div>
                 </CardContent>
-            </Card>
-        </div>
+            </div>
+            <div className={classes.btnActions}>
+                <ButtonGroup
+                    color="primary"
+                    aria-label="button select quantity"
+                >
+                    <Button className={classes.btn} onClick={handleDecrease}>
+                        <Remove className={classes.icon} />
+                    </Button>
+                    <Button className={classes.btn}>{quantity}</Button>
+                    <Button className={classes.btn} onClick={handleIncrease}>
+                        <Add className={classes.icon} />
+                    </Button>
+                </ButtonGroup>
+                <IconButton
+                    onClick={handleRemoveItem}
+                    className={classes.btnDelete}
+                >
+                    <Delete color="error" className={classes.iconDelete} />
+                </IconButton>
+            </div>
+        </Card>
     );
 };
 

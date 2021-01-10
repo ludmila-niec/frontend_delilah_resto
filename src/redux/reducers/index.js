@@ -3,7 +3,7 @@ import { userRegisterReducer, userLoginReducer } from "./userReducer";
 import categories from "./categoryReducer";
 import products from "./productReducer";
 import favorites from "./favoriteReducer";
-import cart from "./cartsReducer";
+import cart from "./cartReducer";
 import apiCallsInProgress from "./apiStatusReducer";
 const rootReducer = combineReducers({
     userRegister: userRegisterReducer,

@@ -7,8 +7,15 @@ import {
     addFavorite,
     deleteFavorite,
 } from "../../redux/actions/favoriteActions";
+import { addToCart } from "../../redux/actions/cartActions";
 
-const ProductItem = ({ product, favorites, addFavorite, deleteFavorite }) => {
+const ProductItem = ({
+    product,
+    favorites,
+    addFavorite,
+    deleteFavorite,
+    addToCart,
+}) => {
     const [isOpen, setIsOpen] = useState(false);
 
     function handleOpenModal() {
@@ -25,7 +32,11 @@ const ProductItem = ({ product, favorites, addFavorite, deleteFavorite }) => {
                 addFavorite={addFavorite}
                 deleteFavorite={deleteFavorite}
             />
-            <ProductDetail product={product} onOpenModal={handleOpenModal} />
+            <ProductDetail
+                product={product}
+                onOpenModal={handleOpenModal}
+                addToCart={addToCart}
+            />
             {isOpen && (
                 <ModalAddProduct
                     onCloseModal={handleCloseModal}
@@ -46,6 +57,7 @@ function mapStateToProps(state, ownProps) {
 const mapDispatchToProps = {
     addFavorite,
     deleteFavorite,
+    addToCart,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(ProductItem);

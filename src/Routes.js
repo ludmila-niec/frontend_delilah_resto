@@ -5,7 +5,7 @@ import Login from "./pages/Login";
 import Home from "./pages/Home";
 import Category from "./pages/Category";
 import Product from "./pages/Product";
-// import Checkout from "./pages/Checkout";
+import Checkout from "./pages/Checkout";
 import Favs from "./pages/Favs";
 // import Order from "./pages/Order";
 
@@ -23,7 +23,7 @@ const Routes = () => {
                 <Route exact path="/category/:name/:id" component={Category} />
                 {/* <Route exact path="/product" component={Product} /> */}
                 <Route exact path="/product/:id" component={Product} />
-                {/* <Route path="/checkout" component={Checkout} /> */}
+                <Route path="/checkout" component={Checkout} />
                 {/* <Route exact path="/order/:id" component={Order} /> */}
             </Switch>
         </Router>
