@@ -5,5 +5,6 @@ export default {
     products: [],
     favorites: [],
     cart: {},
+    orders: {},
     apiCallsInProgress: 0,
 };

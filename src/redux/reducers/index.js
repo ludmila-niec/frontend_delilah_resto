@@ -5,6 +5,7 @@ import products from "./productReducer";
 import favorites from "./favoriteReducer";
 import cart from "./cartReducer";
 import apiCallsInProgress from "./apiStatusReducer";
+import orders from "./orderReducer";
 const rootReducer = combineReducers({
     userRegister: userRegisterReducer,
     userLogin: userLoginReducer,
@@ -12,6 +13,7 @@ const rootReducer = combineReducers({
     products,
     favorites,
     cart,
+    orders,
     apiCallsInProgress,
 });
 
