@@ -4,7 +4,22 @@ import initialState from "./initialState";
 const cartReducer = (state = initialState.cart, action) => {
     switch (action.type) {
         case types.CART_ADD_ITEM:
-            debugger;
+            //first check if the new product added alrealy exists in cart
+            const itemInCart = state.cartItems.find(
+                (item) => item.product_id === action.product_id
+            );
+            //if exists, update only quantity
+            if (itemInCart) {
+                let updatedCartItems = state.cartItems.map((item) =>
+                    item.product_id === action.product_id
+                        ? {
+                              ...item,
+                              quantity: item.quantity + action.quantity,
+                          }
+                        : item
+                );
+                return { ...state, cartItems: updatedCartItems };
+            }
             const newItem = {
                 product_id: action.product_id,
                 price: action.price,
@@ -41,11 +56,9 @@ const cartReducer = (state = initialState.cart, action) => {
                 ],
             };
         case types.CART_CLEAR_ITEMS:
-            debugger;
             return { ...state, cartItems: [], quantity: 0, total: 0 };
 
         case types.CART_GET_TOTAL:
-            debugger;
             let { total, quantity } = state.cartItems.reduce(
                 (cartTotal, cartItem) => {
                     const { price, quantity } = cartItem;
@@ -57,7 +70,6 @@ const cartReducer = (state = initialState.cart, action) => {
                 },
                 { total: 0, quantity: 0 }
             );
-            debugger;
             total = parseFloat(total.toFixed(2));
             return { ...state, total, quantity };
         default:
