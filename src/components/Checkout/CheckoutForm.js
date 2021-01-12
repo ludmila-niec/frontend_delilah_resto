@@ -39,13 +39,28 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-const CheckoutForm = ({ onOpenModal, total, user }) => {
+const CheckoutForm = ({ onOpenModal, cart, total, user, placeNewOrder }) => {
     const classes = useStyles();
     const [payment, setPayment] = useState(3);
-    const { user_id, firstName, lastName, adress, phone } = user;
-
+    const { firstName, lastName, adress, phone } = user;
+    const orderDetail = cart.map((item) => {
+        return {
+            id: item.product_id,
+            quantity: item.quantity,
+        };
+    });
     const handleSelectedPayment = (e) => {
         setPayment(e.target.value);
+    };
+
+    const handleCreateOrder = () => {
+        const order = {
+            detail: orderDetail,
+            payment_method: payment,
+        };
+        placeNewOrder(order);
+        //open modal to show status of the order placement
+        onOpenModal();
     };
     return (
         <div className={classes.container}>
@@ -83,7 +98,7 @@ const CheckoutForm = ({ onOpenModal, total, user }) => {
                 variant="contained"
                 color="primary"
                 className={classes.btn}
-                onClick={onOpenModal}
+                onClick={handleCreateOrder}
             >
                 confirmar pedido
             </Button>

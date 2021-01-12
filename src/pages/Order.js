@@ -1,5 +1,5 @@
 import React from "react";
-import Layout from "../components/Layout";
+import Layout from "../components/common/Layout";
 import OrderStatus from "../components/Order/OrderStatus";
 import OrderDetail from "../components/Order/OrderDetail";
 import { Typography } from "@material-ui/core";

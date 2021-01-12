@@ -13,6 +13,7 @@ import {
     clearCart,
     getTotal,
 } from "../redux/actions/cartActions";
+import { placeNewOrder } from "../redux/actions/orderActions";
 
 //Material-ui
 import { Button } from "@material-ui/core";
@@ -30,11 +31,14 @@ const Checkout = ({
     cart,
     cartTotal,
     user,
+    loading,
+    newOrder,
     clearCart,
     getTotal,
     increaseItem,
     decreaseItem,
     removeItem,
+    placeNewOrder,
 }) => {
     console.log("cart");
     console.log(cart);
@@ -60,44 +64,50 @@ const Checkout = ({
     };
 
     return (
-        <Layout>
-            <Typography variant="h5">Mi pedido</Typography>
-            {cart.length === 0 ? (
-                <EmptyCart />
-            ) : (
-                <>
-                    {cart.map((item) => (
-                        <CardItem
-                            key={item.product_id}
-                            productData={item.productData}
-                            quantity={item.quantity}
-                            increaseItem={increaseItem}
-                            decreaseItem={decreaseItem}
-                            removeItem={removeItem}
+        <>
+            <Layout>
+                <Typography variant="h5">Mi pedido</Typography>
+                {cart.length === 0 ? (
+                    <EmptyCart />
+                ) : (
+                    <>
+                        {cart.map((item) => (
+                            <CardItem
+                                key={item.product_id}
+                                productData={item.productData}
+                                quantity={item.quantity}
+                                increaseItem={increaseItem}
+                                decreaseItem={decreaseItem}
+                                removeItem={removeItem}
+                            />
+                        ))}
+                        <Button
+                            variant="outlined"
+                            startIcon={<LocalMall />}
+                            className={classes.btnClearBag}
+                            onClick={handleClearCart}
+                        >
+                            vaciar bolsa
+                        </Button>
+                        <CheckoutForm
+                            onOpenModal={handleOpenModal}
+                            cart={cart}
+                            total={cartTotal}
+                            user={user}
+                            placeNewOrder={placeNewOrder}
                         />
-                    ))}
-                    <Button
-                        variant="outlined"
-                        startIcon={<LocalMall />}
-                        className={classes.btnClearBag}
-                        onClick={handleClearCart}
-                    >
-                        vaciar bolsa
-                    </Button>
-                    <CheckoutForm
-                        onOpenModal={handleOpenModal}
-                        total={cartTotal}
-                        user={user}
-                    />
-                    {isOpen && (
-                        <ModalConfirmOrder
-                            onCloseModal={handleCloseModal}
-                            isOpen={isOpen}
-                        />
-                    )}
-                </>
+                    </>
+                )}
+            </Layout>
+            {isOpen && (
+                <ModalConfirmOrder
+                    onCloseModal={handleCloseModal}
+                    isOpen={isOpen}
+                    loading={loading}
+                    newOrder={newOrder}
+                />
             )}
-        </Layout>
+        </>
     );
 };
 
@@ -116,6 +126,8 @@ function mapStateToProps(state) {
                   }),
         cartTotal: state.cart.total,
         user: state.userLogin.user,
+        newOrder: state.orders.newOrder,
+        loading: state.apiCallsInProgress > 0,
     };
 }
 
@@ -125,6 +137,7 @@ const mapDispatchToProps = {
     removeItem,
     clearCart,
     getTotal,
+    placeNewOrder,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Checkout);
