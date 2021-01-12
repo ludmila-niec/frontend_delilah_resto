@@ -1,10 +1,10 @@
-import React from "react";
+import React, { useState } from "react";
 import {
     Card,
     CardContent,
     CardMedia,
     Typography,
-    ButtonGroup,
+    Divider,
     Button,
     IconButton,
 } from "@material-ui/core";
@@ -17,12 +17,9 @@ const useStyles = makeStyles((theme) => ({
         padding: "1rem",
         margin: "1rem 0",
         boxShadow: '"0px 4px 11px 4px rgba(0, 0, 0, 0.1)',
-        position: "relative",
-        // display: "flex",
-        alignItems: "center",
-        justifyContent: "space-between",
     },
     productData: {
+        height: "120px",
         display: "flex",
         justifyContent: "space-between",
     },
@@ -40,10 +37,10 @@ const useStyles = makeStyles((theme) => ({
         width: "80%",
     },
     cardContent: {
-        height: "150px",
-        width: "200px",
+        paddingLeft: "1rem",
+    },
+    contentFlex: {
         display: "flex",
-        flexDirection: "column",
         justifyContent: "space-between",
     },
     price: {
@@ -77,6 +74,11 @@ const CardItem = ({
 }) => {
     const classes = useStyles();
     const { product_id, name, img, price } = productData;
+    const [isEditting, setIsEditting] = useState(false);
+
+    const handleEdit = () => {
+        setIsEditting(!isEditting);
+    };
 
     const handleRemoveItem = () => {
         removeItem(product_id);
@@ -108,36 +110,53 @@ const CardItem = ({
                 </div>
                 <CardContent
                     className={classes.cardContent}
-                    style={{ paddingBottom: 0 }}
+                    style={{ paddingBottom: "0 0 0 1rem" }}
                 >
-                    <div>
-                        <Typography>{name}</Typography>
+                    <Typography>{name}</Typography>
+                    <div className={classes.contentFlex}>
                         <Typography className={classes.price}>
-                            ${price * quantity}
+                            ${price} x {quantity}u.
                         </Typography>
+                        <Button onClick={handleEdit}>Editar</Button>
                     </div>
                 </CardContent>
             </div>
-            <div className={classes.btnActions}>
-                <ButtonGroup
-                    color="primary"
-                    aria-label="button select quantity"
-                >
-                    <Button className={classes.btn} onClick={handleDecrease}>
-                        <Remove className={classes.icon} />
-                    </Button>
-                    <Button className={classes.btn}>{quantity}</Button>
-                    <Button className={classes.btn} onClick={handleIncrease}>
-                        <Add className={classes.icon} />
-                    </Button>
-                </ButtonGroup>
-                <IconButton
-                    onClick={handleRemoveItem}
-                    className={classes.btnDelete}
-                >
-                    <Delete color="error" className={classes.iconDelete} />
-                </IconButton>
-            </div>
+            {isEditting && (
+                <>
+                    <Divider style={{ marginBottom: "0.6rem" }} />
+                    <div className={classes.contentFlex}>
+                        <div
+                            className={classes.btnActions}
+                            aria-label="button select quantity"
+                        >
+                            <IconButton
+                                aria-label="decrease quantity"
+                                onClick={handleDecrease}
+                            >
+                                <Remove className={classes.icon} />
+                            </IconButton>
+
+                            <Typography>{quantity}</Typography>
+                            <IconButton
+                                aria-label="increase quantity"
+                                onClick={handleIncrease}
+                            >
+                                <Add className={classes.icon} />
+                            </IconButton>
+                        </div>
+                        <IconButton
+                            onClick={handleRemoveItem}
+                            className={classes.btnDelete}
+                            aria-label="remove product"
+                        >
+                            <Delete
+                                color="error"
+                                className={classes.iconDelete}
+                            />
+                        </IconButton>
+                    </div>
+                </>
+            )}
         </Card>
     );
 };
