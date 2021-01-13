@@ -1,10 +1,16 @@
 import React, { useState, useEffect } from "react";
-import { Stepper, Step, StepLabel } from "@material-ui/core";
+
+//material-ui
+import { Stepper, Step, StepLabel, Typography } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 
 const useStyles = makeStyles((theme) => ({
     root: {
         height: "350px",
+
+        "&.MuiPaper-root": {
+            backgroundColor: "transparent",
+        },
     },
 }));
 
@@ -18,42 +24,50 @@ const steps = [
 
 function getStatus(status) {
     switch (status) {
-        case "NEW":
+        case "NUEVO":
             return 0;
-        case "OK":
+        case "CONFIRMADO":
             return 1;
-        case "INPREP":
+        case "PREPARANDO":
             return 2;
-        case "SHIP":
+        case "ENVIANDO":
             return 3;
-        case "DELIV":
+        case "ENTREGADO":
             return 4;
+        case "CANCELADO":
+            return 5;
         default:
-            return null;
+            return status;
     }
 }
 
-const OrderStatus = () => {
+const OrderStatus = ({ orderStatus }) => {
     const classes = useStyles();
     const [activeStep, setActiveStep] = useState(0);
     useEffect(() => {
-        const step = getStatus("SHIP");
+        const step = getStatus(orderStatus.name);
         setActiveStep(step);
     }, [activeStep]);
+
+    //if order is cancelled, early return cancelled view
+    if (activeStep === 5)
+        return (
+            <Typography variant="h5" color="error">
+                Pedido cancelado
+            </Typography>
+        );
     return (
-        <div>
-            <Stepper
-                activeStep={activeStep}
-                orientation="vertical"
-                className={classes.root}
-            >
-                {steps.map((label) => (
-                    <Step key={label}>
-                        <StepLabel>{label}</StepLabel>
-                    </Step>
-                ))}
-            </Stepper>
-        </div>
+        <Stepper
+            activeStep={activeStep}
+            orientation="vertical"
+            className={classes.root}
+        >
+            {steps.map((label) => (
+                <Step key={label}>
+                    <StepLabel>{label}</StepLabel>
+                </Step>
+            ))}
+        </Stepper>
     );
 };
 

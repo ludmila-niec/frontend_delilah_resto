@@ -1,5 +1,9 @@
 import React from "react";
-import OrderItem from "./OrderItem";
+import OrderItemList from "./OrderItemList";
+//router
+import { Link as RouterLink } from "react-router-dom";
+
+//material-ui
 import { Typography, Button } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 
@@ -7,7 +11,8 @@ const useStyles = makeStyles((theme) => ({
     container: {
         margin: "2rem 0",
         padding: "1.5rem",
-        backgroundColor: "#f3f3f3",
+        backgroundColor: "#ffffff",
+        boxShadow: theme.myShadow.cardShadow,
         borderRadius: theme.shape.borderRadius,
     },
     totalAmount: {
@@ -28,42 +33,59 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-const OrderDetail = () => {
+const OrderDetail = ({ order }) => {
     const classes = useStyles();
+    const { adress, phone, firstName, lastName } = order.User;
+    const products = order.products;
+    const payment = order.Payment.name;
+
+    const total = products.reduce(
+        (acc, item) =>
+            acc +
+            item.ProductOrders.product_price *
+                item.ProductOrders.product_quantity,
+        0
+    );
     return (
         <>
             <div className={classes.container}>
                 <Typography>Detalle:</Typography>
                 <hr style={{ opacity: 0.5 }} />
-                <OrderItem />
-                <OrderItem />
-                <OrderItem />
+                <OrderItemList products={products} />
+
                 <Typography className={classes.totalAmount}>
-                    Total: $780
+                    Total: ${total}
                 </Typography>
                 <div className={classes.orderInfo}>
                     <div>
                         <Typography color="primary">Metodo de pago:</Typography>
-                        <Typography>Mercado pago</Typography>
+                        <Typography>{payment}</Typography>
                     </div>
                     <div>
                         <Typography color="primary">
                             Dirección de envío:
                         </Typography>
-                        <Typography>Pedro goyena</Typography>
+                        <Typography>{adress}</Typography>
                     </div>
                     <div>
                         <Typography color="primary">Telefono:</Typography>
-                        <Typography>115968547</Typography>
+                        <Typography>{phone}</Typography>
                     </div>
                     <div>
                         <Typography color="primary">Entregado a:</Typography>
-                        <Typography>Ludmila uala</Typography>
+                        <Typography>{`${firstName} ${lastName}`}</Typography>
                     </div>
                 </div>
             </div>
-            <Button variant="contained" color="primary" className={classes.btn}>
-                volver
+
+            <Button
+                variant="contained"
+                color="primary"
+                className={classes.btn}
+                component={RouterLink}
+                to="/orders"
+            >
+                ver mis pedidos
             </Button>
         </>
     );

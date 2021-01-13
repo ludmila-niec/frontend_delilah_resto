@@ -8,6 +8,7 @@ import Product from "./pages/Product";
 import Checkout from "./pages/Checkout";
 import Favs from "./pages/Favs";
 import Order from "./pages/Order";
+import Orders from "./pages/Orders";
 
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 
@@ -23,6 +24,7 @@ const Routes = () => {
                 <Route exact path="/category/:name/:id" component={Category} />
                 <Route exact path="/product/:id" component={Product} />
                 <Route path="/checkout" component={Checkout} />
+                <Route path="/orders" component={Orders} />
                 <Route exact path="/order/:id" component={Order} />
             </Switch>
         </Router>

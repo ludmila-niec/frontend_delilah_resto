@@ -12,7 +12,7 @@ const orderReducer = (state = initialState.orders, action) => {
                 },
             };
         case types.LOAD_ORDERS_SUCCESS:
-            return { ...state, orders: action.orders };
+            return { ...state, orderList: action.orders };
         default:
             return state;
     }

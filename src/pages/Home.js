@@ -4,15 +4,22 @@ import SearchBox from "../components/Home/SearchBox";
 import FavSection from "../components/Home/Favorite/FavSection";
 import CategoriesSection from "../components/Home/Category/CategoriesSection";
 import Loading from "../components/common/Loading";
+
+//router
+import { Link as RouterLink } from "react-router-dom";
+//material-ui
+import { Typography, Link } from "@material-ui/core";
+//redux
 import { connect } from "react-redux";
 import { loadFavorites } from "../redux/actions/favoriteActions";
 import { loadCategories } from "../redux/actions/categoryActions";
 import { loadProducts } from "../redux/actions/productActions";
 
 function Home({
+    user,
+    products,
     favorites,
     categories,
-    products,
     loading,
     loadProducts,
     loadFavorites,
@@ -39,6 +46,13 @@ function Home({
             ) : (
                 <>
                     <SearchBox />
+                    <Typography variant="h2" color="primary">
+                        Hola!
+                    </Typography>
+                    <Typography>Qué vas a pedir hoy?</Typography>
+                    <Link component={RouterLink} to="orders">
+                        Mis pedidos
+                    </Link>
                     {favorites.length > 0 && (
                         <FavSection favorites={favorites} />
                     )}
@@ -52,6 +66,7 @@ function Home({
 
 function mapStateToProps(state) {
     return {
+        user: state.userLogin.user.data,
         products: state.products,
         favorites:
             state.products.length == 0

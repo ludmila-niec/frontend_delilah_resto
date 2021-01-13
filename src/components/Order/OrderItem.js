@@ -1,7 +1,6 @@
 import React from "react";
 import { Typography } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
-import saladImg from "../../assets/ensalada.png";
 
 const useStyles = makeStyles((theme) => ({
     container: {
@@ -19,30 +18,32 @@ const useStyles = makeStyles((theme) => ({
         backgroundColor: theme.palette.secondaryLighter.main,
     },
     img: {
-        height: "90%",
-        width: "90%",
+        height: "75%",
+        width: "75%",
         filter: "drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25))",
     },
     containerText: {
         marginLeft: "1rem",
+        flex: 1,
     },
 }));
 
-const OrderItem = () => {
+const OrderItem = ({ product }) => {
     const classes = useStyles();
+    const { name, img } = product;
+    const price = product.ProductOrders.product_price;
+    const quantity = product.ProductOrders.product_quantity;
     return (
         <>
             <div className={classes.container}>
                 <div className={classes.backgroundImg}>
-                    <img
-                        src={saladImg}
-                        alt="ensalada"
-                        className={classes.img}
-                    />
+                    <img src={img} alt={name} className={classes.img} />
                 </div>
                 <div className={classes.containerText}>
-                    <Typography>Chicken salad x2</Typography>
-                    <Typography>$780</Typography>
+                    <Typography>
+                        {name} x{quantity}
+                    </Typography>
+                    <Typography>${price}</Typography>
                 </div>
             </div>
             <hr style={{ opacity: 0.5 }} />
