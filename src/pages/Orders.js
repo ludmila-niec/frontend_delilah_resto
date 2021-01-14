@@ -24,13 +24,19 @@ const Order = ({ orders, loading, loadOrders }) => {
         }
     }, []);
 
+    //reverse array of orders. Show first the most recent
+    const reversedOrders = [...orders];
+    const newerOrders = reversedOrders.reverse();
+
     //get current orders
     const indexOfLastOrder = currentPage * ordersPerPage;
     const indexOfFirstOrder = indexOfLastOrder - ordersPerPage;
-    const currentOrders =
-        orders && orders.slice(indexOfFirstOrder, indexOfLastOrder);
+    const currentOrders = newerOrders.slice(
+        indexOfFirstOrder,
+        indexOfLastOrder
+    );
     //get number of pages
-    const pagesNumber = orders && Math.ceil(orders.length / ordersPerPage);
+    const pagesNumber = Math.ceil(orders.length / ordersPerPage);
 
     const userHaveOrders = orders.length > 0;
 
@@ -41,9 +47,7 @@ const Order = ({ orders, loading, loadOrders }) => {
                 <Loading />
             ) : (
                 <>
-                    {!userHaveOrders ? (
-                        <EmptyOrders />
-                    ) : (
+                    {userHaveOrders ? (
                         <>
                             <OrderInfoList orders={currentOrders} />
                             <Pagination
@@ -54,6 +58,8 @@ const Order = ({ orders, loading, loadOrders }) => {
                                 onChange={handlePagination}
                             />
                         </>
+                    ) : (
+                        <EmptyOrders />
                     )}
                 </>
             )}

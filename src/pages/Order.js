@@ -13,9 +13,7 @@ import { Typography } from "@material-ui/core";
 
 const Order = ({ orders, order, loading, loadOrders }) => {
     useEffect(() => {
-        if (orders.length === 0) {
-            loadOrders();
-        }
+        loadOrders();
     }, []);
 
     if (orders.length === 0) return <h1>No hay ordenes</h1>;
@@ -23,9 +21,8 @@ const Order = ({ orders, order, loading, loadOrders }) => {
     return (
         <Layout>
             <Typography variant="h5">Seguir mi pedido</Typography>
-            {loading ? (
-                <Loading />
-            ) : (
+            {loading && <Loading />}
+            {order && (
                 <>
                     <OrderStatus orderStatus={order.OrderStatus} />
                     <OrderDetail order={order} />
@@ -36,13 +33,12 @@ const Order = ({ orders, order, loading, loadOrders }) => {
 };
 
 function mapStateToProps(state, ownProps) {
-    debugger;
     const orderId = ownProps.match.params.id;
     return {
         orders: state.orders.orderList,
         order:
             state.orders.orderList.length === 0
-                ? []
+                ? {}
                 : state.orders.orderList.find(
                       (order) => order.order_id == orderId
                   ),
