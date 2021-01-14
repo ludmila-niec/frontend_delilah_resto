@@ -8,7 +8,7 @@ import configureStore from "./redux/store";
 import { CssBaseline } from "@material-ui/core";
 import { ThemeProvider } from "@material-ui/core/styles";
 import { theme } from "./theme/theme";
-
+import ErrorBoundary from "./components/common/Error/ErrorBoundary";
 const store = configureStore();
 
 ReactDOM.render(
@@ -16,7 +16,9 @@ ReactDOM.render(
         <ThemeProvider theme={theme}>
             <Router>
                 <CssBaseline />
-                <App />
+                <ErrorBoundary>
+                    <App />
+                </ErrorBoundary>
             </Router>
         </ThemeProvider>
     </ReduxProvider>,

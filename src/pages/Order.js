@@ -11,12 +11,10 @@ import { loadOrders } from "../redux/actions/orderActions";
 //material ui
 import { Typography } from "@material-ui/core";
 
-const Order = ({ orders, order, loading, loadOrders }) => {
+const Order = ({ order, loading, loadOrders }) => {
     useEffect(() => {
         loadOrders();
     }, []);
-
-    if (orders.length === 0) return <h1>No hay ordenes</h1>;
 
     return (
         <Layout>
@@ -35,7 +33,6 @@ const Order = ({ orders, order, loading, loadOrders }) => {
 function mapStateToProps(state, ownProps) {
     const orderId = ownProps.match.params.id;
     return {
-        orders: state.orders.orderList,
         order:
             state.orders.orderList.length === 0
                 ? {}
