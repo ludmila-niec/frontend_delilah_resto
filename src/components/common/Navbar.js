@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useState } from "react";
+import Menu from "./Menu";
 import {
     AppBar,
     Toolbar,
@@ -6,8 +7,9 @@ import {
     IconButton,
     Badge,
     Link,
+    Drawer,
 } from "@material-ui/core";
-import { Menu, LocalMall } from "@material-ui/icons";
+import { Menu as MenuIcon, LocalMall } from "@material-ui/icons";
 import { makeStyles } from "@material-ui/core/styles";
 import { Link as RouterLink } from "react-router-dom";
 import { connect } from "react-redux";
@@ -38,46 +40,69 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-const Navbar = ({ cart }) => {
+const Navbar = ({ cart, user }) => {
     const classes = useStyles();
+    const [isOpenMenu, setIsOpenMenu] = useState(false);
+    const anchor = "right";
+
+    function handleMenuDisplay() {
+        setIsOpenMenu(!isOpenMenu);
+    }
     return (
-        <AppBar>
-            <Toolbar color="primary" className={classes.nav}>
-                <Typography
-                    variant="h1"
-                    color="secondary"
-                    className={classes.title}
-                >
-                    <Link component={RouterLink} to="/home" color="secondary">
-                        Delilah Resto
-                    </Link>
-                </Typography>
-                <div className={classes.icons}>
-                    <IconButton
-                        aria-label="cart"
-                        component={RouterLink}
-                        to="/checkout"
+        <>
+            <AppBar>
+                <Toolbar color="primary" className={classes.nav}>
+                    <Typography
+                        variant="h1"
+                        color="secondary"
+                        className={classes.title}
                     >
-                        <Badge
-                            badgeContent={cart.quantity}
-                            showZero
+                        <Link
+                            component={RouterLink}
+                            to="/home"
                             color="secondary"
                         >
-                            <LocalMall style={{ color: "#ffffff" }} />
-                        </Badge>
-                    </IconButton>
-                    <IconButton>
-                        <Menu className={classes.menuIcon} />
-                    </IconButton>
-                </div>
-            </Toolbar>
-        </AppBar>
+                            Delilah Resto
+                        </Link>
+                    </Typography>
+                    <div className={classes.icons}>
+                        <IconButton
+                            aria-label="cart"
+                            component={RouterLink}
+                            to="/checkout"
+                        >
+                            <Badge
+                                badgeContent={cart.quantity}
+                                showZero
+                                color="secondary"
+                            >
+                                <LocalMall style={{ color: "#ffffff" }} />
+                            </Badge>
+                        </IconButton>
+                        <IconButton
+                            aria-label="menu"
+                            onClick={handleMenuDisplay}
+                        >
+                            <MenuIcon className={classes.menuIcon} />
+                        </IconButton>
+                    </div>
+                </Toolbar>
+            </AppBar>
+            <Drawer
+                anchor={anchor}
+                open={isOpenMenu}
+                onClose={handleMenuDisplay}
+            >
+                <Menu user={user} />
+            </Drawer>
+        </>
     );
 };
 
 function mapStateToProps(state) {
     return {
         cart: state.cart,
+        user: state.userLogin.user,
     };
 }
 
