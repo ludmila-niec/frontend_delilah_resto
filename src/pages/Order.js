@@ -19,12 +19,15 @@ const Order = ({ order, loading, loadOrders }) => {
     return (
         <Layout>
             <Typography variant="h5">Seguir mi pedido</Typography>
-            {loading && <Loading />}
-            {order && (
-                <>
-                    <OrderStatus orderStatus={order.OrderStatus} />
-                    <OrderDetail order={order} />
-                </>
+            {loading ? (
+                <Loading />
+            ) : (
+                order && (
+                    <>
+                        <OrderStatus orderStatus={order.OrderStatus} />
+                        <OrderDetail order={order} />
+                    </>
+                )
             )}
         </Layout>
     );
@@ -35,7 +38,7 @@ function mapStateToProps(state, ownProps) {
     return {
         order:
             state.orders.orderList.length === 0
-                ? {}
+                ? null
                 : state.orders.orderList.find(
                       (order) => order.order_id == orderId
                   ),

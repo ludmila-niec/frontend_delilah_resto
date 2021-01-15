@@ -21,7 +21,6 @@ export const loadFavorites = () => async (dispatch, getState) => {
         // const favoritesArray = response.data.data.products;
         // const productsId = favoritesArray.map((p) => p.product_id);
         const favorites = response.data.data.products;
-        debugger;
         return dispatch(loadFavoritesSuccess(favorites));
     } catch (error) {
         console.log(error.response);
