@@ -12,20 +12,21 @@ const useStyles = makeStyles((theme) => ({
         margin: "0.8rem auto",
     },
     container: {
-        marginTop: "4.5rem",
-        marginBottom: "4.5rem",
-        minHeight: "80vh",
+        marginTop: theme.spacing(4),
+        marginBottom: theme.spacing(4),
         display: "flex",
         flexDirection: "column",
         justifyContent: "space-between",
+    },
+    title: {
+        [theme.breakpoints.up("sm")]: {
+            fontSize: "2rem",
+        },
     },
     button: {
         marginBottom: "1.5rem",
         width: "100%",
         fontSize: "1rem",
-        [theme.breakpoints.up("sm")]: {
-            width: "50%",
-        },
         [theme.breakpoints.up("md")]: {
             fontSize: "1.2rem",
         },
@@ -39,7 +40,13 @@ const LoginForm = ({ values, errors, handleChange, handleSubmit, user }) => {
     return (
         <div className={classes.container}>
             <div>
-                <Typography variant="subtitle1">Iniciar Sesión</Typography>
+                <Typography
+                    variant="h2"
+                    color="primary"
+                    className={classes.title}
+                >
+                    Iniciar Sesión
+                </Typography>
                 {user.error && (
                     <Alert severity="error">
                         <AlertTitle>Error</AlertTitle>

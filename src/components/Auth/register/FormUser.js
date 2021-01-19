@@ -14,16 +14,13 @@ const useStyles = makeStyles((theme) => ({
         margin: "0.8rem auto",
     },
     container: {
-        marginTop: "4.5rem",
-        marginBottom: "4.5rem",
+        marginTop: theme.spacing(4),
+        marginBottom: theme.spacing(4),
     },
     button: {
         marginBottom: "1.5rem",
         width: "100%",
         fontSize: "1rem",
-        [theme.breakpoints.up("sm")]: {
-            width: "50%",
-        },
         [theme.breakpoints.up("md")]: {
             fontSize: "1.2rem",
         },
@@ -57,7 +54,9 @@ const FormUser = ({
                 justifyContent="space-between"
                 alignItems="center"
             >
-                <Typography variant="subtitle1">Crear Cuenta</Typography>
+                <Typography variant="h2" color="primary">
+                    Crear cuenta
+                </Typography>
                 <Typography variant="caption">Paso 2 de 2</Typography>
             </Box>
             {serverSideError && (

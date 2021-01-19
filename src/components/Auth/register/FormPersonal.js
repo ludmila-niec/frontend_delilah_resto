@@ -6,9 +6,10 @@ import useForm from "../../../Hooks/useForm";
 import { validateRegisterStep1 } from "../../../tools/validation/validate";
 
 const useStyles = makeStyles((theme) => ({
-    container: {
-        marginTop: "4.5rem",
-        marginBottom: "4.5rem",
+    title: {
+        [theme.breakpoints.up("sm")]: {
+            fontSize: "2rem",
+        },
     },
     input: {
         margin: "0.8rem auto",
@@ -17,9 +18,6 @@ const useStyles = makeStyles((theme) => ({
         marginBottom: "1.5rem",
         width: "100%",
         fontSize: "1rem",
-        [theme.breakpoints.up("sm")]: {
-            width: "50%",
-        },
         [theme.breakpoints.up("md")]: {
             fontSize: "1.2rem",
         },
@@ -47,9 +45,15 @@ const FormPersonal = ({ values, handleChange, handleNextStep }) => {
             <Box
                 display="flex"
                 justifyContent="space-between"
-                alignItems="center"
+                alignItems="baseline"
             >
-                <Typography variant="subtitle1">Crear Cuenta</Typography>
+                <Typography
+                    variant="h2"
+                    color="primary"
+                    className={classes.title}
+                >
+                    Crear cuenta
+                </Typography>
                 <Typography variant="caption">Paso 1 de 2</Typography>
             </Box>
             <form

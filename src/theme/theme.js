@@ -41,6 +41,9 @@ export const theme = createMuiTheme({
         error: {
             main: "#E2607F",
         },
+        // background: {
+        //     default: "#F9F6F0",
+        // },
     },
 
     typography: {
@@ -48,7 +51,10 @@ export const theme = createMuiTheme({
         fontFamily: ["Poppins", "sans-serif"],
         h1: {
             fontFamily: ["Pacifico", "cursive"],
-            // letterSpacing:'0.2rem'
+        },
+        h2: {
+            fontFamily: ["Poppins", "sans-serif"],
+            fontSize: "1.5rem",
         },
         h3: {
             fontFamily: ["Pacifico", "cursive"],

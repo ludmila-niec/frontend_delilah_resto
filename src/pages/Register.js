@@ -5,9 +5,11 @@ import FormUser from "../components/Auth/register/FormUser";
 import Modal from "../components/common/Modal/Modal";
 import ModalSuccess from "../components/common/Modal/ModalSuccess";
 import ModalLoading from "../components/common/Modal/ModalLoading";
+//redux
 import { connect } from "react-redux";
 import { registerNewUser } from "../redux/actions/userActions";
 
+//modal info
 const loadingMsg = {
     title: "Registrando usuario nuevo",
 };
@@ -61,12 +63,12 @@ const Register = ({ history, user, registerNewUser, loading }) => {
         });
     };
 
-    //siguiente paso FormPersonal a => FormUser
+    //next step FormPersonal a => FormUser
     function handleNextStep() {
         return setStepForm(stepForm + 1);
     }
 
-    //retroceder de FormUser => FormPersonal
+    //previous step FormUser => FormPersonal
     function handlePrevStep() {
         return setStepForm(stepForm - 1);
     }
@@ -94,11 +96,13 @@ const Register = ({ history, user, registerNewUser, loading }) => {
         <>
             <RegisterLoginLayout>
                 {stepForm === 1 && (
-                    <FormPersonal
-                        values={values}
-                        handleChange={handleChange}
-                        handleNextStep={handleNextStep}
-                    />
+                    <>
+                        <FormPersonal
+                            values={values}
+                            handleChange={handleChange}
+                            handleNextStep={handleNextStep}
+                        />
+                    </>
                 )}
                 {stepForm === 2 && (
                     <FormUser

@@ -27,6 +27,8 @@ const Category = ({ categories, categoryInfo, loading, loadCategories }) => {
         }
     }, []);
 
+    if (categoryInfo.length === 0) return <h1>nada por aqui</h1>;
+
     return (
         <Layout>
             <SearchBox />

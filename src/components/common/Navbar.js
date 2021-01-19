@@ -11,7 +11,7 @@ import {
 } from "@material-ui/core";
 import { Menu as MenuIcon, LocalMall } from "@material-ui/icons";
 import { makeStyles } from "@material-ui/core/styles";
-import { Link as RouterLink } from "react-router-dom";
+import { Link as RouterLink, useLocation } from "react-router-dom";
 import { connect } from "react-redux";
 
 const useStyles = makeStyles((theme) => ({
@@ -38,16 +38,26 @@ const useStyles = makeStyles((theme) => ({
         display: "flex",
         alignItems: "center",
     },
+    displayNone: {
+        display: "none",
+    },
 }));
 
 const Navbar = ({ cart, user }) => {
     const classes = useStyles();
+    const location = useLocation();
+    console.log(location);
     const [isOpenMenu, setIsOpenMenu] = useState(false);
     const anchor = "right";
 
     function handleMenuDisplay() {
         setIsOpenMenu(!isOpenMenu);
     }
+
+    const menuIsNotAvailable =
+        location.pathname === "/" ||
+        location.pathname === "/register" ||
+        location.pathname === "/login";
     return (
         <>
             <AppBar>
@@ -65,7 +75,14 @@ const Navbar = ({ cart, user }) => {
                             Delilah Resto
                         </Link>
                     </Typography>
-                    <div className={classes.icons}>
+                    <div
+                        className={
+                            (classes.icons,
+                            menuIsNotAvailable
+                                ? classes.displayNone
+                                : undefined)
+                        }
+                    >
                         <IconButton
                             aria-label="cart"
                             component={RouterLink}

@@ -10,24 +10,22 @@ import Favs from "./pages/Favs";
 import Order from "./pages/Order";
 import Orders from "./pages/Orders";
 
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import { Route, Switch } from "react-router-dom";
 
 const Routes = () => {
     return (
-        <Router>
-            <Switch>
-                <Route exact path="/" component={Welcome} />
-                <Route path="/register" component={Register} />
-                <Route path="/login" component={Login} />
-                <Route path="/home" component={Home} />
-                <Route path="/favs" component={Favs} />
-                <Route exact path="/category/:name/:id" component={Category} />
-                <Route exact path="/product/:id" component={Product} />
-                <Route path="/checkout" component={Checkout} />
-                <Route path="/orders" component={Orders} />
-                <Route exact path="/order/:id" component={Order} />
-            </Switch>
-        </Router>
+        <Switch>
+            <Route exact path="/" component={Welcome} />
+            <Route path="/register" component={Register} />
+            <Route path="/login" component={Login} />
+            <Route path="/home" component={Home} />
+            <Route path="/favs" component={Favs} />
+            <Route exact path="/category/:name/:id" component={Category} />
+            <Route exact path="/product/:id" component={Product} />
+            <Route path="/checkout" component={Checkout} />
+            <Route path="/orders" component={Orders} />
+            <Route exact path="/order/:id" component={Order} />
+        </Switch>
     );
 };
 
