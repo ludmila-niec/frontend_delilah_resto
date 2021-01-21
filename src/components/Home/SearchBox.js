@@ -4,13 +4,15 @@ import { makeStyles } from "@material-ui/core/styles";
 
 const useStyles = makeStyles((theme) => ({
     form: {
-        marginBottom: theme.spacing(2),
+        marginTop: theme.spacing(4),
         display: "flex",
-        justifyContent: "space-between",
-        alignItems: "center",
     },
     button: {
-        margin: "0 0.5rem",
+        display: "none",
+        [theme.breakpoints.up("md")]: {
+            display: "inline-flex",
+            margin: "0 0.5rem",
+        },
     },
 }));
 
@@ -23,7 +25,7 @@ const SearchBox = () => {
                 aria-label="search products"
                 variant="outlined"
                 color="primary"
-                margin="dense"
+                fullWidth
                 placeholder="Hoy tengo ganas de..."
             />
             <Button
