@@ -8,7 +8,7 @@ import Loading from "../components/common/Loading";
 import productImg from "../assets/ensalada.png";
 
 //material-ui
-import { Typography } from "@material-ui/core";
+import { Typography, Chip } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 //redux
 import { connect } from "react-redux";
@@ -18,13 +18,13 @@ import { loadProducts } from "../redux/actions/productActions";
 
 const useStyles = makeStyles((theme) => ({
     intro: {
-        height: "90vh",
+        height: "80vh",
         position: "relative",
 
         [theme.breakpoints.up("sm")]: {
-            height: "55vh",
+            height: "50vh",
         },
-        [theme.breakpoints.up("md")]: {
+        [theme.breakpoints.up("lg")]: {
             height: "90vh",
         },
     },
@@ -50,12 +50,12 @@ const useStyles = makeStyles((theme) => ({
 
             "& div:first-child": {
                 height: "100%",
-                width: "70%",
+                width: "75%",
             },
 
             "& div:last-child": {
                 height: "100%",
-                width: "30%",
+                width: "25%",
             },
         },
     },
@@ -65,7 +65,7 @@ const useStyles = makeStyles((theme) => ({
             display: "flex",
             justifyContent: "space-between",
             alignItems: "center",
-            paddingTop: "6rem",
+            paddingTop: "8rem",
         },
     },
     container__title: {
@@ -94,15 +94,31 @@ const useStyles = makeStyles((theme) => ({
             width: "350px",
             marginRight: "0px",
         },
-        [theme.breakpoints.up("md")]: {
-            height: "400px",
-            width: "400px",
+        [theme.breakpoints.up("lg")]: {
+            height: "500px",
+            width: "500px",
             marginRight: "0px",
+        },
+    },
+
+    chipContainer: {
+        padding: "3rem 2rem",
+
+        "& > div": {
+            margin: "0.5rem",
+            textTransform: "capitalize",
+        },
+
+        [theme.breakpoints.up("sm")]: {
+            "& > div": {
+                fontSize: "1rem",
+            },
         },
     },
 }));
 
 function Home({
+    history,
     user,
     products,
     favorites,
@@ -158,6 +174,25 @@ function Home({
                             />
                         </div>
                     </div>
+                    <div className={classes.chipContainer}>
+                        {categories.map((category) => {
+                            const { category_id, name } = category;
+
+                            return (
+                                <Chip
+                                    label={name}
+                                    key={category_id}
+                                    variant="outlined"
+                                    color="primary"
+                                    onClick={() =>
+                                        history.push(
+                                            `/category/${name}/${category_id}`
+                                        )
+                                    }
+                                />
+                            );
+                        })}
+                    </div>
                     <DealSection products={products} />
                     {favorites.length > 0 && (
                         <FavSection favorites={favorites} />
@@ -170,8 +205,9 @@ function Home({
     );
 }
 
-function mapStateToProps(state) {
+function mapStateToProps(state, ownProps) {
     return {
+        history: ownProps.history,
         user: state.userLogin.user,
         products: state.products,
         favorites:
