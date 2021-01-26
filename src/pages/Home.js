@@ -25,7 +25,7 @@ const useStyles = makeStyles((theme) => ({
             height: "50vh",
         },
         [theme.breakpoints.up("lg")]: {
-            height: "90vh",
+            height: "100vh",
         },
     },
     intro__bg: {
@@ -65,12 +65,12 @@ const useStyles = makeStyles((theme) => ({
             display: "flex",
             justifyContent: "space-between",
             alignItems: "center",
-            paddingTop: "8rem",
         },
     },
     container__title: {
         fontSize: "2.5rem",
         fontWeight: theme.typography.fontWeightBold,
+        textTransform: "capitalize",
         color: "#214C8A",
         marginBottom: theme.spacing(1),
 
@@ -103,6 +103,9 @@ const useStyles = makeStyles((theme) => ({
 
     chipContainer: {
         padding: "3rem 2rem",
+        display: "flex",
+        flexWrap: "wrap",
+        justifyContent: "space-between",
 
         "& > div": {
             margin: "0.5rem",
@@ -113,6 +116,9 @@ const useStyles = makeStyles((theme) => ({
             "& > div": {
                 fontSize: "1rem",
             },
+        },
+        [theme.breakpoints.up("md")]: {
+            justifyContent: "flex-start",
         },
     },
 }));
@@ -160,7 +166,7 @@ function Home({
                                     variant="h2"
                                     className={classes.container__title}
                                 >
-                                    Hola Usuario!
+                                    Hola {user.firstName}!
                                 </Typography>
                                 <Typography color="secondary">
                                     Qué vas a pedir hoy?
@@ -197,7 +203,6 @@ function Home({
                     {favorites.length > 0 && (
                         <FavSection favorites={favorites} />
                     )}
-
                     <CategoriesSection categories={categories} />
                 </>
             )}
