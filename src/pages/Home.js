@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Layout from "../components/common/Layout";
 import SearchBox from "../components/Home/SearchBox";
+import DealSection from "../components/Home/Deal/DealSection";
 import FavSection from "../components/Home/Favorite/FavSection";
 import CategoriesSection from "../components/Home/Category/CategoriesSection";
 import Loading from "../components/common/Loading";
@@ -53,6 +54,7 @@ function Home({
                     <Link component={RouterLink} to="orders">
                         Mis pedidos
                     </Link>
+                    <DealSection products={products} />
                     {favorites.length > 0 && (
                         <FavSection favorites={favorites} />
                     )}
@@ -66,7 +68,7 @@ function Home({
 
 function mapStateToProps(state) {
     return {
-        user: state.userLogin.user.data,
+        user: state.userLogin.user,
         products: state.products,
         favorites:
             state.products.length == 0
