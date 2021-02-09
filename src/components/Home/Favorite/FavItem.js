@@ -13,9 +13,16 @@ import { makeStyles } from "@material-ui/core/styles";
 const useStyles = makeStyles((theme) => ({
     root: {
         minHeight: 350,
-        maxWidth: 250,
+        // maxWidth: 250,
         padding: "1rem",
         margin: "1.5rem",
+
+        [theme.breakpoints.up("sm")]: {
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "space-between",
+            minHeight: "200px",
+        },
     },
     title: {
         textAlign: "center",
@@ -38,6 +45,12 @@ const useStyles = makeStyles((theme) => ({
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
+
+        [theme.breakpoints.up("sm")]: {
+            height: "150px",
+            width: "150px",
+            margin: 0,
+        },
     },
     productImg: {
         height: "90%",
@@ -62,22 +75,24 @@ const FavItem = ({ product }) => {
                         className={classes.productImg}
                     />
                 </div>
-                <CardContent>
-                    <Typography variant="body1" className={classes.title}>
-                        {name}
-                    </Typography>
-                </CardContent>
-                <CardActions>
-                    <Button
-                        variant="contained"
-                        color="primary"
-                        style={{ margin: "0.2rem auto" }}
-                        component={RouterLink}
-                        to={`/product/${product_id}`}
-                    >
-                        VER PRODUCTO
-                    </Button>
-                </CardActions>
+                <div>
+                    <CardContent>
+                        <Typography variant="body1" className={classes.title}>
+                            {name}
+                        </Typography>
+                    </CardContent>
+                    <CardActions>
+                        <Button
+                            variant="contained"
+                            color="primary"
+                            style={{ margin: "0.2rem auto" }}
+                            component={RouterLink}
+                            to={`/product/${product_id}`}
+                        >
+                            VER PRODUCTO
+                        </Button>
+                    </CardActions>
+                </div>
             </Card>
         </div>
     );

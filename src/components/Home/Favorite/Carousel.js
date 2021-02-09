@@ -34,7 +34,10 @@ const useStyles = makeStyles((theme) => ({
     },
 
     carouselContainer: {
-        background: "none",
+        width: "300px",
+        [theme.breakpoints.up("sm")]: {
+            width: "425px",
+        },
     },
 }));
 
@@ -63,7 +66,7 @@ const BaseCarousel = (props) => {
     return (
         <div className={`carousel-outer ${classes.root}`}>
             <Carousel
-                width="300px"
+                className={classes.carouselContainer}
                 {...getConfigurableProps()}
                 tatusFormatter={(current, total) =>
                     `Current slide: ${current} / Total: ${total}`
