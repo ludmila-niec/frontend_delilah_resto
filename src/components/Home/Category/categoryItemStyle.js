@@ -8,6 +8,7 @@ const useStyles = makeStyles((theme) => ({
     },
     cardContainer: {
         height: "150px",
+        minWidth: "300px",
         padding: "1rem",
         marginBottom: "1.5rem",
         display: "flex",
@@ -23,6 +24,11 @@ const useStyles = makeStyles((theme) => ({
         },
         "&:nth-child(3n + 3)": {
             backgroundColor: "#c6cbe7",
+        },
+
+        [theme.breakpoints.up("sm")]: {
+            margin: theme.spacing(4),
+            minWidth: "350px",
         },
     },
     foodImg: {
