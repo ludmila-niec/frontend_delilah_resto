@@ -5,12 +5,27 @@ import { makeStyles } from "@material-ui/core/styles";
 
 const useStyles = makeStyles((theme) => ({
     container: {
-        margin: "3rem 0",
+        paddingTop: theme.spacing(4),
+        [theme.breakpoints.up("sm")]: {
+            padding: "2rem",
+            "& > div": {
+                margin: "2rem",
+            },
+        },
+        [theme.breakpoints.up("md")]: {
+            padding: "3rem",
+            display: "grid",
+            gridAutoFlow: "dense",
+            gridTemplateColumns: "repeat(2, 1fr)",
+            gap: "3rem",
+            "& > div": {
+                margin: 0,
+            },
+        },
     },
 }));
 const ProductCardList = ({ productList }) => {
     const classes = useStyles();
-    console.log(productList);
     return (
         <div className={classes.container}>
             {productList.map((product) => (

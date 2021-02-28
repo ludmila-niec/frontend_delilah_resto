@@ -1,7 +1,9 @@
 import React from "react";
 import ProductCardLoading from "./ProductCardLoading";
+import useFavorite from "../../Hooks/useFavorite";
+// react-router
 import { Link as RouterLink } from "react-router-dom";
-
+// material-ui
 import {
     Card,
     CardContent,
@@ -16,13 +18,14 @@ import {
 } from "@material-ui/core";
 import { Favorite, FavoriteBorder } from "@material-ui/icons";
 import { Alert } from "@material-ui/lab";
+// redux
 import { connect } from "react-redux";
 import {
     addFavorite,
     deleteFavorite,
 } from "../../redux/actions/favoriteActions";
+// style
 import useStyles from "./productCardStyle";
-import useFavorite from "../../Hooks/useFavorite";
 
 const ProductCard = ({
     product,

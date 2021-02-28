@@ -17,6 +17,15 @@ const useStyles = makeStyles((theme) => ({
     titleLoading: {
         marginBottom: "2rem",
     },
+    container: {
+        padding: "8rem 2rem",
+        [theme.breakpoints.up("sm")]: {
+            padding: "8rem 4rem",
+        },
+        [theme.breakpoints.up("lg")]: {
+            padding: "8rem",
+        },
+    },
 }));
 
 const Category = ({ categories, categoryInfo, loading, loadCategories }) => {
@@ -30,7 +39,7 @@ const Category = ({ categories, categoryInfo, loading, loadCategories }) => {
     if (categoryInfo.length === 0) return <h1>nada por aqui</h1>;
 
     return (
-        <Layout>
+        <div className={classes.container}>
             <SearchBox />
 
             {loading && (
@@ -56,7 +65,7 @@ const Category = ({ categories, categoryInfo, loading, loadCategories }) => {
                 </>
             )}
             {/* {error && <ErrorNoData errorText="Error al cargar los productos" />} */}
-        </Layout>
+        </div>
     );
 };
 
