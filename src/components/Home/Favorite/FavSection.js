@@ -70,7 +70,7 @@ const FavSection = ({ favorites }) => {
                     <Typography
                         variant="h2"
                         color="secondary"
-                        classname={classes.title}
+                        className={classes.title}
                     >
                         Mis Favoritos
                     </Typography>
