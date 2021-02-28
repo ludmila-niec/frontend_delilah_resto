@@ -21,6 +21,14 @@ const useStyles = makeStyles((theme) => ({
         justifyContent: "center",
         paddingTop: "7rem",
         position: "relative",
+        [theme.breakpoints.up("md")]: {
+            paddingTop: 0,
+            flex: 1,
+            minHeight: "fit-content",
+        },
+        [theme.breakpoints.up("lg")]: {
+            minHeight: "50vh",
+        },
     },
     img: {
         height: "65%",
@@ -32,11 +40,17 @@ const useStyles = makeStyles((theme) => ({
         position: "absolute",
         right: "20px",
         top: "100px",
+        [theme.breakpoints.up("md")]: {
+            top: "25px",
+        },
     },
     backBtn: {
         position: "absolute",
         left: "20px",
         top: "100px",
+        [theme.breakpoints.up("md")]: {
+            top: "25px",
+        },
     },
     icon: {
         fontSize: "2.5rem",

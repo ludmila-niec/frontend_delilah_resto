@@ -11,6 +11,13 @@ const useStyles = makeStyles((theme) => ({
         transform: "translateY(-15px)",
         backgroundColor: "#ffffff",
         padding: "2rem",
+        [theme.breakpoints.up("md")]: {
+            transform: "translateY(0)",
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "space-evenly",
+            flex: 1,
+        },
     },
     title: {
         fontSize: "2rem",
@@ -62,41 +69,39 @@ const ProductDetail = ({ onOpenModal, product, addToCart }) => {
     };
     return (
         <div className={classes.container}>
-            <div>
-                <Typography color="primary" className={classes.title}>
-                    {name}
-                </Typography>
-                <Typography color="secondary" className={classes.price}>
-                    ${price}
-                </Typography>
-                <Typography className={classes.description}>
-                    {description}
-                </Typography>
-                <div className={classes.btnContainer}>
-                    <ButtonGroup
-                        color="primary"
-                        aria-label="button select quantity"
-                    >
-                        <Button
-                            onClick={handleDecreaseQuantity}
-                            disabled={quantity <= 1}
-                        >
-                            <Remove className={classes.icon} />
-                        </Button>
-                        <Button>{quantity}</Button>
-                        <Button onClick={handleIncreaseQuantity}>
-                            <Add className={classes.icon} />
-                        </Button>
-                    </ButtonGroup>
+            <Typography color="primary" className={classes.title}>
+                {name}
+            </Typography>
+            <Typography color="secondary" className={classes.price}>
+                ${price}
+            </Typography>
+            <Typography className={classes.description}>
+                {description}
+            </Typography>
+            <div className={classes.btnContainer}>
+                <ButtonGroup
+                    color="primary"
+                    aria-label="button select quantity"
+                >
                     <Button
-                        variant="contained"
-                        color="primary"
-                        className={classes.btnAdd}
-                        onClick={handleAddToCart}
+                        onClick={handleDecreaseQuantity}
+                        disabled={quantity <= 1}
                     >
-                        agregar ${price * quantity}
+                        <Remove className={classes.icon} />
                     </Button>
-                </div>
+                    <Button>{quantity}</Button>
+                    <Button onClick={handleIncreaseQuantity}>
+                        <Add className={classes.icon} />
+                    </Button>
+                </ButtonGroup>
+                <Button
+                    variant="contained"
+                    color="primary"
+                    className={classes.btnAdd}
+                    onClick={handleAddToCart}
+                >
+                    agregar ${price * quantity}
+                </Button>
             </div>
         </div>
     );
