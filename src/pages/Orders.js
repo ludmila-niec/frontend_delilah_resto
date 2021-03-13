@@ -113,7 +113,6 @@ const Order = ({ orders, loading, loadOrders }) => {
                         {userHaveOrders ? (
                             <>
                                 <div className={classes.container__ilustration}>
-                                    {/* imagen */}
                                     <img
                                         src={hambugerIlust}
                                         alt="hambuger ilustration"
