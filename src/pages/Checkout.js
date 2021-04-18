@@ -23,8 +23,8 @@ import EmptyCart from "../components/Checkout/EmptyCart";
 
 const useStyles = makeStyles((theme) => ({
   intro: {
-    minHeight: "80vh",
-    position: "relative",
+    // minHeight: "80vh",
+    // position: "relative",
   },
   intro__bg: {
     position: "absolute",
@@ -126,7 +126,7 @@ const Checkout = ({
 
   return (
     <>
-      <main>
+      <main style={{minHeight:'100vh'}}>
         <div className={classes.intro}>
           <div className={classes.intro__bg}>
             <div></div>

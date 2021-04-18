@@ -6,7 +6,7 @@ import pizzaSpinner from "../../assets/lottie/lf30_editor_x8kqly4n.json";
 
 const useStyles = makeStyles((theme) => ({
     container: {
-        height: "80vh",
+        height: "100vh",
         backgroundColor: "rgba(255,255,255,0.5)",
         display: "flex",
         flexDirection: "column",
