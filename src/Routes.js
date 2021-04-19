@@ -5,6 +5,7 @@ import Login from "./pages/Login";
 import Home from "./pages/Home";
 import Category from "./pages/Category";
 import Product from "./pages/Product";
+import Search from './pages/Search'
 import Checkout from "./pages/Checkout";
 import Favs from "./pages/Favs";
 import Order from "./pages/Order";
@@ -33,6 +34,12 @@ const Routes = ({ isAuth }) => {
         path="/product/:id"
         isAuth={isAuth}
         component={Product}
+      />
+      <ProtectedRoute
+        exact
+        path="/search"
+        isAuth={isAuth}
+        component={Search}
       />
       <ProtectedRoute path="/checkout" isAuth={isAuth} component={Checkout} />
       <ProtectedRoute path="/orders" isAuth={isAuth} component={Orders} />

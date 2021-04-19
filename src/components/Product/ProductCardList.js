@@ -7,17 +7,10 @@ const useStyles = makeStyles((theme) => ({
     container: {
         paddingTop: theme.spacing(4),
         [theme.breakpoints.up("sm")]: {
-            padding: "2rem",
-            "& > div": {
-                margin: "2rem",
-            },
-        },
-        [theme.breakpoints.up("md")]: {
-            padding: "3rem",
             display: "grid",
             gridAutoFlow: "dense",
             gridTemplateColumns: "repeat(2, 1fr)",
-            gap: "3rem",
+            gap: "1.5rem",
             "& > div": {
                 margin: 0,
             },

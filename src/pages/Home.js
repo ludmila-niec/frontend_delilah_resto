@@ -67,6 +67,11 @@ const useStyles = makeStyles((theme) => ({
       alignItems: "center",
     },
   },
+  container__wrapper: {
+    [theme.breakpoints.up("lg")]: {
+      width: "45%",
+    },
+  },
   container__title: {
     fontSize: "2.5rem",
     fontWeight: theme.typography.fontWeightBold,
@@ -151,20 +156,6 @@ function Home({
     loadProducts();
   };
 
-  // useEffect(() => {
-  //   if (favorites.length === 0) {
-  //     loadFavoritesRef.current();
-  //   }
-
-  //   if (products.length === 0) {
-  //     loadProductsRef.current();
-  //   }
-
-  //   if (categories.length === 0) {
-  //     loadCategoriesRef.current();
-  //   }
-  // }, [favorites.length, products.length, categories.length]);
-
   useEffect(() => {
     if (products.length === 0) {
       loadProductsRef.current();
@@ -195,7 +186,7 @@ function Home({
               <div></div>
             </div>
             <div className={classes.container}>
-              <div>
+              <div className={classes.container__wrapper}>
                 <Typography variant="h2" className={classes.container__title}>
                   Hola {user.firstName}!
                 </Typography>
