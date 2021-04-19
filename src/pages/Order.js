@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useRef } from "react";
 import OrderStatus from "../components/Order/OrderStatus";
 import OrderDetail from "../components/Order/OrderDetail";
 import Loading from "../components/common/Loading";
@@ -36,8 +36,13 @@ const useStyles = makeStyles((theme) => ({
 
 const Order = ({ order, loading, loadOrders }) => {
   const classes = useStyles();
-  useEffect(() => {
+  const loadOrdersRef = useRef(() => {});
+
+  loadOrdersRef.current = () => {
     loadOrders();
+  };
+  useEffect(() => {
+    loadOrdersRef.current();
   }, []);
 
   return (
@@ -67,7 +72,8 @@ function mapStateToProps(state, ownProps) {
     order:
       state.orders.orderList.length === 0
         ? null
-        : state.orders.orderList.find((order) => order.order_id == orderId),
+        : // eslint-disable-next-line
+          state.orders.orderList.find((order) => order.order_id == orderId),
     loading: state.apiCallsInProgress > 0,
   };
 }

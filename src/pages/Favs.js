@@ -12,153 +12,142 @@ import { loadFavorites } from "../redux/actions/favoriteActions";
 import { makeStyles } from "@material-ui/core/styles";
 
 const useStyles = makeStyles((theme) => ({
-    intro: {
-        minHeight: "80vh",
-        position: "relative",
+  intro: {
+    minHeight: "80vh",
+    position: "relative",
+  },
+  intro__bg: {
+    position: "absolute",
+    zIndex: -10,
+    height: "100%",
+    width: "100%",
+
+    "& div:first-child": {
+      height: "75%",
+      backgroundColor: theme.palette.secondaryLighter.main,
+      opacity: "50%",
     },
-    intro__bg: {
-        position: "absolute",
-        zIndex: -10,
+    "& div:last-child": {
+      height: "25%",
+      backgroundColor: "#F9F6F0",
+      opacity: "50%",
+    },
+    [theme.breakpoints.up("sm")]: {
+      display: "flex",
+
+      "& div:first-child": {
         height: "100%",
-        width: "100%",
+        width: "75%",
+      },
 
-        "& div:first-child": {
-            height: "75%",
-            backgroundColor: theme.palette.secondaryLighter.main,
-            opacity: "50%",
-        },
-        "& div:last-child": {
-            height: "25%",
-            backgroundColor: "#F9F6F0",
-            opacity: "50%",
-        },
-        [theme.breakpoints.up("sm")]: {
-            display: "flex",
-
-            "& div:first-child": {
-                height: "100%",
-                width: "75%",
-            },
-
-            "& div:last-child": {
-                height: "100%",
-                width: "25%",
-            },
-        },
+      "& div:last-child": {
+        height: "100%",
+        width: "25%",
+      },
     },
-    container: {
-        padding: "8rem 2rem",
-        [theme.breakpoints.up("sm")]: {
-            padding: "8rem 4rem",
-        },
+  },
+  container: {
+    padding: "8rem 2rem",
+    [theme.breakpoints.up("sm")]: {
+      padding: "8rem 4rem",
     },
-    container__title: {
-        fontSize: "2rem",
-        fontWeight: theme.typography.fontWeightBold,
-        textTransform: "capitalize",
-        color: "#214C8A",
-        marginBottom: theme.spacing(1),
+  },
+  container__title: {
+    fontSize: "2rem",
+    fontWeight: theme.typography.fontWeightBold,
+    textTransform: "capitalize",
+    color: "#214C8A",
+    marginBottom: theme.spacing(1),
 
-        [theme.breakpoints.up("sm")]: {
-            fontSize: "3rem",
+    [theme.breakpoints.up("sm")]: {
+      fontSize: "3rem",
 
-            "& + p": {
-                fontSize: "1.5rem",
-            },
-        },
+      "& + p": {
+        fontSize: "1.5rem",
+      },
     },
+  },
 }));
 
 const Favs = ({
-    products,
-    favorites,
-    loading,
-    loadProducts,
-    loadFavorites,
+  products,
+  favorites,
+  loading,
+  loadProducts,
+  loadFavorites,
 }) => {
-    const classes = useStyles();
-    useEffect(() => {
-        if (products.length === 0) {
-            loadProducts();
-        }
-    }, []);
-    // const prevFavorites = useRef([]);
-    // useEffect(() => {
-    //     if (favorites.length === 0) {
-    //         loadFavorites();
-    //         return (prevFavorites.current = favorites);
-    //     } else if (areEqual(prevFavorites.current, favorites)) {
-    //         return;
-    //     } else {
-    //         return (prevFavorites.current = favorites);
-    //     }
-    // }, [favorites]);
-    useEffect(() => {
-        if (favorites.length === 0) {
-            loadFavorites();
-        }
-    }, []);
+  const classes = useStyles();
+  const loadProductsRef = useRef(() => {});
+  const loadFavoritesRef = useRef(() => {});
 
-    const userHaveFavorites = favorites.length > 0;
+  loadProductsRef.current = () => {
+    loadProducts();
+  };
 
-    if (loading) {
-        return <Loading />;
+  loadFavoritesRef.current = () => {
+    loadFavorites();
+  };
+  useEffect(() => {
+    if (products.length === 0) {
+      loadProductsRef.current();
     }
+  }, [products.length]);
 
-    // if (error) {
-    //     return <ErrorNoData errorText="Error al cargar los favoritos" />;
-    // }
+  useEffect(() => {
+    if (favorites.length === 0) {
+      loadFavoritesRef.current();
+    }
+  }, [favorites.length]);
 
-    return (
-        <main>
-            <div className={classes.intro}>
-                <div className={classes.intro__bg}>
-                    <div></div>
-                    <div></div>
-                </div>
-                <div className={classes.container}>
-                    <Typography
-                        variant="h2"
-                        className={classes.container__title}
-                    >
-                        Mis favoritos
-                    </Typography>
-                    {userHaveFavorites ? (
-                        <ProductList productList={favorites} />
-                    ) : (
-                        <FavsEmpty />
-                    )}
-                </div>
-            </div>
-        </main>
-    );
+  const userHaveFavorites = favorites.length > 0;
+
+  if (loading) {
+    return <Loading />;
+  }
+
+  // if (error) {
+  //     return <ErrorNoData errorText="Error al cargar los favoritos" />;
+  // }
+
+  return (
+    <main>
+      <div className={classes.intro}>
+        <div className={classes.intro__bg}>
+          <div></div>
+          <div></div>
+        </div>
+        <div className={classes.container}>
+          <Typography variant="h2" className={classes.container__title}>
+            Mis favoritos
+          </Typography>
+          {userHaveFavorites ? (
+            <ProductList productList={favorites} />
+          ) : (
+            <FavsEmpty />
+          )}
+        </div>
+      </div>
+    </main>
+  );
 };
 
 function mapStateToProps(state) {
-    return {
-        products: state.products,
-        favorites:
-            state.products.length == 0
-                ? []
-                : state.favorites.map((f) =>
-                      state.products.find((p) => p.product_id === f.product_id)
-                  ),
-        categories: state.categories,
-        loading: state.apiCallsInProgress > 0,
-    };
+  return {
+    products: state.products,
+    favorites:
+      state.products.length === 0
+        ? []
+        : state.favorites.map((f) =>
+            state.products.find((p) => p.product_id === f.product_id)
+          ),
+    categories: state.categories,
+    loading: state.apiCallsInProgress > 0,
+  };
 }
 
 const mapDispatchToProps = {
-    loadProducts,
-    loadFavorites,
+  loadProducts,
+  loadFavorites,
 };
-
-//checks if the array of favorites have changed
-function areEqual(array1, array2) {
-    return (
-        array1.length === array2.length &&
-        array1.every((value, index) => value === array2[index])
-    );
-}
 
 export default connect(mapStateToProps, mapDispatchToProps)(Favs);

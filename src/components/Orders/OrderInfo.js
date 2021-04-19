@@ -37,14 +37,13 @@ const OrderInfo = ({ order }) => {
     const classes = useStyles();
     const statusIcon =
         order.OrderStatus.name === "CANCELADO" ? statusErrorImg : statusOkImg;
-    console.log(statusIcon);
     const orderId = order.order_id;
     const date = order.createdAt.slice(0, 10);
     const payment = order.Payment.name;
     return (
         <div className={classes.container}>
             <div className={classes.statusContainer}>
-                <img src={statusIcon} />
+                <img src={statusIcon} alt='status' />
             </div>
             <div className={classes.infoContainer}>
                 <Typography>Pedido #{orderId}</Typography>

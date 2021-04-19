@@ -69,11 +69,10 @@ const Menu = ({ history, user }) => {
     ];
 
     const { firstName, isAdmin } = user;
-    console.log(user);
     return (
         <div className={classes.container}>
             <div className={classes.header}>
-                <img src={avatarImg} alt="user avatar image" />
+                <img src={avatarImg} alt="user avatar" />
                 <Typography variant="h5" color="secondary">
                     {firstName}
                 </Typography>

@@ -1,10 +1,8 @@
 import React, { useState, useRef, useEffect } from "react";
-import div from "../components/common/Layout";
 import { Typography } from "@material-ui/core";
 import CardItem from "../components/Checkout/CardItem";
 import CheckoutForm from "../components/Checkout/CheckoutForm";
 import ModalConfirmOrder from "../components/Checkout/ModalConfirmOrder";
-// import Cart from "../components/Checkout/Cart";
 import { connect } from "react-redux";
 import {
   increaseItem,
@@ -22,10 +20,6 @@ import { makeStyles } from "@material-ui/core/styles";
 import EmptyCart from "../components/Checkout/EmptyCart";
 
 const useStyles = makeStyles((theme) => ({
-  intro: {
-    // minHeight: "80vh",
-    // position: "relative",
-  },
   intro__bg: {
     position: "absolute",
     zIndex: -10,
@@ -101,23 +95,27 @@ const Checkout = ({
   removeItem,
   placeNewOrder,
 }) => {
-  console.log("cart");
-  console.log(cart);
   const classes = useStyles();
-  const prevCart = useRef([]);
-  //modal handlers
+
   const [isOpen, setIsOpen] = useState(false);
+  const getTotalRef = useRef(() => {});
+  // modal state
+  getTotalRef.current = () => {
+    getTotal();
+  };
+
+  //when the component mounts, get de total cart value
+  useEffect(() => {
+    getTotalRef.current();
+  }, []);
+
+  //modal handlers
   function handleOpenModal() {
     setIsOpen(true);
   }
   function handleCloseModal() {
     setIsOpen(false);
   }
-
-  //when the component mounts, get de total cart value
-  useEffect(() => {
-    getTotal();
-  }, []);
 
   //clear cart
   const handleClearCart = () => {
@@ -126,7 +124,7 @@ const Checkout = ({
 
   return (
     <>
-      <main style={{minHeight:'100vh'}}>
+      <main style={{ minHeight: "100vh" }}>
         <div className={classes.intro}>
           <div className={classes.intro__bg}>
             <div></div>

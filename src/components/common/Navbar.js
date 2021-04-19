@@ -46,7 +46,6 @@ const useStyles = makeStyles((theme) => ({
 const Navbar = ({ cart, user }) => {
     const classes = useStyles();
     const location = useLocation();
-    console.log(location);
     const [isOpenMenu, setIsOpenMenu] = useState(false);
     const anchor = "right";
 

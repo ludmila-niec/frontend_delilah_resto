@@ -52,10 +52,11 @@ function getStatus(status) {
 const OrderStatus = ({ orderStatus }) => {
   const classes = useStyles();
   const [activeStep, setActiveStep] = useState(0);
+
   useEffect(() => {
     const step = getStatus(orderStatus.name);
     setActiveStep(step);
-  }, [activeStep]);
+  }, [activeStep, orderStatus.name]);
 
   //check media query for display vertical or horizontal in the stepper component
   const matches = useMediaQuery((theme) => theme.breakpoints.up("md"));

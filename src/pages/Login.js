@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect} from "react";
 import RegisterLoginLayout from "../components/common/RegisterLoginLayout";
 import LoginForm from "../components/Auth/LoginForm";
 import Modal from "../components/common/Modal/Modal";
@@ -46,6 +46,7 @@ const Login = ({ history, user, loading, loginUser }) => {
         setModalIsOpen(false);
     };
 
+   
     function submitLogin() {
         setModalIsOpen(true);
         const body = {

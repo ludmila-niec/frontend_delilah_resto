@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import EmptyOrders from "../components/Orders/EmptyOrders";
 import OrderInfoList from "../components/Orders/OrderInfoList";
 import Loading from "../components/common/Loading";
@@ -74,16 +74,19 @@ const useStyles = makeStyles((theme) => ({
 const Order = ({ orders, loading, loadOrders }) => {
     const classes = useStyles();
     const [currentPage, setCurrentPage] = useState(1);
-    const [ordersPerPage, setOrdersPerPage] = useState(5);
-    const handlePagination = (event, value) => {
-        setCurrentPage(value);
-    };
+    const [ordersPerPage] = useState(5);
+    const loadOrdersRef = useRef(() => {})
+
+    loadOrdersRef.current = () =>{
+        loadOrders()
+    }
+
     useEffect(() => {
         if (orders.length === 0) {
-            loadOrders();
+            loadOrdersRef.current();
         }
-    }, []);
-
+    }, [orders.length]);
+  
     //reverse array of orders. Show first the most recent
     const reversedOrders = [...orders];
     const newerOrders = reversedOrders.reverse();
@@ -99,6 +102,11 @@ const Order = ({ orders, loading, loadOrders }) => {
     const pagesNumber = Math.ceil(orders.length / ordersPerPage);
 
     const userHaveOrders = orders.length > 0;
+
+      
+    const handlePagination = (value) => {
+        setCurrentPage(value);
+    };
 
     return (
         <main>

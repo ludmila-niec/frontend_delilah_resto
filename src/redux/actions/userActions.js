@@ -22,7 +22,6 @@ export const registerNewUser = (body) => async (dispatch) => {
     try {
         dispatch(beginApiCall());
         const response = await userApi.registerUser(body);
-        console.log(response);
         const user = response.data.data;
         dispatch(registerNewUserSuccess(user));
     } catch (error) {

@@ -4,9 +4,9 @@ import {
     IconButton,
     FormControlLabel,
     Checkbox,
-    Snackbar,
+    // Snackbar,
 } from "@material-ui/core";
-import { Alert } from "@material-ui/lab";
+// import { Alert } from "@material-ui/lab";
 
 import { Favorite, FavoriteBorder, ArrowBackIos } from "@material-ui/icons";
 import { makeStyles } from "@material-ui/core/styles";
