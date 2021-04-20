@@ -1,8 +1,9 @@
 import React, { useState, useRef, useEffect } from "react";
 import { Typography } from "@material-ui/core";
-import CardItem from "../components/Checkout/CardItem";
+import CardProduct from "../components/Checkout/CardProduct";
 import CheckoutForm from "../components/Checkout/CheckoutForm";
 import ModalConfirmOrder from "../components/Checkout/ModalConfirmOrder";
+import EmptyCart from "../components/Checkout/EmptyCart";
 import { connect } from "react-redux";
 import {
   increaseItem,
@@ -16,71 +17,8 @@ import { placeNewOrder } from "../redux/actions/orderActions";
 //Material-ui
 import { Button } from "@material-ui/core";
 import { LocalMall } from "@material-ui/icons";
-import { makeStyles } from "@material-ui/core/styles";
-import EmptyCart from "../components/Checkout/EmptyCart";
-
-const useStyles = makeStyles((theme) => ({
-  intro__bg: {
-    position: "absolute",
-    zIndex: -10,
-    height: "100%",
-    width: "100%",
-
-    "& div:first-child": {
-      height: "75%",
-      backgroundColor: "#F9F6F0",
-      opacity: "50%",
-    },
-    "& div:last-child": {
-      height: "25%",
-      backgroundColor: theme.palette.secondaryLighter.main,
-      opacity: "50%",
-    },
-    [theme.breakpoints.up("sm")]: {
-      display: "flex",
-
-      "& div:first-child": {
-        height: "100%",
-        width: "75%",
-      },
-
-      "& div:last-child": {
-        height: "100%",
-        width: "25%",
-      },
-    },
-  },
-  title: {
-    fontSize: "2rem",
-    fontWeight: theme.typography.fontWeightBold,
-    textTransform: "capitalize",
-    color: "#214C8A",
-    paddingTop: "8rem",
-    paddingLeft: "2rem",
-    [theme.breakpoints.up("sm")]: {
-      fontSize: "3rem",
-    },
-  },
-  container: {
-    padding: "3rem 2rem 8rem",
-    [theme.breakpoints.up("sm")]: {
-      padding: "4rem 8rem",
-    },
-    [theme.breakpoints.up("md")]: {
-      padding: "4rem",
-      display: "flex",
-      justifyContent: "space-around",
-      alignItems: "flex-start",
-    },
-    [theme.breakpoints.up("lg")]: {
-      padding: "4rem 8rem",
-    },
-  },
-  btnClearBag: {
-    margin: "5rem auto",
-    display: "block",
-  },
-}));
+// style
+import { useStyles } from "../components/Checkout/style/checkoutPage";
 
 const Checkout = ({
   cart,
@@ -96,10 +34,10 @@ const Checkout = ({
   placeNewOrder,
 }) => {
   const classes = useStyles();
-
+  // modal state
   const [isOpen, setIsOpen] = useState(false);
   const getTotalRef = useRef(() => {});
-  // modal state
+
   getTotalRef.current = () => {
     getTotal();
   };
@@ -117,10 +55,11 @@ const Checkout = ({
     setIsOpen(false);
   }
 
-  //clear cart
   const handleClearCart = () => {
     clearCart();
   };
+
+  const userHasProducts = cart.length > 0;
 
   return (
     <>
@@ -133,13 +72,11 @@ const Checkout = ({
           <Typography variant="h2" className={classes.title}>
             Mi pedido
           </Typography>
-          {cart.length === 0 ? (
-            <EmptyCart />
-          ) : (
+          {userHasProducts ? (
             <div className={classes.container}>
               <div>
                 {cart.map((item) => (
-                  <CardItem
+                  <CardProduct
                     key={item.product_id}
                     productData={item.productData}
                     quantity={item.quantity}
@@ -165,6 +102,8 @@ const Checkout = ({
                 placeNewOrder={placeNewOrder}
               />
             </div>
+          ) : (
+            <EmptyCart />
           )}
         </div>
       </main>

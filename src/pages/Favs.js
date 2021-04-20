@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from "react";
 // import ErrorNoData from "../components/ErrorNoData";
 import { Typography } from "@material-ui/core";
-import FavsEmpty from "../components/Fav/FavsEmpty";
+import FavsEmpty from "../components/FavsPage/FavsEmpty";
 import ProductList from "../components/Product/ProductCardList";
 import Loading from "../components/common/Loading";
 // redux
@@ -9,65 +9,7 @@ import { connect } from "react-redux";
 import { loadProducts } from "../redux/actions/productActions";
 import { loadFavorites } from "../redux/actions/favoriteActions";
 // material-ui
-import { makeStyles } from "@material-ui/core/styles";
-
-const useStyles = makeStyles((theme) => ({
-  intro: {
-    minHeight: "80vh",
-    position: "relative",
-  },
-  intro__bg: {
-    position: "absolute",
-    zIndex: -10,
-    height: "100%",
-    width: "100%",
-
-    "& div:first-child": {
-      height: "75%",
-      backgroundColor: theme.palette.secondaryLighter.main,
-      opacity: "50%",
-    },
-    "& div:last-child": {
-      height: "25%",
-      backgroundColor: "#F9F6F0",
-      opacity: "50%",
-    },
-    [theme.breakpoints.up("sm")]: {
-      display: "flex",
-
-      "& div:first-child": {
-        height: "100%",
-        width: "75%",
-      },
-
-      "& div:last-child": {
-        height: "100%",
-        width: "25%",
-      },
-    },
-  },
-  container: {
-    padding: "8rem 2rem",
-    [theme.breakpoints.up("sm")]: {
-      padding: "8rem 4rem",
-    },
-  },
-  container__title: {
-    fontSize: "2rem",
-    fontWeight: theme.typography.fontWeightBold,
-    textTransform: "capitalize",
-    color: "#214C8A",
-    marginBottom: theme.spacing(1),
-
-    [theme.breakpoints.up("sm")]: {
-      fontSize: "3rem",
-
-      "& + p": {
-        fontSize: "1.5rem",
-      },
-    },
-  },
-}));
+import { useStyles } from "../components/FavsPage/style/favPage";
 
 const Favs = ({
   products,
@@ -101,9 +43,7 @@ const Favs = ({
 
   const userHaveFavorites = favorites.length > 0;
 
-  if (loading) {
-    return <Loading />;
-  }
+  if (loading) return <Loading />;
 
   // if (error) {
   //     return <ErrorNoData errorText="Error al cargar los favoritos" />;

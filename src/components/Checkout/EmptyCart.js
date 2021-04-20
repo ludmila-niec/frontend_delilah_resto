@@ -2,27 +2,8 @@ import React from "react";
 import { Button, Typography } from "@material-ui/core";
 import emptyCartImg from "../../assets/status/empty-cart.png";
 import { Link as RouterLink } from "react-router-dom";
-
-import { makeStyles } from "@material-ui/core/styles";
-
-const useStyles = makeStyles((theme) => ({
-    container: {
-        minHeight: "500px",
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
-        justifyContent: "space-evenly",
-        padding: "1rem",
-    },
-    textInfo: {
-        fontSize: "1.5rem",
-        fontWeight: theme.typography.fontWeightMedium,
-        textAlign: "center",
-    },
-    btn: {
-        fontSize: "1rem",
-    },
-}));
+// style
+import {useStyles} from './style/emptyCart'
 const EmptyCart = () => {
     const classes = useStyles();
     return (

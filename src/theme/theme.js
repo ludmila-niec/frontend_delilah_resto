@@ -1,28 +1,5 @@
 import { createMuiTheme } from "@material-ui/core/styles";
 
-//  const theme = createMuiTheme({
-//     palette: {
-//         primary: {
-//             main: "#516DB4",
-//         },
-//         primaryLighter: {
-//             main: "#C6CBE7",
-//         },
-//         secondary: {
-//             main: "#F69DA1",
-//         },
-//         secondaryLighter: {
-//             main: "#FDE2DF",
-//         },
-//     },
-//     typography:{
-//         fontFamily:'"Poppins","Arial","sans-serif"',
-//         h1:{
-//             fontFamily:"Pacifico"
-//         }
-
-//     }
-// });
 export const theme = createMuiTheme({
     palette: {
         primary: {
@@ -41,13 +18,9 @@ export const theme = createMuiTheme({
         error: {
             main: "#E2607F",
         },
-        // background: {
-        //     default: "#F9F6F0",
-        // },
     },
 
     typography: {
-        // fontFamily: ["Pacifico", "sans-serif"],
         fontFamily: ["Poppins", "sans-serif"],
         h1: {
             fontFamily: ["Pacifico", "cursive"],
