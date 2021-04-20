@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import EmptyCart from "./EmptyCart";
-import CardItem from "../Checkout/CardItem";
+import CardProduct from "../Checkout/CardProduct";
 import CheckoutForm from "./CheckoutForm";
 import ModalConfirmOrder from "./ModalConfirmOrder";
 import { useSelector, useDispatch } from "react-redux";
@@ -19,7 +19,8 @@ const useStyles = makeStyles((theme) => ({
 
 const Cart = () => {
     const classes = useStyles();
-
+    //modal handlers
+    const [isOpen, setIsOpen] = useState(false);
     //cart data from store
     const cartData = useSelector((state) => state.cart);
     const { cart } = cartData;
@@ -36,8 +37,7 @@ const Cart = () => {
         dispatch(clearCart());
     };
 
-    //modal handlers
-    const [isOpen, setIsOpen] = useState(false);
+    
     function handleOpenModal() {
         setIsOpen(true);
     }
@@ -49,7 +49,7 @@ const Cart = () => {
             {cart.length > 0 ? (
                 <>
                     {cart.map((item) => (
-                        <CardItem
+                        <CardProduct
                             key={item.product.product_id}
                             productData={item}
                         />

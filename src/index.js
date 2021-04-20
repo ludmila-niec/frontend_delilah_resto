@@ -5,6 +5,7 @@ import * as serviceWorker from "./serviceWorker";
 import { BrowserRouter as Router } from "react-router-dom";
 import { Provider as ReduxProvider } from "react-redux";
 import configureStore from "./redux/store";
+import ScrollToTop from './components/ScrollToTop/ScrollToTop'
 import { CssBaseline } from "@material-ui/core";
 import { ThemeProvider } from "@material-ui/core/styles";
 import { theme } from "./theme/theme";
@@ -15,6 +16,7 @@ ReactDOM.render(
     <ReduxProvider store={store}>
         <ThemeProvider theme={theme}>
             <Router>
+                <ScrollToTop />
                 <CssBaseline />
                 <ErrorBoundary>
                     <App />

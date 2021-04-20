@@ -1,0 +1,7 @@
+.carousel-outer .carousel .slide {
+    background: none;
+}
+
+.carousel-outer .carousel.carousel-slider {
+    overflow: visible;
+}

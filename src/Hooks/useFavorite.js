@@ -18,9 +18,7 @@ const useFavorite = (product_id, favorites, addFavorite, deleteFavorite) => {
 
     // handle change favorite
     const handleChangeFav = () => {
-        console.log("producto antes del dispatch");
         if (isFavorite) {
-            console.log("cambio a false");
             //cambiar estado del checkboxIcon
             setIsFavorite(false);
             message = "Favorito Eliminado";
@@ -28,7 +26,6 @@ const useFavorite = (product_id, favorites, addFavorite, deleteFavorite) => {
             //eliminar favorito
             deleteFavorite(product_id);
         } else {
-            console.log("cambio a true");
             //cambiar estado del checkboxIcon
             setIsFavorite(true);
             message = "Favorito agregado";

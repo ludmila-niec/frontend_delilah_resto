@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-
 //material-ui
 import {
   Stepper,
@@ -8,19 +7,8 @@ import {
   Typography,
   useMediaQuery,
 } from "@material-ui/core";
-import { makeStyles } from "@material-ui/core/styles";
-
-const useStyles = makeStyles((theme) => ({
-  root: {
-    height: "350px",
-    [theme.breakpoints.up('md')]:{
-        height:'250px'
-    },
-    "&.MuiPaper-root": {
-      backgroundColor: "transparent",
-    },
-  },
-}));
+// styles
+import { useStyles } from "./style/orderStatus";
 
 const steps = [
   "Recibido",
@@ -58,12 +46,12 @@ const OrderStatus = ({ orderStatus }) => {
     setActiveStep(step);
   }, [activeStep, orderStatus.name]);
 
-  //check media query for display vertical or horizontal in the stepper component
+  //check media query for displaying vertical or horizontal in the stepper component
   const matches = useMediaQuery((theme) => theme.breakpoints.up("md"));
   //if order is cancelled, early return cancelled view
   if (activeStep === 5)
     return (
-      <Typography variant="h5" color="error">
+      <Typography variant="h5" className={classes.cancelled}>
         Pedido cancelado
       </Typography>
     );

@@ -1,163 +1,87 @@
 import React, { useState, useEffect, useRef } from "react";
-import EmptyOrders from "../components/Orders/EmptyOrders";
-import OrderInfoList from "../components/Orders/OrderInfoList";
+import EmptyOrders from "../components/OrdersHistory/EmptyOrders";
+import OrderInfoList from "../components/OrdersHistory/OrderInfoList";
 import Loading from "../components/common/Loading";
-import hambugerIlust from "../assets/status/Hamburger-ilust.svg";
-
 //redux
 import { connect } from "react-redux";
 import { loadOrders } from "../redux/actions/orderActions";
-
 //material ui
 import { Typography } from "@material-ui/core";
 import { Pagination } from "@material-ui/lab";
-import { makeStyles } from "@material-ui/core/styles";
-
-const useStyles = makeStyles((theme) => ({
-    container: {
-        margin: "8rem 2rem",
-    },
-    container__title: {
-        fontSize: "2rem",
-        fontWeight: theme.typography.fontWeightBold,
-        textTransform: "capitalize",
-        color: "#214C8A",
-        marginBottom: theme.spacing(1),
-
-        [theme.breakpoints.up("sm")]: {
-            fontSize: "3rem",
-        },
-    },
-    container__orders: {
-        [theme.breakpoints.up("sm")]: {
-            width: "60vw",
-            margin: "4rem auto",
-        },
-        [theme.breakpoints.up("md")]: {
-            width: "80vw",
-            display: "flex",
-            justifyContent: "center",
-
-            borderRadius: theme.shape.borderRadius,
-            boxShadow: "0px 4px 11px 4px rgba(0, 0, 0, 0.1)",
-        },
-    },
-    container__ilustration: {
-        display: "none",
-        [theme.breakpoints.up("lg")]: {
-            backgroundColor: theme.palette.secondaryLighter.main,
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-            padding: "4rem",
-            flex: 1,
-        },
-    },
-    container__list: {
-        marginTop: "3rem",
-        [theme.breakpoints.up("md")]: {
-            display: "flex",
-            flexDirection: "column",
-            justifyContent: "center",
-            padding: "6rem",
-            flex: 1,
-        },
-    },
-    container__pagination: {
-        "& > ul": {
-            margin: "3rem auto",
-            justifyContent: "center",
-        },
-    },
-}));
+// styles
+import { useStyles } from "../components/OrdersHistory/style/ordersPage";
 
 const Order = ({ orders, loading, loadOrders }) => {
-    const classes = useStyles();
-    const [currentPage, setCurrentPage] = useState(1);
-    const [ordersPerPage] = useState(5);
-    const loadOrdersRef = useRef(() => {})
+  const classes = useStyles();
+  const [currentPage, setCurrentPage] = useState(1);
+  const [ordersPerPage] = useState(6);
+  const loadOrdersRef = useRef(() => {});
 
-    loadOrdersRef.current = () =>{
-        loadOrders()
+  loadOrdersRef.current = () => {
+    loadOrders();
+  };
+
+  useEffect(() => {
+    if (orders.length === 0) {
+      loadOrdersRef.current();
     }
+  }, [orders.length]);
 
-    useEffect(() => {
-        if (orders.length === 0) {
-            loadOrdersRef.current();
-        }
-    }, [orders.length]);
-  
-    //reverse array of orders. Show first the most recent
-    const reversedOrders = [...orders];
-    const newerOrders = reversedOrders.reverse();
+  //reverse array of orders. Show first the most recent
+  const reversedOrders = [...orders];
+  const newerOrders = reversedOrders.reverse();
 
-    //get current orders
-    const indexOfLastOrder = currentPage * ordersPerPage;
-    const indexOfFirstOrder = indexOfLastOrder - ordersPerPage;
-    const currentOrders = newerOrders.slice(
-        indexOfFirstOrder,
-        indexOfLastOrder
-    );
-    //get number of pages
-    const pagesNumber = Math.ceil(orders.length / ordersPerPage);
+  //get current orders
+  const indexOfLastOrder = currentPage * ordersPerPage;
+  const indexOfFirstOrder = indexOfLastOrder - ordersPerPage;
+  const currentOrders = newerOrders.slice(indexOfFirstOrder, indexOfLastOrder);
+  //get number of pages
+  const pagesNumber = Math.ceil(orders.length / ordersPerPage);
 
-    const userHaveOrders = orders.length > 0;
+  const userHaveOrders = orders.length > 0;
 
-      
-    const handlePagination = (value) => {
-        setCurrentPage(value);
-    };
+  const handlePagination = (e, value) => {
+    setCurrentPage(value);
+  };
 
-    return (
-        <main>
-            <div className={classes.container}>
-                <Typography variant="h2" className={classes.container__title}>
-                    Mis pedidos:
-                </Typography>
-                {loading ? (
-                    <Loading />
-                ) : (
-                    <div className={classes.container__orders}>
-                        {userHaveOrders ? (
-                            <>
-                                <div className={classes.container__ilustration}>
-                                    <img
-                                        src={hambugerIlust}
-                                        alt="hambuger ilustration"
-                                    />
-                                </div>
-                                <div className={classes.container__list}>
-                                    <OrderInfoList orders={currentOrders} />
-                                    <Pagination
-                                        className={
-                                            classes.container__pagination
-                                        }
-                                        color="primary"
-                                        count={pagesNumber}
-                                        page={currentPage}
-                                        onChange={handlePagination}
-                                    />
-                                </div>
-                            </>
-                        ) : (
-                            <EmptyOrders />
-                        )}
-                    </div>
-                )}
+  if (loading) return <Loading />;
+
+  return (
+    <main>
+      <div className={classes.container}>
+        <Typography variant="h2" className={classes.container__title}>
+          Mis pedidos:
+        </Typography>
+        {userHaveOrders ? (
+          <div className={classes.container__orders}>
+            <div className={classes.container__list}>
+              <OrderInfoList orders={currentOrders} />
             </div>
-        </main>
-    );
+            <Pagination
+              className={classes.container__pagination}
+              color="primary"
+              count={pagesNumber}
+              page={currentPage}
+              onChange={handlePagination}
+            />
+          </div>
+        ) : (
+          <EmptyOrders />
+        )}
+      </div>
+    </main>
+  );
 };
 
 function mapStateToProps(state) {
-    return {
-        orders: state.orders.orderList,
-        loading: state.apiCallsInProgress > 0,
-    };
+  return {
+    orders: state.orders.orderList,
+    loading: state.apiCallsInProgress > 0,
+  };
 }
 
 const mapDispatchToProps = {
-    loadOrders,
+  loadOrders,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Order);
