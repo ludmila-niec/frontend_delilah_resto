@@ -7,13 +7,6 @@ const useStyles = makeStyles((theme) => ({
         display:"flex",
         justifyContent:"center",
         alignItems:"flex-start",
-        [theme.breakpoints.up('md')]:{
-            alignItems:'center',
-            height:"80vh"
-        },
-        [theme.breakpoints.up('lg')]:{
-            height:"100vh"
-        }
     },
     wrapper: {
         marginTop: theme.spacing(10),
