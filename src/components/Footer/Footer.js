@@ -25,7 +25,7 @@ const CATEGORIES_LINKS = [
 const SECTIONS_LINKS = [
   { name: "Mis Favoritos", link: "/favs" },
   { name: "Mis Pedidos", link: "/orders" },
-  // {name:"Mi Cuenta", link:"/user"},
+  { name: "Mi Cuenta", link: "/profile" },
 ];
 
 const SOCIAL_LINKS = [
@@ -70,36 +70,6 @@ const Footer = () => {
                   </li>
                 );
               })}
-              {/* <li>
-                <Link component={RouterLink} to="/category/hamburguesas/1">
-                  Hamburguesas
-                </Link>
-              </li>
-              <li>
-                <Link component={RouterLink} to="/category/pizzas/2">
-                  Pizzas
-                </Link>
-              </li>
-              <li>
-                <Link component={RouterLink} to="/category/wraps/3">
-                  Wraps
-                </Link>
-              </li>
-              <li>
-                <Link component={RouterLink} to="/category/ensaladas/4">
-                  Ensaladas
-                </Link>
-              </li>
-              <li>
-                <Link component={RouterLink} to="/category/postres/5">
-                  Postres
-                </Link>
-              </li>
-              <li>
-                <Link component={RouterLink} to="/category/bebidas/6">
-                  Bebidas
-                </Link>
-              </li> */}
             </ul>
             <ul>
               {SECTIONS_LINKS.map((section) => {
@@ -112,21 +82,6 @@ const Footer = () => {
                   </li>
                 );
               })}
-              {/* <li>
-                <Link component={RouterLink} to="/favs">
-                  Mis Favoritos
-                </Link>
-              </li>
-              <li>
-                <Link component={RouterLink} to="/orders">
-                  Mis Pedidos
-                </Link>
-              </li>
-              <li>
-                <Link component={RouterLink} to="/favs">
-                  Mis Cuenta
-                </Link>
-              </li> */}
             </ul>
           </div>
 
@@ -157,25 +112,16 @@ const Footer = () => {
           {SOCIAL_LINKS.map((social) => {
             const { name, icon, link } = social;
             return (
-              <Link key={name} href={link} rel="noopener noreferrer">
+              <Link
+                key={name}
+                href={link}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
                 {icon}
               </Link>
             );
           })}
-          {/* <Link
-            href="https://github.com/ludmila-niec"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <GitHub />
-          </Link>
-          <Link
-            href="https://www.linkedin.com/in/ludmila-nieczyporuk/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <LinkedIn />
-          </Link> */}
         </div>
       </div>
     </footer>
