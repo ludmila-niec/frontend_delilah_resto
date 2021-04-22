@@ -10,47 +10,48 @@ Habiendo desarrollado previamente el backend de una plataforma de pedidos online
 ## Diseño responsive
 *Mobile First*
 \
-<img src="/screenshots/responsive-views.png" alt="responsive-demo" height="500">
+![responsive demo](/screenshots/responsive-views.png)
 
 
 ## Screenshots:
 ###### Bienvenida: Registro de usuario e inicio de sesión
-<img src="/screenshots/intro-views.png" alt="welcome-demo" height="500">
+![welcome demo](screenshots/intro-views.png)
 
 ***
 
 ###### Inicio: Saludo personalizada y buscador de productos
-<img src="/screenshots/home-views.png" alt="home-demo" height="500">
+![home demo](/screenshots/home-views.png)
 
 ***
 
 ###### Categorias: Explora las distintas categorias de productos
-<img src="/screenshots/categories-views.png" alt="categories-demo" height="500">
+![categories demo](/screenshots/categories-views.png)
 
 ***
 
 ###### Productos por categoria: Muestra los productos por categorías
-<img src="/screenshots/product-category-views.png" alt="product-by-category-demo" height="500">
+![products by category demo](/screenshots/product-category-views.png)
 
 ***
 
 ###### Producto: Detalle del producto, selecciona la cantidad de unidades a agregar a tu pedido
-<img src="/screenshots/product-views.png" alt="product-demo" height="500">
+![product demo](/screenshots/product-views.png)
 
 ***
 
 ###### Favoritos: Explora tus productos favoritos guardados
-<img src="/screenshots/favorites-views.png" alt="favorites-demo" height="500">
+![favorites demo](/screenshots/favorites-views.png)
 
 ***
 
 ###### Pedido: Detalle del pedido, infomacion del usuario y metodo de pago.
-<img src="/screenshots/cart-views.png" alt="cart-demo" height="500">
+![cart demo](/screenshots/cart-views.png)
 
 ***
 
 ###### Estado del pedido: Sigue el estado del pedido actual y accede al detalle del mismo.
-<img src="/screenshots/order-views.png" alt="order-demo" height="500">
+![order demo](/screenshots/order-views.png)
+
 
 ## Funcionalidades:
 - Registro de usuario nuevo.
