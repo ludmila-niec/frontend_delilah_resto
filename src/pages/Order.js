@@ -10,7 +10,7 @@ import { Typography } from "@material-ui/core";
 // style
 import { useStyles } from "../components/Order/style/orderPage";
 
-const Order = ({ order, loading, loadOrders }) => {
+const Order = ({ order, user, loading, loadOrders }) => {
   const classes = useStyles();
   const loadOrdersRef = useRef(() => {});
 
@@ -20,6 +20,8 @@ const Order = ({ order, loading, loadOrders }) => {
   useEffect(() => {
     loadOrdersRef.current();
   }, []);
+
+  console.log(order);
 
   if (loading) return <Loading />;
   return (
@@ -31,7 +33,7 @@ const Order = ({ order, loading, loadOrders }) => {
         {order && (
           <div className={classes.wrapper}>
             <OrderStatus orderStatus={order.OrderStatus} />
-            <OrderSummary order={order} />
+            <OrderSummary order={order} user={user} />
           </div>
         )}
       </div>
@@ -47,6 +49,8 @@ function mapStateToProps(state, ownProps) {
         ? null
         : // eslint-disable-next-line
           state.orders.orderList.find((order) => order.order_id == orderId),
+    // temporary user data
+    user: state.userLogin.user,
     loading: state.apiCallsInProgress > 0,
   };
 }

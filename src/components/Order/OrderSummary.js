@@ -7,9 +7,9 @@ import { Typography, Button } from "@material-ui/core";
 // style
 import { useStyles } from "./style/orderSummary";
 
-const OrderSummary = ({ order }) => {
+const OrderSummary = ({ order, user }) => {
   const classes = useStyles();
-  const { adress, phone, firstName, lastName } = order.User;
+  const { adress, phone, firstName, lastName } = user;
   const products = order.products;
   const payment = order.Payment.name;
 

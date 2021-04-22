@@ -11,11 +11,13 @@ const SearchBox = () => {
 
   const handleChange = (e) => {
     const { value } = e.target;
-    setQuery(value);
+    if (!value.trim()) return;
+    setQuery(value.toLowerCase());
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    if (!query) return;
     history.push(`/search?q=${query}`);
   };
   return (

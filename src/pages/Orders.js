@@ -22,9 +22,7 @@ const Order = ({ orders, loading, loadOrders }) => {
   };
 
   useEffect(() => {
-    if (orders.length === 0) {
-      loadOrdersRef.current();
-    }
+    loadOrdersRef.current();
   }, [orders.length]);
 
   //reverse array of orders. Show first the most recent

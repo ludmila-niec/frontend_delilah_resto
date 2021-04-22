@@ -46,15 +46,17 @@ function Home({
   };
 
   useEffect(() => {
+    window.scroll(0, 0);
+  }, []);
+
+  useEffect(() => {
     if (products.length === 0) {
       loadProductsRef.current();
     }
   }, [products.length]);
 
   useEffect(() => {
-    if (favorites.length === 0) {
-      loadFavoritesRef.current();
-    }
+    loadFavoritesRef.current();
   }, [favorites.length]);
 
   useEffect(() => {

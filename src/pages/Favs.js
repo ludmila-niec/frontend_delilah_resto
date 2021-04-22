@@ -36,9 +36,7 @@ const Favs = ({
   }, [products.length]);
 
   useEffect(() => {
-    if (favorites.length === 0) {
-      loadFavoritesRef.current();
-    }
+    loadFavoritesRef.current();
   }, [favorites.length]);
 
   const userHaveFavorites = favorites.length > 0;
