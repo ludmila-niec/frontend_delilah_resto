@@ -13,6 +13,8 @@ const orderReducer = (state = initialState.orders, action) => {
       };
     case types.LOAD_ORDERS_SUCCESS:
       return { ...state, orderList: action.orders };
+    case types.LOAD_ORDER_BY_ID_SUCCESS:
+      return {...state, currentOrder: action.order}
     case types.UPDATE_ORDER_STATUS_OPTIMISTIC:
       let tempOrders = state.orderList.map((order) => {
         if (order.order_id === action.order_id) {

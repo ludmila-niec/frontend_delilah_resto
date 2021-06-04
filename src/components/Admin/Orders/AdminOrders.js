@@ -1,6 +1,7 @@
 import React from "react";
 import SelectStatus from "./SelectStatus";
-import { makeStyles, withStyles } from "@material-ui/core/styles";
+import { withStyles } from "@material-ui/core/styles";
+import {useStyles} from '../styles/adminOrders'
 import {
   Table,
   TableBody,
@@ -9,9 +10,9 @@ import {
   TableRow,
   TableHead,
   Paper,
+  Link,
 } from "@material-ui/core";
-
-// makeStyles agregar margin al container 5rem 0
+import { Link as RouterLink } from "react-router-dom";
 
 const StyledTableCell = withStyles((theme) => ({
   head: {
@@ -41,6 +42,7 @@ function getTotal(products) {
 }
 
 const AdminOrders = ({ orders, onUpdateOrderStatus }) => {
+  const classes = useStyles()
   function renderOrder(order) {
     const { order_id, OrderStatus, products, Payment, User, updatedAt } = order;
     const date = new Date(updatedAt);
@@ -50,7 +52,11 @@ const AdminOrders = ({ orders, onUpdateOrderStatus }) => {
     const amount = getTotal(products);
     return (
       <StyledTableRow key={order_id}>
-        <StyledTableCell>#{order_id}</StyledTableCell>
+        <StyledTableCell>
+          <Link to={`/order/${order_id}`} component={RouterLink}>
+            #{order_id}
+          </Link>
+        </StyledTableCell>
         <StyledTableCell>{orderDate}</StyledTableCell>
         <StyledTableCell>
           {`${User.firstName} ${User.lastName}`}
@@ -59,7 +65,7 @@ const AdminOrders = ({ orders, onUpdateOrderStatus }) => {
         <StyledTableCell>{Payment.name}</StyledTableCell>
         <StyledTableCell>
           <SelectStatus
-          orderId={order_id}
+            orderId={order_id}
             orderStatus={OrderStatus}
             onUpdateOrderStatus={onUpdateOrderStatus}
           />
@@ -68,11 +74,12 @@ const AdminOrders = ({ orders, onUpdateOrderStatus }) => {
     );
   }
   return (
+    <div className={classes.container}>
     <TableContainer component={Paper}>
       <Table aria-label="orders summary">
         <TableHead>
           <TableRow>
-            <StyledTableCell>Nro de Orden</StyledTableCell>
+            <StyledTableCell>Orden</StyledTableCell>
             <StyledTableCell>Fecha</StyledTableCell>
             <StyledTableCell>Nombre</StyledTableCell>
             <StyledTableCell>Monto</StyledTableCell>
@@ -80,11 +87,10 @@ const AdminOrders = ({ orders, onUpdateOrderStatus }) => {
             <StyledTableCell>Estado</StyledTableCell>
           </TableRow>
         </TableHead>
-        <TableBody>
-          {orders.map(renderOrder)}
-        </TableBody>
+        <TableBody>{orders.map(renderOrder)}</TableBody>
       </Table>
     </TableContainer>
+    </div>
   );
 };
 

@@ -7,25 +7,19 @@ import { Typography, Button } from "@material-ui/core";
 // style
 import { useStyles } from "./style/orderSummary";
 
-const OrderSummary = ({ order, user }) => {
+const OrderSummary = ({ order }) => {
   const classes = useStyles();
-  const { adress, phone, firstName, lastName } = user;
-  const products = order.products;
-  const payment = order.Payment.name;
+  const { adress, phone, firstName, lastName } = order.order.User;
+  const products = order.order.products;
+  const payment = order.order.Payment.name;
 
-  const total = products.reduce(
-    (acc, item) =>
-      acc +
-      item.ProductOrders.product_price * item.ProductOrders.product_quantity,
-    0
-  );
   return (
     <>
       <div className={classes.container}>
         <Typography>Detalle:</Typography>
         <hr style={{ opacity: 0.5 }} />
         <OrderProductList products={products} />
-        <Typography className={classes.totalAmount}>Total: ${total}</Typography>
+        <Typography className={classes.totalAmount}>Total: ${order.totalAmount}</Typography>
         <div className={classes.orderInfo}>
           <div>
             <Typography color="primary">Metodo de pago:</Typography>

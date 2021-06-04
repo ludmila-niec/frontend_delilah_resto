@@ -11,7 +11,7 @@ import { Pagination } from "@material-ui/lab";
 // styles
 import { useStyles } from "../components/OrdersHistory/style/ordersPage";
 
-const Order = ({ orders, loading, loadOrders }) => {
+const Orders = ({ orders, loading, loadOrders }) => {
   const classes = useStyles();
   const [currentPage, setCurrentPage] = useState(1);
   const [ordersPerPage] = useState(6);
@@ -23,7 +23,7 @@ const Order = ({ orders, loading, loadOrders }) => {
 
   useEffect(() => {
     loadOrdersRef.current();
-  }, [orders.length]);
+  }, []);
 
   //reverse array of orders. Show first the most recent
   const reversedOrders = [...orders];
@@ -82,4 +82,4 @@ const mapDispatchToProps = {
   loadOrders,
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Order);
+export default connect(mapStateToProps, mapDispatchToProps)(Orders);

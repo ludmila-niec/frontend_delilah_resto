@@ -4,24 +4,29 @@ import OrderSummary from "../components/Order/OrderSummary";
 import Loading from "../components/common/Loading";
 //redux
 import { connect } from "react-redux";
-import { loadOrders } from "../redux/actions/orderActions";
+import { loadOrderById } from "../redux/actions/orderActions";
+// router
+import { useParams } from "react-router-dom";
 //material ui
 import { Typography } from "@material-ui/core";
 // style
 import { useStyles } from "../components/Order/style/orderPage";
 
-const Order = ({ order, user, loading, loadOrders }) => {
+const Order = ({ orderSummary, loading, loadOrderById }) => {
   const classes = useStyles();
-  const loadOrdersRef = useRef(() => {});
+  const loadOrderByIdRef = useRef(() => {});
+  // orderId => /orders/:id
+  const { id } = useParams();
 
-  loadOrdersRef.current = () => {
-    loadOrders();
+  loadOrderByIdRef.current = (id) => {
+    loadOrderById(id);
   };
-  useEffect(() => {
-    loadOrdersRef.current();
-  }, []);
 
-  console.log(order);
+  useEffect(() => {
+    loadOrderByIdRef.current(id);
+  }, [id]);
+
+  const orderLoaded = orderSummary && Object.keys(orderSummary).length > 0
 
   if (loading) return <Loading />;
   return (
@@ -30,10 +35,10 @@ const Order = ({ order, user, loading, loadOrders }) => {
         <Typography variant="h2" className={classes.title}>
           Seguir mi pedido
         </Typography>
-        {order && (
+        {orderLoaded && (
           <div className={classes.wrapper}>
-            <OrderStatus orderStatus={order.OrderStatus} />
-            <OrderSummary order={order} user={user} />
+            <OrderStatus orderStatus={orderSummary.order.status_id} />
+            <OrderSummary order={orderSummary} />
           </div>
         )}
       </div>
@@ -41,22 +46,15 @@ const Order = ({ order, user, loading, loadOrders }) => {
   );
 };
 
-function mapStateToProps(state, ownProps) {
-  const orderId = ownProps.match.params.id;
+function mapStateToProps(state) {
   return {
-    order:
-      state.orders.orderList.length === 0
-        ? null
-        : // eslint-disable-next-line
-          state.orders.orderList.find((order) => order.order_id == orderId),
-    // temporary user data
-    user: state.userLogin.user,
+    orderSummary: state.orders.currentOrder,
     loading: state.apiCallsInProgress > 0,
   };
 }
 
 const mapDispatchToProps = {
-  loadOrders,
+  loadOrderById,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Order);

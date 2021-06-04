@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { makeStyles, withStyles } from "@material-ui/core";
+import { withStyles } from "@material-ui/core";
 import { FormControl, Select, MenuItem } from "@material-ui/core";
 
 const FormControlStyled = withStyles((theme) => ({
@@ -85,7 +85,7 @@ const SelectStatus = ({ orderId, orderStatus, onUpdateOrderStatus }) => {
     if (statusName !== status) {
       setStatus(statusName);
     }
-  }, []);
+  }, [statusName, status]);
 
   // update status color
   useEffect(() => {
