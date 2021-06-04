@@ -1,6 +1,11 @@
-import React from "react";
+import React, { useEffect, useRef } from "react";
+import AdminOrders from "../components/Admin/Orders/AdminOrders";
+import Loading from "../components/common/Loading";
 import { Typography } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
+// redux
+import { connect } from "react-redux";
+import { loadOrders, updateOrderStatus } from "../redux/actions/orderActions";
 
 const useStyles = makeStyles((theme) => ({
   container: {
@@ -12,19 +17,42 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const AdminDashboard = (props) => {
+const AdminDashboard = ({ loading, orders, loadOrders, updateOrderStatus }) => {
   const classes = useStyles();
-  console.log('component admin');
-  console.log(props);
+  const loadOrdersRef = useRef(() => {});
+
+  loadOrdersRef.current = () => {
+    loadOrders();
+  };
+
+  useEffect(() => {
+    if (orders.length === 0) {
+      loadOrdersRef.current();
+    }
+  }, [orders.length]);
+
+  if (loading) return <Loading />;
   return (
     <main>
       <div className={classes.container}>
         <Typography variant="h2" color="primary">
-          Coming soon...
+          Panel de administrador
         </Typography>
+        <AdminOrders orders={orders} onUpdateOrderStatus={updateOrderStatus} />
       </div>
     </main>
   );
 };
 
-export default AdminDashboard;
+function mapStateToProps(state) {
+  return {
+    orders: state.orders.orderList,
+    loading: state.apiCallsInProgress > 0,
+  };
+}
+const mapDispatchToProps = {
+  loadOrders,
+  updateOrderStatus,
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(AdminDashboard);

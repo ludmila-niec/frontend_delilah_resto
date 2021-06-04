@@ -16,6 +16,10 @@ export function loadOrderByIdSucccess(order) {
     return { type: types.LOAD_ORDER_BY_ID_SUCCESS, order };
 }
 
+function updateOrderStatusOptimistic(order_id, statusName) {
+  return { type: types.UPDATE_ORDER_STATUS_OPTIMISTIC, order_id, statusName };
+}
+
 //POST create a new order
 export const placeNewOrder = (order) => async (dispatch, getState) => {
     try {
@@ -51,3 +55,16 @@ export const loadOrderById = () => (dispatch, getState) => {
         dispatch(apiCallError());
     }
 };
+
+// PATCH order status by ID
+export const updateOrderStatus =
+  (orderId, status) => async (dispatch, getState) => {
+    const { name, id } = status;
+    const statusBody = { status_id: id };
+    try {
+      dispatch(updateOrderStatusOptimistic(orderId, name));
+      return orderApi.updateOrderStatus(getState, orderId, statusBody);
+    } catch (error) {
+      dispatch(apiCallError());
+    }
+  };
