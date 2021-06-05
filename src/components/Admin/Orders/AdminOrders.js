@@ -1,7 +1,8 @@
 import React from "react";
 import SelectStatus from "./SelectStatus";
+// material-ui
 import { withStyles } from "@material-ui/core/styles";
-import {useStyles} from '../styles/adminOrders'
+import { useStyles } from "../styles/adminOrders";
 import {
   Table,
   TableBody,
@@ -12,6 +13,10 @@ import {
   Paper,
   Link,
 } from "@material-ui/core";
+import { Pagination } from "@material-ui/lab";
+// custom hook
+import usePagination from "../../../Hooks/usePagination";
+// react router
 import { Link as RouterLink } from "react-router-dom";
 
 const StyledTableCell = withStyles((theme) => ({
@@ -42,7 +47,10 @@ function getTotal(products) {
 }
 
 const AdminOrders = ({ orders, onUpdateOrderStatus }) => {
-  const classes = useStyles()
+  const classes = useStyles();
+  const recentOrders = [...orders].reverse();
+  const { currentOrders, currentPage, pagesNumber, handlePagination } =
+    usePagination(recentOrders, 10);
   function renderOrder(order) {
     const { order_id, OrderStatus, products, Payment, User, updatedAt } = order;
     const date = new Date(updatedAt);
@@ -75,21 +83,28 @@ const AdminOrders = ({ orders, onUpdateOrderStatus }) => {
   }
   return (
     <div className={classes.container}>
-    <TableContainer component={Paper}>
-      <Table aria-label="orders summary">
-        <TableHead>
-          <TableRow>
-            <StyledTableCell>Orden</StyledTableCell>
-            <StyledTableCell>Fecha</StyledTableCell>
-            <StyledTableCell>Nombre</StyledTableCell>
-            <StyledTableCell>Monto</StyledTableCell>
-            <StyledTableCell>Método de pago</StyledTableCell>
-            <StyledTableCell>Estado</StyledTableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>{orders.map(renderOrder)}</TableBody>
-      </Table>
-    </TableContainer>
+      <TableContainer component={Paper}>
+        <Table aria-label="orders summary">
+          <TableHead>
+            <TableRow>
+              <StyledTableCell>Orden</StyledTableCell>
+              <StyledTableCell>Fecha</StyledTableCell>
+              <StyledTableCell>Nombre</StyledTableCell>
+              <StyledTableCell>Monto</StyledTableCell>
+              <StyledTableCell>Método de pago</StyledTableCell>
+              <StyledTableCell>Estado</StyledTableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>{currentOrders.map(renderOrder)}</TableBody>
+        </Table>
+      </TableContainer>
+      <Pagination
+        className={classes.container__pagination}
+        color="primary"
+        count={pagesNumber}
+        page={currentPage}
+        onChange={handlePagination}
+      />
     </div>
   );
 };

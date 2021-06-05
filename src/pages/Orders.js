@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useEffect, useRef } from "react";
 import EmptyOrders from "../components/OrdersHistory/EmptyOrders";
 import OrderInfoList from "../components/OrdersHistory/OrderInfoList";
 import Loading from "../components/common/Loading";
@@ -10,12 +10,14 @@ import { Typography } from "@material-ui/core";
 import { Pagination } from "@material-ui/lab";
 // styles
 import { useStyles } from "../components/OrdersHistory/style/ordersPage";
+// custom hook
+import usePagination from "../Hooks/usePagination";
 
 const Orders = ({ orders, loading, loadOrders }) => {
   const classes = useStyles();
-  const [currentPage, setCurrentPage] = useState(1);
-  const [ordersPerPage] = useState(6);
   const loadOrdersRef = useRef(() => {});
+  const recentOrders = [...orders].reverse();
+  const {currentOrders, currentPage, pagesNumber, handlePagination} = usePagination(recentOrders, 6)
 
   loadOrdersRef.current = () => {
     loadOrders();
@@ -25,22 +27,7 @@ const Orders = ({ orders, loading, loadOrders }) => {
     loadOrdersRef.current();
   }, []);
 
-  //reverse array of orders. Show first the most recent
-  const reversedOrders = [...orders];
-  const newerOrders = reversedOrders.reverse();
-
-  //get current orders
-  const indexOfLastOrder = currentPage * ordersPerPage;
-  const indexOfFirstOrder = indexOfLastOrder - ordersPerPage;
-  const currentOrders = newerOrders.slice(indexOfFirstOrder, indexOfLastOrder);
-  //get number of pages
-  const pagesNumber = Math.ceil(orders.length / ordersPerPage);
-
   const userHaveOrders = orders.length > 0;
-
-  const handlePagination = (e, value) => {
-    setCurrentPage(value);
-  };
 
   if (loading) return <Loading />;
 

@@ -7,4 +7,10 @@ export const useStyles = makeStyles((theme) => ({
       margin: "5rem 0",
     },
   },
+  container__pagination: {
+    "& > ul": {
+      margin: "3rem auto",
+      justifyContent: "center",
+    },
+  },
 }));
