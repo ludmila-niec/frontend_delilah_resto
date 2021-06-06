@@ -1,47 +1,47 @@
 import React, { useEffect, useRef } from "react";
-import AdminOrders from "../components/Admin/Orders/AdminOrders";
 import Loading from "../components/common/Loading";
+import Products from "../components/Admin/Products/AdminProducts";
 import { Typography, Breadcrumbs, Link } from "@material-ui/core";
-import { useStyles } from "../components/Admin/styles/adminPage";
+import { useStyles } from "../components/Admin/styles/adminProducts";
 // redux
 import { connect } from "react-redux";
-import { loadOrders, updateOrderStatus } from "../redux/actions/orderActions";
+import { loadProducts } from "../redux/actions/productActions";
+
 // react router
 import { Link as RouterLink } from "react-router-dom";
 
-const AdminDashboard = ({ loading, orders, loadOrders, updateOrderStatus }) => {
+const AdminProducts = ({ loading, products, loadProducts }) => {
   const classes = useStyles();
-  const loadOrdersRef = useRef(() => {});
-
-  loadOrdersRef.current = () => {
-    loadOrders();
+  const loadProductsRef = useRef(() => {});
+  loadProductsRef.current = () => {
+    loadProducts();
   };
 
   useEffect(() => {
-    if (orders.length === 0) {
-      loadOrdersRef.current();
+    if (products.length === 0) {
+      loadProductsRef.current();
     }
-  }, [orders.length]);
+  }, [products.length]);
 
   if (loading) return <Loading />;
   return (
     <main>
       <div className={classes.container}>
         <Typography variant="h2" className={classes.container__title}>
-          Panel de administrador
+          Productos
         </Typography>
         <Breadcrumbs className={classes.container__nav}>
-          <Link component={RouterLink} to="/admin" color="primary">
+          <Link component={RouterLink} to="/admin" color="textPrimary">
             Ordenes
           </Link>
-          <Link component={RouterLink} to="/admin/products" color="textPrimary">
+          <Link component={RouterLink} to="/admin/products" color="primary">
             Productos
           </Link>
           <Link component={RouterLink} to="/admin/users" color="textPrimary">
             Usuarios
           </Link>
         </Breadcrumbs>
-        <AdminOrders orders={orders} onUpdateOrderStatus={updateOrderStatus} />
+        <Products products={products} />
       </div>
     </main>
   );
@@ -49,13 +49,12 @@ const AdminDashboard = ({ loading, orders, loadOrders, updateOrderStatus }) => {
 
 function mapStateToProps(state) {
   return {
-    orders: state.orders.orderList,
+    products: state.products,
     loading: state.apiCallsInProgress > 0,
   };
 }
 const mapDispatchToProps = {
-  loadOrders,
-  updateOrderStatus,
+  loadProducts,
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(AdminDashboard);
+export default connect(mapStateToProps, mapDispatchToProps)(AdminProducts);

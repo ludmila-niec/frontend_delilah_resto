@@ -14,6 +14,7 @@ import Error404 from "../components/common/Error/Error404";
 import UserProfile from "../pages/UserProfile";
 // ADMIN
 import AdminDashboard from "../pages/AdminDashboard";
+import AdminProducts from "../pages/AdminProducts";
 import ProtectedRoute from "./ProtectedRoute";
 import ProtectedRouteAdmin from "./ProtectedRouteAdmin";
 import { connect } from "react-redux";
@@ -61,6 +62,12 @@ const Routes = ({ isAuth }) => {
         exact
         isAuth={isAuth}
         component={AdminDashboard}
+      />
+      <ProtectedRouteAdmin
+        path="/admin/products"
+        exact
+        isAuth={isAuth}
+        component={AdminProducts}
       />
       <Route path="*" component={Error404} />
     </Switch>
